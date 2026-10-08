@@ -1,0 +1,1016 @@
+/* Shruti Kale, portfolio. Direction: editorial noir.
+   Near-black paper, soft white ink, and one warm orange accent kept for the
+   few things that should catch the eye: who she is, and keyboard focus.
+   Zodiak (light) carries the voice; Mona Sans handles everything you scan. */
+
+@font-face {
+  font-family: "Zodiak";
+  src: url("../assets/fonts/Zodiak-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zodiak";
+  src: url("../assets/fonts/Zodiak-VariableItalic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mona Sans";
+  src: url("../assets/fonts/MonaSans-Variable-latin.woff2") format("woff2");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Colour. Every text colour clears 7:1 on --noir. */
+  --noir: #0C0B0A;
+  --noir-raised: #161513;
+  --paper: #EDE8E0;
+  --paper-lead: #CFC9C0;
+  --paper-soft: #A39D95;
+  --accent: #F5853F;
+  --rule: rgba(237, 232, 224, .12);
+
+  /* Type */
+  --serif: "Zodiak", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Mona Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --text-sm: .9375rem;
+  --text-md: clamp(1.0625rem, .98rem + .38vw, 1.3125rem);
+  --display: clamp(2.4rem, min(11.6vw, 21vh), 13rem); /* height-aware, so short screens keep air under the nav */
+
+  /* Space */
+  --gutter: clamp(20px, 5vw, 80px);
+  --col-gap: clamp(12px, 2vw, 28px);
+  --nav-h: 76px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+
+  /* Layers */
+  --z-content: 2;
+  --z-nav: 20;
+  --z-grain: 30;
+  --z-skip: 90;
+  --z-cursor: 100;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--noir);
+}
+
+body {
+  margin: 0;
+  background: var(--noir);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Film grain over the whole page. Static: nothing moves unless you do. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img, canvas { display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: inherit; }
+::selection { background: var(--paper); color: var(--noir); }
+
+/* Read aloud, never drawn. */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.skip {
+  position: fixed;
+  left: 16px;
+  top: 12px;
+  z-index: var(--z-skip);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--noir);
+  font: 500 var(--text-sm)/1 var(--sans);
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform .3s var(--ease-out);
+}
+.skip:focus-visible { transform: none; outline-color: var(--paper); }
+
+/* ---------- Nav ---------- */
+
+/* Difference blending keeps the nav legible over the paper and over the photo. */
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  color: var(--paper);
+  mix-blend-mode: difference;
+}
+.nav__mark {
+  padding: 12px 0;
+  font: 400 1.3125rem/1 var(--serif);
+  letter-spacing: -.01em;
+  text-decoration: none;
+}
+.nav__links {
+  display: flex;
+  gap: clamp(20px, 3vw, 44px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav__links a {
+  position: relative;
+  display: inline-block;
+  padding: 12px 0;
+  font-size: var(--text-sm);
+  letter-spacing: .005em;
+  text-decoration: none;
+}
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .55s var(--ease-out);
+}
+.nav__links a:hover::after,
+.nav__links a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+/* The resume opens in a new tab, so it carries a small arrow. */
+.nav__links .nav__ext { display: inline-flex; align-items: center; gap: 5px; }
+.nav__arrow { flex: none; width: 9px; height: 9px; fill: none; stroke: currentColor; stroke-width: 1.4; transition: translate .35s var(--ease-out); }
+.nav__ext:hover .nav__arrow { translate: 2px -2px; }
+
+/* ---------- Hero ---------- */
+
+/* The hero's stage: one screen, pinned by main.js while the photo grows, then
+   it scrolls away. The canvas is only switched on with WebGL (html.has-stage). */
+.stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--noir);
+}
+
+/* One canvas covers the stage; the portrait is drawn wherever the layout puts it. */
+.stage__canvas { display: none; }
+.has-stage .stage__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-content: end;
+  height: 100%;
+  padding: calc(var(--nav-h) + 24px) var(--gutter) clamp(40px, 9vh, 104px);
+}
+
+/* The eyebrow: a label in the accent, led by a small dot. In the hero it
+   says who she is, and its dot pulses softly like a status light; later
+   sections reuse it, still. */
+.eyebrow, .hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent);
+  font-size: clamp(.9375rem, .86rem + .28vw, 1.125rem);
+  font-weight: 500;
+  letter-spacing: .015em;
+}
+.eyebrow__dot {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.hero__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: currentColor;
+  animation: dot-pulse 2.8s var(--ease-out) infinite;
+}
+@keyframes dot-pulse {
+  0% { transform: scale(1); opacity: .55; }
+  70%, 100% { transform: scale(3.2); opacity: 0; }
+}
+.rm .hero__dot::after { animation: none; opacity: 0; }
+.hero__eyebrow {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-bottom: clamp(18px, 2.8vh, 32px);
+}
+.hero__eyebrow-text { display: inline-block; }
+
+.hero__title {
+  grid-column: 1 / -1;
+  font-family: var(--serif);
+  font-size: var(--display);
+  font-weight: 300;
+  line-height: .94;
+  letter-spacing: -.028em;
+  font-kerning: normal;
+}
+.line, .line__in { display: block; }
+.word { display: inline-block; }
+
+/* The window in the sentence. Sized in em so it scales with the headline;
+   its bottom sits on the baseline and its top meets the cap height. */
+.slot {
+  position: relative;
+  display: inline-block;
+  width: 1.34em;
+  height: .74em;
+  margin: 0 .02em;
+  overflow: hidden;
+  vertical-align: .01em;
+  border-radius: .07em;
+  background: var(--noir-raised);
+}
+/* Without WebGL (or with reduced motion) this image is what you see.
+   The scale and origin reproduce the shader's crop exactly. */
+.slot__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 64% 38%;
+  transform: scale(1.38);
+  transform-origin: 64% 38%;
+  filter: grayscale(1) contrast(1.12) brightness(.74);
+}
+/* Once WebGL is drawing, the canvas paints the photo in this exact spot. */
+.gl-ready .slot { background: transparent; }
+.gl-ready .slot__img { visibility: hidden; }
+
+.hero__sub {
+  grid-column: 7 / 13;
+  max-width: 34ch;
+  margin-top: clamp(44px, 8.5vh, 112px);
+  color: var(--paper-lead);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* ---------- Ambient: the glow and the glass form behind the reading ---------- */
+
+/* A fixed canvas under the page. The hero's stage is opaque and covers it;
+   the reading sections are transparent, so it shows through them. */
+.ambient { display: none; }
+.has-ambient .ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+main { position: relative; z-index: 1; }
+
+/* ---------- Reading: where it started, and how I think ---------- */
+
+/* Sections just for reading. They're set in the body typeface at a size and
+   rhythm made for reading, so they read as story rather than as more titles,
+   and they scroll like a normal page. main.js raises the lines into view, then
+   warms each one from light grey through light orange to white as you read. */
+.reading {
+  padding: clamp(120px, 22vh, 240px) var(--gutter);
+}
+.reading__text {
+  max-width: 20em;
+  color: var(--paper);
+  font-size: clamp(1.5rem, 1.02rem + 1.9vw, 2.625rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -.01em;
+  text-wrap: pretty;
+}
+/* Once main.js has split the lines, they start unread and it colours them. */
+.has-lines .reading__text { color: #3A3632; }
+
+/* "How I think" answers the story from the right, a size up, so the two
+   passages read as a pair with a change of rhythm between them. */
+.reading--think {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+.reading--think .reading__text {
+  grid-column: 5 / 13;
+  max-width: none;
+  font-size: clamp(1.75rem, 1.05rem + 2.9vw, 3.75rem);
+  line-height: 1.3;
+  letter-spacing: -.018em;
+}
+
+/* ---------- Selected work ---------- */
+
+/* Stacked by default: phones, reduced motion, no JS. On wide screens with
+   motion (html.has-hscroll) the section pins and the track moves sideways. */
+.work {
+  position: relative;
+  padding: clamp(96px, 16vh, 180px) var(--gutter);
+}
+.work__track {
+  display: grid;
+  gap: clamp(64px, 10vh, 112px) calc(var(--col-gap) * 2);
+}
+.work__intro { max-width: 34rem; }
+.work__intro .eyebrow { justify-self: start; }
+.work__title, .life__title {
+  margin: clamp(18px, 2.8vh, 28px) 0 clamp(16px, 2.4vh, 24px);
+  font-family: var(--serif);
+  font-size: clamp(3rem, 1.4rem + 5vw, 7.5rem);
+  font-weight: 300;
+  line-height: .98;
+  letter-spacing: -.03em;
+}
+.work__title, .life__title { overflow: hidden; padding-bottom: .06em; }
+.work__title-in, .life__title-in { display: inline-block; }
+.work__lede {
+  max-width: 26ch;
+  color: var(--paper-lead);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+.work__progress { display: none; }
+
+@media (min-width: 768px) {
+  .work__track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work__intro { grid-column: 1 / -1; }
+}
+
+/* A card. The whole card is one link (its heading's link stretches over it),
+   the text comes first in the markup, and the grid puts the image on top. */
+.card {
+  position: relative;
+  display: grid;
+  grid-template-areas: "media" "name" "line" "tags";
+  align-content: start;
+}
+.card__media {
+  grid-area: media;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  background: #141210;
+  isolation: isolate;
+}
+/* Each screenshot sits on its own panel, lit in the site's two colours. */
+.card__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(245, 133, 63, .28), transparent 60%),
+    radial-gradient(90% 80% at 100% 100%, rgba(148, 128, 255, .2), transparent 62%);
+}
+.card[data-tint="violet"] .card__media::before {
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgba(148, 128, 255, .3), transparent 60%),
+    radial-gradient(90% 80% at 0% 100%, rgba(245, 133, 63, .18), transparent 62%);
+}
+.card__shot { display: block; transition: scale .9s var(--ease-out); }
+/* Product screens sit inset and run off the bottom-right edge. */
+.card__media--inset .card__shot {
+  position: absolute;
+  left: 9%;
+  top: 11%;
+  width: 104%;
+  height: auto;
+  border-radius: 10px 0 0;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .06);
+}
+/* A phone screen, centred and cropped by the bottom edge. */
+.card__media--phone .card__shot {
+  position: absolute;
+  left: 32%;
+  top: 10%;
+  width: 36%;
+  height: auto;
+  border-radius: 22px 22px 0 0;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
+}
+
+.card__name {
+  grid-area: name;
+  margin-top: clamp(18px, 2.6vh, 28px);
+  font-family: var(--serif);
+  font-size: clamp(2rem, 1.2rem + 2.2vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+.card__link { text-decoration: none; }
+.card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 18px;
+}
+.card__link:focus-visible { outline: none; }
+.card__link:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 8px; }
+.card__line {
+  grid-area: line;
+  max-width: 34ch;
+  margin-top: 12px;
+  color: var(--paper-soft);
+  font-size: clamp(1rem, .92rem + .3vw, 1.1875rem);
+  line-height: 1.5;
+}
+.card__tags {
+  grid-area: tags;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.card__tags li {
+  padding: 6px 14px;
+  border: 1px solid rgba(237, 232, 224, .22);
+  border-radius: 999px;
+  color: var(--paper-lead);
+  font-size: .8125rem;
+  letter-spacing: .01em;
+}
+
+/* On hover the screenshot leans in a little. */
+@media (hover: hover) {
+  .card:hover .card__shot { scale: 1.035; }
+}
+
+/* Sideways: the section is one screen tall and pinned; main.js moves the
+   track by exactly its overflow. Cards size to the screen's height too. */
+.has-hscroll .work {
+  height: 100vh;
+  height: 100svh;
+  padding: 0;
+  overflow: hidden;
+}
+.has-hscroll .work__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(56px, 6vw, 120px);
+  width: max-content;
+  height: 100%;
+  padding: var(--nav-h) var(--gutter) 0;
+}
+.has-hscroll .work__intro { flex: none; width: min(30vw, 32rem); }
+.has-hscroll .card { flex: none; width: min(40vw, 62vh, 760px); }
+.has-hscroll .work__progress {
+  display: block;
+  width: 140px;
+  height: 1px;
+  margin-top: clamp(28px, 5vh, 56px);
+  background: var(--rule);
+}
+.has-hscroll .work__progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---------- What I do: the roles ---------- */
+
+/* A warmer dark with a grainy orange glow, so the page changes room here:
+   soft light top right and bottom left, and a fine orange grain over all of it. */
+.roles {
+  --roles-bg: #120D0A;
+  position: relative;
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(120px, 20vh, 220px) var(--gutter);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--roles-bg);
+}
+.roles::before {
+  content: "";
+  position: absolute;
+  inset: -20% 0;
+  z-index: -1;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .58 0 0 0 0 .3 0 0 0 1.25 -.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E"),
+    radial-gradient(60% 65% at 86% 16%, rgba(245, 133, 63, .26), transparent 70%),
+    radial-gradient(50% 60% at 8% 90%, rgba(245, 133, 63, .15), transparent 70%);
+  transform: translate3d(0, var(--roles-glow, 0px), 0);
+  will-change: transform;
+}
+/* The edges melt into the page colour, so the room change isn't a hard cut. */
+.roles::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--noir), transparent 18%, transparent 82%, var(--noir));
+  pointer-events: none;
+}
+
+.roles__jewels, .roles__sparks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.roles__jewels { z-index: 2; }
+.roles__sparks { z-index: 3; }
+
+/* Staggered like a printed list of services: left, right, then stepping in,
+   with clear room between the three roles. */
+.roles__list {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(2.2rem, 6.2vw, 6.5rem);
+  font-weight: 800;
+  font-stretch: 104%;
+  line-height: .95;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+.roles__role + .roles__role { margin-top: .5em; }
+.roles__line { display: block; }
+.roles__line--2 { text-align: right; }
+.roles__line--3 { padding-left: 12%; }
+.roles__line--4 { padding-left: 22%; }
+.roles__in { display: inline-block; white-space: nowrap; }
+/* Line breaks used only on phones, where each role takes two lines. */
+.roles__br { display: none; }
+/* The brackets only appear once there's a glass shape to hold (WebGL). */
+.roles__bracket {
+  display: none;
+  margin-left: .06em;
+  font-weight: 250;
+  letter-spacing: 0;
+}
+.has-jewels .roles__bracket { display: inline; }
+/* The window each glass shape is drawn into, sized in em with the words. */
+.roles__slot {
+  display: inline-block;
+  width: 1.05em;
+  height: .74em;
+  vertical-align: .02em;
+}
+
+/* ---------- Outside of work: a small pixel scene ---------- */
+
+.life {
+  position: relative;
+  padding: clamp(120px, 18vh, 200px) var(--gutter) clamp(96px, 14vh, 160px);
+}
+.life__head { margin-bottom: clamp(20px, 3vh, 36px); }
+.life__title { margin-bottom: 0; }
+/* The hint only makes sense once there's a scene to play with. */
+.life__eyebrow { display: none; }
+.has-life .life__eyebrow { display: flex; }
+
+/* The box: a dark screen with a faint pixel grid and warm light on the floor. */
+.life__box {
+  position: relative;
+  padding: clamp(28px, 4vw, 56px);
+  border: 1px solid rgba(237, 232, 224, .08);
+  border-radius: clamp(20px, 2.2vw, 32px);
+  background:
+    radial-gradient(34% 30% at 50% 86%, rgba(245, 133, 63, .14), transparent 72%),
+    radial-gradient(circle, rgba(237, 232, 224, .05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+    #131110;
+}
+
+/* Without the scene (no scripts), it's a plain list of what she does. */
+.life__scene, .life__bubble, .life__flash, .life__icon { display: none; }
+.life__things { display: grid; gap: 22px; margin: 0; padding: 0; list-style: none; }
+.life__btn {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: 500 var(--text-sm)/1.4 var(--sans);
+  text-align: left;
+}
+.life__line { margin: 4px 0 0; max-width: 40ch; color: var(--paper-lead); font-size: var(--text-md); line-height: 1.45; }
+.life__coda { margin: 36px 0 0; color: var(--paper-soft); font-size: var(--text-sm); }
+
+/* The scene. --px is one pixel of the art, set by life.js. */
+.has-life .life__box {
+  height: clamp(520px, 66vh, 640px);
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+.has-life .life__scene { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+.has-life .life__things { position: absolute; inset: 0; display: block; }
+.has-life .life__thing { position: absolute; left: var(--x); top: var(--y); translate: -50% -50%; }
+.has-life .life__name,
+.has-life .life__line {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.has-life .life__btn { position: relative; padding: calc(var(--px, 6px) * 2); cursor: pointer; }
+.has-life .life__btn:focus-visible { outline: none; }
+.has-life .life__icon {
+  display: block;
+  image-rendering: pixelated;
+  animation: life-bob var(--bob, 2.4s) steps(1, end) var(--bob-delay, 0s) infinite;
+}
+/* Corner brackets, like a selection in an old game: on hover, on keyboard
+   focus, and on whatever she's doing now. */
+.has-life .life__btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --c: linear-gradient(var(--accent) 0 0);
+  --l: calc(var(--px, 6px) * 2);
+  background:
+    var(--c) left top / var(--l) 2px, var(--c) left top / 2px var(--l),
+    var(--c) right top / var(--l) 2px, var(--c) right top / 2px var(--l),
+    var(--c) left bottom / var(--l) 2px, var(--c) left bottom / 2px var(--l),
+    var(--c) right bottom / var(--l) 2px, var(--c) right bottom / 2px var(--l);
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity .2s steps(2, end);
+}
+.has-life .life__btn:hover::before,
+.has-life .life__btn:focus-visible::before,
+.has-life .is-active .life__btn::before { opacity: 1; }
+@keyframes life-bob {
+  0%, 100% { transform: translateY(0); }
+  25%, 75% { transform: translateY(calc(var(--px, 6px) * -1)); }
+  50% { transform: translateY(calc(var(--px, 6px) * -2)); }
+}
+.has-life [data-thing="camera"] { --x: 17%; --y: 30%; --bob: 2.6s; --bob-delay: -.4s; }
+.has-life [data-thing="book"] { --x: 27%; --y: 64%; --bob: 2.2s; --bob-delay: -1.1s; }
+.has-life [data-thing="clothes"] { --x: 77%; --y: 25%; --bob: 2.8s; --bob-delay: -.8s; }
+.has-life [data-thing="pencil"] { --x: 87%; --y: 52%; --bob: 2.4s; --bob-delay: -1.6s; }
+.has-life [data-thing="suitcase"] { --x: 73%; --y: 75%; --bob: 2.5s; --bob-delay: -.2s; }
+
+/* Her speech bubble, stepped at the corners like the art, with a tail. */
+.has-life .life__bubble {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width: max-content;
+  max-width: min(320px, 76%);
+  padding-bottom: 12px;
+  translate: -50% -100%;
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+.has-life .life__bubble.is-on { opacity: 1; }
+.life__bubble::after {
+  content: "";
+  position: absolute;
+  left: calc(50% + var(--tail, 0px));
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  translate: -50% 0;
+  background: var(--paper);
+  clip-path: polygon(0 0, 12px 0, 12px 4px, 10px 4px, 10px 8px, 8px 8px, 8px 12px, 4px 12px, 4px 8px, 2px 8px, 2px 4px, 0 4px);
+}
+.life__say {
+  margin: 0;
+  padding: 12px 16px 13px;
+  background: var(--paper);
+  color: var(--noir);
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  clip-path: polygon(0 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px));
+}
+.life__ghost { visibility: hidden; }
+/* Before anything's picked she just wonders, in the title face. */
+.life__bubble.is-ask .life__say { padding: 6px 15px 8px; font: italic 300 1.5rem/1.2 var(--serif); }
+.has-life .life__flash { display: block; position: absolute; inset: 0; z-index: 3; background: #FFF; opacity: 0; pointer-events: none; }
+.has-life .life__coda {
+  position: absolute;
+  z-index: 1;
+  left: 24px;
+  right: 24px;
+  bottom: clamp(20px, 3.2vh, 30px);
+  margin: 0;
+  text-align: center;
+}
+.rm .life__icon { animation: none; }
+
+/* ---------- Intro: first paint state, animated in by main.js ---------- */
+
+.is-intro .line {
+  overflow: hidden;
+  padding: .08em 0 .22em;
+  margin: -.08em 0 -.22em;
+}
+.is-intro .line__in { transform: translateY(140%); }
+.is-intro .hero__dot { transform: scale(0); }
+.is-intro .hero__eyebrow-text { opacity: 0; transform: translateX(-10px); }
+.is-intro .hero__sub { opacity: 0; transform: translateY(14px); }
+.is-intro .nav { opacity: 0; }
+.is-intro .slot { background: transparent; }
+.is-intro .slot__img { visibility: hidden; }
+
+/* ---------- Contact: the end, in colour ---------- */
+
+/* The page's one burst of colour: the accent, deepening a little towards the
+   bottom where the big words sit. Everything on it is near-black (6:1 or more). */
+.contact {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #F5853F 0%, #F47638 55%, #F2672D 100%);
+  color: var(--noir);
+}
+.contact__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(72px, 14vh, 180px);
+  min-height: min(86svh, 820px);
+  padding: clamp(28px, 3.4vw, 48px) var(--gutter) clamp(14px, 2vw, 28px);
+}
+/* One quiet row in small capitals: why to write on the left, where in the
+   middle, and a copyright on the right. */
+.contact__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  column-gap: clamp(32px, 5vw, 96px);
+  row-gap: 22px;
+  align-items: start;
+  font-size: .8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.contact__intro { max-width: 32ch; margin: 0; }
+.contact__links { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+.contact__legal { justify-self: end; margin: 0; white-space: nowrap; }
+.contact__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px; /* a comfortable target, even set this small */
+  justify-self: start;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.contact__logo { flex: none; width: 15px; height: 15px; fill: currentColor; }
+.contact__arrow {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: translate .35s var(--ease-out);
+}
+.contact__link:hover .contact__arrow { translate: 2px -2px; }
+.contact :focus-visible { outline-color: var(--noir); }
+
+/* "Get in touch" on two lines, each as wide as the page, like a poster.
+   main.js fits every line exactly; the vw size is close enough without it. */
+.contact__title {
+  margin: 0;
+  font-size: 21vw;
+  font-weight: 900;
+  font-stretch: 125%;
+  line-height: .78;
+  text-transform: uppercase;
+}
+.contact__cta { display: inline-block; color: inherit; text-decoration: none; }
+/* Tracking sits on each line, so it scales with that line's own size. */
+.contact__line { display: block; width: max-content; white-space: nowrap; letter-spacing: -.02em; }
+.contact__cta:focus-visible { outline-offset: 6px; }
+
+/* Over the orange the nav and cursor tint to the accent, so their
+   difference blend comes out near-black instead of blue. */
+.nav-on-orange .nav { color: var(--accent); }
+.cursor.on-orange .cursor__dot { background: var(--accent); }
+
+/* ---------- Cursor (fine pointers only; switched on by cursor.js) ---------- */
+
+.cursor { display: none; }
+.has-cursor, .has-cursor * { cursor: none !important; }
+.has-cursor .cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  display: block;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.has-cursor.cursor-on .cursor { opacity: 1; }
+.cursor__dot, .cursor__ring, .cursor__label, .cursor__cta {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  transition: scale .5s var(--ease-out), opacity .35s;
+}
+.cursor__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+.cursor__ring {
+  width: 92px;
+  height: 92px;
+  border: 1px solid var(--paper);
+  border-radius: 50%;
+  scale: .3;
+  opacity: 0;
+}
+.cursor__label {
+  color: var(--paper);
+  font: italic 300 1.25rem/1 var(--serif);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  scale: .7;
+  opacity: 0;
+}
+.cursor.is-link .cursor__dot { scale: 5; }
+.cursor.is-photo .cursor__dot { scale: 0; }
+.cursor.is-photo .cursor__ring,
+.cursor.is-photo .cursor__label { scale: 1; opacity: 1; }
+/* Over a project card: a filled disc that says where the click goes. */
+.cursor__cta {
+  display: grid;
+  place-items: center;
+  width: 118px;
+  height: 118px;
+  padding: 0 20px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--noir);
+  font: 500 .8125rem/1.25 var(--sans);
+  letter-spacing: .01em;
+  text-align: center;
+  scale: .2;
+  opacity: 0;
+}
+.cursor.is-card .cursor__cta { scale: 1; opacity: 1; }
+.cursor.is-card .cursor__dot { scale: 0; }
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1100px) {
+  .hero__sub { grid-column: 5 / 13; }
+  .reading--think .reading__text { grid-column: 3 / 13; }
+}
+
+@media (max-width: 767px) {
+  :root { --nav-h: 64px; }
+  .nav__links { gap: 18px; }
+  .nav__arrow { display: none; }
+  .hero__inner { padding-bottom: clamp(32px, 8vh, 72px); }
+  .hero__title { font-size: 12.4vw; }
+  .hero__sub { grid-column: 1 / -1; max-width: 32ch; }
+  .slot { width: 1.5em; height: .84em; }
+  .reading--think .reading__text { grid-column: 1 / -1; }
+  .roles__list { font-size: 12vw; line-height: 1; }
+  .roles__br { display: inline; }
+  .roles__role + .roles__role { margin-top: .6em; }
+  .roles__line--3 { padding-left: 0; }
+  .roles__line--4 { padding-left: 12%; }
+  .has-life .life__box { height: 580px; }
+  .contact__row { grid-template-columns: 1fr; }
+  .contact__links { flex-direction: column; align-items: flex-start; }
+  .contact__legal { justify-self: start; }
+  .contact__inner { min-height: 66svh; gap: 64px; }
+  .contact__title { font-size: 25vw; line-height: .84; }
+  .has-life [data-thing="camera"] { --x: 18%; --y: 12%; }
+  .has-life [data-thing="clothes"] { --x: 50%; --y: 9%; }
+  .has-life [data-thing="suitcase"] { --x: 82%; --y: 12%; }
+  .has-life [data-thing="book"] { --x: 28%; --y: 30%; }
+  .has-life [data-thing="pencil"] { --x: 72%; --y: 30%; }
+}
+
+@media (max-width: 380px) {
+  .nav__mark { font-size: 1.0625rem; }
+  .nav__links { gap: 12px; }
+  .nav__links a { font-size: .875rem; }
+}
+/* Phones fit three links beside the name: About is the hero you're
+   already on, so it steps aside. */
+@media (max-width: 440px) {
+  .nav__about { display: none; }
+}
+
+/* ---------- Between pages: the screen dims to the page colour and back ---------- */
+
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--noir);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s var(--ease-out);
+}
+html.veil-in::after { opacity: 1; transition: none; }
+html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .36s ease-in; }
+
+/* ---------- Reduced motion: the composed page, still ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

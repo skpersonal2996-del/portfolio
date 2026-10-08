@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bridge case study – Shruti Kale</title>
+<meta name="description" content="An end-to-end operations platform for driving schools, built to replace the registers, the phone calls, and the half-dozen tools that were never quite enough. A case study by Shruti Kale, product designer.">
+<meta name="theme-color" content="#0C0B0A">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="../../assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/MonaSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/img/work/bridge/dashboard.png" as="image" imagesrcset="../../assets/img/work/bridge/dashboard-1240.png 1240w, ../../assets/img/work/bridge/dashboard.png 2880w" imagesizes="(max-width: 767px) 86vw, 62vw" fetchpriority="high">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/case.css">
+<script>
+  // Runs before first paint: scripts on, reduced motion, and the veil when
+  // arriving from another page of the site.
+  (function () {
+    var d = document.documentElement;
+    d.classList.replace("no-js", "js");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("still")) d.classList.add("rm");
+    // The laptop and the sheet settle in on arrival (lifted by case.js, or after 2.5s regardless).
+    else { d.classList.add("case-enter"); setTimeout(function () { d.classList.remove("case-enter"); }, 2500); }
+    try { if (sessionStorage.getItem("sk:veil") === "1") { d.classList.add("veil-in"); sessionStorage.removeItem("sk:veil"); setTimeout(function () { d.classList.remove("veil-in"); }, 1500); } } catch (e) {}
+  })();
+</script>
+<script src="../../vendor/gsap.min.js" defer></script>
+<script src="../../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../../vendor/SplitText.min.js" defer></script>
+<script src="../../vendor/lenis.min.js" defer></script>
+<script type="module" src="../../js/case.js"></script>
+</head>
+<body class="case-page case-page--bold">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <a class="nav__mark" href="../../">Shruti Kale</a>
+  <nav aria-label="Primary">
+    <ul class="nav__links">
+      <li class="nav__about"><a href="../../#about">About</a></li>
+      <li><a href="../../#work">Work</a></li>
+      <li><a href="#contact" data-scroll-to>Contact</a></li>
+      <li><a class="nav__ext" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="nav__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- The chapters, as a quiet index on the left: a short line for each, the
+     current one long and orange, names on hover. Phones get a progress bar. -->
+<nav class="case-index" aria-label="Chapters" data-case-index>
+  <ol>
+    <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 Where it started</span></a></li>
+    <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 The environment I was designing for</span></a></li>
+    <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 What research revealed</span></a></li>
+    <li><a href="#ch-4" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">04 The decisions</span></a></li>
+    <li><a href="#ch-5" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">05 The work</span></a></li>
+    <li><a href="#ch-6" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">06 The impact</span></a></li>
+    <li><a href="#ch-7" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">07 What I took away</span></a></li>
+  </ol>
+</nav>
+<div class="case-progress" aria-hidden="true"><span data-case-progress></span></div>
+
+<main id="main">
+  <!-- The dashboard on a laptop, on a road at night: lane markings running to
+       a point behind the screen, warm light where the road meets the sky.
+       The laptop is drawn in CSS and the road on a canvas, so both stay sharp. -->
+  <div class="case-hero case-hero--road" id="top" data-case-hero>
+    <canvas class="case-hero__road" data-road aria-hidden="true"></canvas>
+    <div class="case-hero__stage" data-case-hero-frame>
+      <div class="case-tilt" data-case-tilt>
+        <div class="laptop">
+          <div class="laptop__lid">
+            <span class="laptop__cam" aria-hidden="true"></span>
+            <div class="laptop__screen">
+              <img class="laptop__shot" data-case-shot src="../../assets/img/work/bridge/dashboard.png" srcset="../../assets/img/work/bridge/dashboard-1240.png 1240w, ../../assets/img/work/bridge/dashboard.png 2880w" sizes="(max-width: 767px) 86vw, 62vw" width="2880" height="2490" fetchpriority="high" alt="Bridge’s dashboard on a laptop: upcoming learning tests, final tests and RTO work, clients with pending payments, expiring vehicle documents and an admissions chart.">
+            </div>
+          </div>
+          <div class="laptop__base" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+    <div class="case-hero__shade" data-case-hero-shade></div>
+  </div>
+
+  <!-- The case study itself, on a sheet that slides up over the hero. One
+       typeface for all of it; the hierarchy comes from size, weight and colour:
+       white for headings, soft white for reading, grey for labels. -->
+  <article class="case-sheet" aria-labelledby="case-title" data-case-sheet>
+    <div class="case-top">
+      <a class="case-back" href="../../#work"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M9.5 6h-7M6 2.5 2.5 6 6 9.5"/></svg>Back to work</a>
+      <p class="case-time">About 4 min read</p>
+    </div>
+
+    <header class="case-head">
+      <h1 class="case-name" id="case-title"><span class="case-name__fit" data-case-name>Bridge</span></h1>
+      <p class="case-sub" data-reveal>An end-to-end operations platform for driving schools — built to replace the registers, the phone calls, and the half-dozen tools that were never quite enough.</p>
+      <dl class="case-facts" data-reveal>
+        <div><dt>Role</dt><dd>Sole Product Designer, <span class="case-keep">End-to-End</span></dd></div>
+        <div><dt>Industry</dt><dd>Driving School Management SaaS, Operations</dd></div>
+        <div><dt>Timeline</dt><dd>2024–2026</dd></div>
+        <div><dt>Scope</dt><dd>Product Discovery · Product Strategy · Workflow Design · Information Architecture · UX/UI Design · Prototyping · <span class="case-keep">Cross-Functional</span> Collaboration · Developer Handoff</dd></div>
+      </dl>
+    </header>
+
+    <!-- Chapters 01 to 04 each get at least a screen of their own: one idea
+         per screen, and a line icon for each item. Chapter 02 has its own
+         container. -->
+    <section class="case-ch case-screen" id="ch-1" aria-labelledby="ch-1-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">01</p>
+        <h2 class="case-h2" id="ch-1-title" data-split>Where it started</h2>
+      </header>
+      <p class="case-lead" data-reveal>Walk into most small driving schools and you’ll find one person running the entire operation out of their head. Admissions, payments, scheduling, student records, which car is free this afternoon — one admin, holding all of it together with registers, phone calls, and whatever habits had worked so far.</p>
+      <p class="case-quote case-quote--stack case-quote--close" data-reveal><span class="case-quote__soft">Bridge wasn’t built to add another tool to that pile.</span> <span class="case-quote__keep">It was built to replace the pile.</span></p>
+    </section>
+
+    <!-- In its own deep navy container, lit from inside: the filter every
+         decision went through, then the four conditions behind it. -->
+    <section class="case-ch case-screen" id="ch-2" aria-labelledby="ch-2-title">
+      <div class="case-night" data-reveal-block>
+        <header class="case-night__head">
+          <p class="case-num" aria-hidden="true">02</p>
+          <h2 class="case-kicker" id="ch-2-title">The environment I was designing for</h2>
+        </header>
+        <p class="case-statement"><span class="case-statement__soft">Every decision on this project ran through the same filter:</span> would this hold up for someone with no time to learn it, no patience for extra steps, and zero margin for a mistake?</p>
+        <ol class="case-cols case-cols--4 case-cols--icons">
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="4.5" width="16" height="23" rx="2"/><path d="M8.5 10.5h8M8.5 14.5h8M8.5 18.5h5"/><path d="M16.6 27.4l.3-3.6 8.6-14.9a1.6 1.6 0 0 1 2.8 1.6l-8.6 14.9z"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+            <h3 class="case-h3">Low technical proficiency</h3>
+            <p class="case-small">Comfort with manual work, not software — the product had to feel obvious on day one</p>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5 3.5 11 16 17.5 28.5 11z"/><path d="m3.5 16 12.5 6.5L28.5 16"/><path d="m3.5 21 12.5 6.5L28.5 21"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+            <h3 class="case-h3">High task volume, low margin for error</h3>
+            <p class="case-small">The same small tasks, over and over, with no room for a slow day</p>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="3.5" y="5" width="10" height="12" rx="1.5" transform="rotate(-10 8.5 11)"/><rect x="18.5" y="3.5" width="10" height="12" rx="1.5" transform="rotate(9 23.5 9.5)"/><rect x="11" y="17" width="10" height="11.5" rx="1.5" transform="rotate(-4 16 22.75)"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+            <h3 class="case-h3">Fragmented information</h3>
+            <p class="case-small">Spread across registers, spreadsheets, and memory — simple questions took real effort to answer</p>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5c-3.9 0-6.5 3-6.5 6.8v5.2L7 21.5h18l-2.5-5v-5.2c0-3.8-2.6-6.8-6.5-6.8z"/><path d="M13.5 25a2.5 2.5 0 0 0 5 0"/><path d="M5 5l22 22"/></svg><span class="case-num" aria-hidden="true">04</span></div>
+            <h3 class="case-h3">No real-time clarity</h3>
+            <p class="case-small">Nothing told an admin what needed them right now; every decision started with piecing things together</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- What research revealed: the three findings, each with its icon. -->
+    <section class="case-ch case-screen" id="ch-3" aria-labelledby="ch-3-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">03</p>
+        <h2 class="case-h2" id="ch-3-title" data-split>What research revealed</h2>
+      </header>
+      <ol class="case-cols case-cols--3 case-cols--icons">
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 14.5a10 10 0 0 1 17.6-5.3l1.4 1.8"/><path d="M25.5 5v6h-6"/><path d="M26 17.5a10 10 0 0 1-17.6 5.3L7 21"/><path d="M6.5 27v-6h6"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+          <p class="case-finding case-finding--line">The same tasks <strong>repeated every day</strong> with no shortcut for having done them a hundred times before.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="12" y="3.5" width="8" height="9.5" rx="1.5"/><rect x="3.5" y="19" width="8" height="9.5" rx="1.5"/><circle cx="24" cy="23.75" r="4.75"/><path class="dot" d="M13.2 15 9.3 18M18.8 15l3 4M13.5 23.75h5"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+          <p class="case-finding case-finding--line">Information that technically existed was <strong>never in one place</strong>, so admins were constantly cross-checking registers against notebooks against memory.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M6.4 11.5A11 11 0 1 1 5 16"/><path d="M5.5 5.5v6h6"/><path d="M16 10v6l4 2.5"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+          <p class="case-finding case-finding--line">Decisions — who’s scheduled, who owes a payment, which vehicle is free — were being made on <strong>whatever information happened to be closest</strong>, not what was actually current.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="case-ch case-screen" id="ch-4" aria-labelledby="ch-4-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">04</p>
+        <h2 class="case-h2" id="ch-4-title" data-split>The decisions</h2>
+      </header>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path class="dot" d="M6 26C1.5 18 15 18.5 11 11.5S19 2.5 26 6"/><path d="M6 26 25.5 6.5"/><path d="M17.5 6.5h8v8"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+          <h3 class="case-h3 case-h3--lg">Build the system around the tasks admins repeat most</h3>
+        </div>
+        <p class="case-body">Research showed that admins spend most of their day repeating the same operational tasks, which makes the work tiring and raises the risk of errors. So I mapped what they did most often, admissions, payment tracking, and scheduling, and made those the fastest, simplest paths in the product. A few seconds saved on something done all day, every day, adds up in a way a clever one-off feature never does.</p>
+      </div>
+      <!-- Two of the decisions with the piece of the product that shows them,
+           cut from the real screens and lifted onto a panel. -->
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="6.5" width="23" height="21" rx="2.5"/><path d="M4.5 12.5h23M10.5 4v5M21.5 4v5"/><circle class="acc" cx="16" cy="20" r="3.2"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+          <h3 class="case-h3 case-h3--lg">Give admins a view of today, not a dashboard of metrics</h3>
+        </div>
+        <div class="case-row__main">
+          <p class="case-body">Admins didn’t need charts. They needed to walk in and immediately know what required them that day. So the main screen became a working view, not a reporting one — what’s happening, what’s pending, what needs a follow-up, nothing to interpret.</p>
+          <figure class="case-detail">
+            <div class="case-crop" style="aspect-ratio: 2132 / 624; --x: 692; --y: 472; --w: 2132; --h: 624; --iw: 2880">
+              <img src="../../assets/img/work/bridge/dashboard.png" width="2880" height="2490" loading="lazy" decoding="async" alt="The top of Bridge’s dashboard: upcoming appointments and test schedules, with 12 learning tests, 23 final tests and 6 RTO jobs, and 16 clients with pending payments, each with a link to the list.">
+            </div>
+          </figure>
+        </div>
+      </div>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="3.5" y="9" width="20" height="15" rx="2"/><circle cx="9.5" cy="15" r="2.3"/><path d="M6 21.5a3.6 3.6 0 0 1 7 0"/><path d="M16 14.5h4.5M16 18.5h3.5"/><path class="acc" d="M26 2.5l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+          <h3 class="case-h3 case-h3--lg">Make the system remember things, so admins don’t have to</h3>
+        </div>
+        <div class="case-row__main">
+          <p class="case-body">Re-typing the same student details into form after form was quietly eating hours every week. Wiring up eKYC with Aadhaar and building auto-fill around it meant information entered once, at admission, just showed up everywhere else it was needed, which solved for more than time. It closed off an entire category of manual mistakes.</p>
+          <figure class="case-detail">
+            <div class="case-crop" style="aspect-ratio: 702 / 280; --x: 520; --y: 200; --w: 702; --h: 280; --iw: 1246">
+              <img src="../../assets/img/work/bridge/admission-1.png" width="1246" height="885" loading="lazy" decoding="async" alt="From the admission form: auto-fill personal details using Aadhaar, with a field for the Aadhaar number and a Get OTP button.">
+            </div>
+          </figure>
+        </div>
+      </div>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="10.5" r="4"/><path d="M8.5 26.5a7.5 7.5 0 0 1 15 0"/><circle class="faint" cx="5" cy="14" r="2.5"/><path class="faint" d="M1.5 25.5a3.5 3.5 0 0 1 7 0"/><circle class="faint" cx="27" cy="14" r="2.5"/><path class="faint" d="M23.5 25.5a3.5 3.5 0 0 1 7 0"/></svg><span class="case-num" aria-hidden="true">04</span></div>
+          <h3 class="case-h3 case-h3--lg">Stay narrow, on purpose</h3>
+        </div>
+        <p class="case-body">There was a real pull to also design for students and instructors while I was in there. I didn’t. Admin operations were the actual bottleneck, and I’d rather understand one role completely than serve three roles halfway.</p>
+      </div>
+    </section>
+
+    <!-- The work, shown more than told: browser windows for the screens you
+         read whole, floating screens for the ones that come in sets. -->
+    <section class="case-ch" id="ch-5" aria-labelledby="ch-5-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">05</p>
+        <h2 class="case-h2" id="ch-5-title" data-split>The work</h2>
+      </header>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Dashboard</h3>
+          <p class="case-body">Everything an admin needs to know about today, built to be scanned in under a minute, not read.</p>
+        </div>
+        <figure class="case-stage" data-reveal-panel>
+          <div class="browser" data-rise>
+            <div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div>
+            <img src="../../assets/img/work/bridge/dashboard-1240.png" srcset="../../assets/img/work/bridge/dashboard-1240.png 1240w, ../../assets/img/work/bridge/dashboard.png 2880w" sizes="(max-width: 767px) 88vw, 760px" width="2880" height="2490" loading="lazy" decoding="async" alt="Bridge’s dashboard in full: a sidebar for clients, payments, session availability, vehicles and staff; buttons for RTO services and new admissions; and widgets for upcoming tests, pending payments, document expiry and an admissions overview chart.">
+          </div>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Admission Flow</h3>
+          <p class="case-body">A form that used to take real effort, broken into logical steps and mostly filled out by eKYC before the admin has to type anything.</p>
+        </div>
+        <!-- The four steps, dealt out across a tilted table as you reach them. -->
+        <figure class="case-stage case-stage--flow" data-reveal-panel>
+          <div class="flow" data-deal>
+            <div class="flow__step" style="--i: 0" data-deal-step><div class="screen" style="--r: 3"><img src="../../assets/img/work/bridge/admission-1.png" width="1246" height="885" loading="lazy" decoding="async" alt="Step 1, Personal Info: auto-fill personal details using Aadhaar, then name, guardian’s name, birth date and blood group."></div></div>
+            <div class="flow__step" style="--i: 1" data-deal-step><div class="screen" style="--r: 3.86"><img src="../../assets/img/work/bridge/admission-2.png" width="1139" height="901" loading="lazy" decoding="async" alt="Step 2, License: the license applied for, learning and permanent license details with more behind View More, and test details."></div></div>
+            <div class="flow__step" style="--i: 2" data-deal-step><div class="screen" style="--r: 3.07"><img src="../../assets/img/work/bridge/admission-3.png" width="1435" height="938" loading="lazy" decoding="async" alt="Step 3, Plan: the vehicle, number of days and session length, and a joining date and time; that slot isn’t available, so four free ones are suggested."></div></div>
+            <div class="flow__step" style="--i: 3" data-deal-step><div class="screen" style="--r: 3"><img src="../../assets/img/work/bridge/admission-4.png" width="1606" height="1142" loading="lazy" decoding="async" alt="Step 4, Payment: apply a discount, pay in installments or pay later, choose the payment mode, and the total due."></div></div>
+          </div>
+          <figcaption class="case-caption">Personal Info · License · Plan · Payment</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Students, Payments &amp; Vehicles</h3>
+          <p class="case-body">One place to check and update records that used to live across three.</p>
+        </div>
+        <!-- The three lists side by side, fanning out from the middle one. -->
+        <figure class="case-stage case-stage--trio" data-reveal-panel>
+          <div class="trio" data-fan>
+            <div class="trio__item trio__item--l" data-fan-item><div class="trio__tilt"><div class="screen" style="--r: 3.31"><img src="../../assets/img/work/bridge/clients.png" width="1453" height="1033" loading="lazy" decoding="async" alt="The Clients list: regular and RTO clients, each with a client code, mobile number, payment status and address."></div></div></div>
+            <div class="trio__item trio__item--c"><div class="trio__tilt"><div class="screen" style="--r: 3.49"><img src="../../assets/img/work/bridge/payments.png" width="1376" height="979" loading="lazy" decoding="async" alt="The Payments list: amount due, total fees, next installment date, payment status and last payment for each client."></div></div></div>
+            <div class="trio__item trio__item--r" data-fan-item><div class="trio__tilt"><div class="screen" style="--r: 3.31"><img src="../../assets/img/work/bridge/vehicles.png" width="1453" height="1033" loading="lazy" decoding="async" alt="The Vehicles list: each car’s ID, number, rent per half hour, and PUC and insurance expiry dates."></div></div></div>
+          </div>
+          <figcaption class="case-caption">Clients · Payments · Vehicles</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Session Scheduling</h3>
+          <p class="case-body">A live view of who’s booked and what’s available, so a double-booking stops being a daily risk.</p>
+        </div>
+        <figure class="case-stage" data-reveal-panel>
+          <div class="browser" data-rise>
+            <div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div>
+            <img src="../../assets/img/work/bridge/sessions.png" sizes="(max-width: 767px) 88vw, 760px" width="1606" height="1389" loading="lazy" decoding="async" alt="Session availability for the Ertiga Manual on 12 Feb 2025: the day in half-hour slots from 6 AM, with booked slots showing the student’s name.">
+          </div>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">WhatsApp Automation</h3>
+          <p class="case-body">Confirmations, reminders, and offers that used to depend on someone remembering to send them, now sent on their own.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The impact, in its own block of colour. No numbers: what admins said. -->
+    <section class="case-ch" id="ch-6" aria-labelledby="ch-6-title">
+      <div class="case-impact" data-cursor-tone="orange" data-reveal-block>
+        <header class="case-ch__head">
+          <p class="case-num" aria-hidden="true">06</p>
+          <h2 class="case-h2" id="ch-6-title" data-split>The impact</h2>
+        </header>
+        <p class="case-impact__intro">Nothing here is inflated — these are the changes admins described once Bridge was in daily use:</p>
+        <ul class="case-outcomes">
+          <li><span class="case-num" aria-hidden="true">01</span><p>Noticeably less time spent switching between tools to do routine work</p></li>
+          <li><span class="case-num" aria-hidden="true">02</span><p>Faster decisions during the day, since the context was already in one place</p></li>
+          <li><span class="case-num" aria-hidden="true">03</span><p>Fewer errors tied to manual entry and relying on memory</p></li>
+          <li><span class="case-num" aria-hidden="true">04</span><p>Admissions and follow-ups that felt smoother to students too, not just to the admin running them</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-ch" id="ch-7" aria-labelledby="ch-7-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">07</p>
+        <h2 class="case-h2" id="ch-7-title" data-split>What I took away</h2>
+      </header>
+      <p class="case-lead" data-reveal>If there’s one thing Bridge taught me, it’s that the best decision on a project like this is usually what you choose not to build.</p>
+      <p class="case-body" data-reveal>Staying narrow to admin workflows meant I could actually understand the problem instead of skimming the surface of five problems at once. And the admins I talked to never once asked for a new feature — they asked for less friction in what they already had to do. That reframed what “valuable” meant on this project.</p>
+      <p class="case-quote case-quote--stack" data-reveal><span class="case-quote__soft">It wasn’t capability.</span> <span class="case-quote__keep">It was clarity.</span></p>
+      <p class="case-body" data-reveal>Taking something that already existed and organizing it well turned out to matter more than almost anything I could have added.</p>
+    </section>
+
+    <p class="case-up"><a href="#top" data-scroll-to>Back to top<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6"/></svg></a></p>
+  </article>
+
+  <!-- On to the next project: one big card. -->
+  <section class="case-next" aria-label="Next case study">
+    <a class="case-next__card" href="../nestwise/" data-cursor="Next case study">
+      <span class="case-next__text">
+        <span class="case-next__label">Next case study</span>
+        <span class="case-next__name">Nestwise</span>
+        <span class="case-next__line">Making rental search more personal and trustworthy.</span>
+        <span class="case-next__go" aria-hidden="true"><svg viewBox="0 0 24 12"><path d="M1 6h21M17 1l5 5-5 5"/></svg></span>
+      </span>
+      <span class="case-next__media case-next__media--phone">
+        <img src="../../assets/img/work/nestwise-480.jpg" srcset="../../assets/img/work/nestwise-480.jpg 480w, ../../assets/img/work/nestwise-824.jpg 824w" sizes="(max-width: 767px) 34vw, 18vw" width="824" height="1704" loading="lazy" decoding="async" alt="">
+      </span>
+    </a>
+  </section>
+</main>
+
+<!-- The end, and the page's one burst of colour. The same footer as the home
+     page: why to write, the address and LinkedIn, and "Get in touch". -->
+<footer class="contact" id="contact" aria-labelledby="contact-title" data-contact data-cursor-tone="orange">
+  <div class="contact__inner" data-contact-inner>
+    <div class="contact__row">
+      <p class="contact__intro">For enquiries, collaboration requests or job opportunities, don’t hesitate to reach&nbsp;out.</p>
+      <div class="contact__links">
+        <a class="contact__link contact__link--mail" href="mailto:shrutikale2996@gmail.com">shrutikale2996@gmail.com<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+        <a class="contact__link contact__link--in" href="https://www.linkedin.com/in/shruti48011/" target="_blank" rel="noopener"><svg class="contact__logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="contact__link contact__link--cv" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+      <p class="contact__legal">© 2026 Shruti Kale</p>
+    </div>
+    <h2 class="contact__title" id="contact-title"><a class="contact__cta" href="mailto:shrutikale2996@gmail.com" data-contact-cta><span class="contact__line">Get in</span> <span class="contact__line">touch</span></a></h2>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
+</body>
+</html>

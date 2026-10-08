@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leucine case study – Shruti Kale</title>
+<meta name="description" content="Redesigning compliance-critical workflows for pharmaceutical manufacturing teams moving from paper to digital. A case study by Shruti Kale, product designer.">
+<meta name="theme-color" content="#0C0B0A">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="../../assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/MonaSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/img/work/leucine/after.png" as="image" imagesrcset="../../assets/img/work/leucine/after-1240.png 1240w, ../../assets/img/work/leucine/after.png 2481w" imagesizes="(max-width: 767px) 92vw, 72vw" fetchpriority="high">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/case.css">
+<script>
+  // Runs before first paint: scripts on, reduced motion, and the veil when
+  // arriving from another page of the site.
+  (function () {
+    var d = document.documentElement;
+    d.classList.replace("no-js", "js");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("still")) d.classList.add("rm");
+    // The photo and the sheet settle in on arrival (lifted by case.js, or after 2.5s regardless).
+    else { d.classList.add("case-enter"); setTimeout(function () { d.classList.remove("case-enter"); }, 2500); }
+    try { if (sessionStorage.getItem("sk:veil") === "1") { d.classList.add("veil-in"); sessionStorage.removeItem("sk:veil"); setTimeout(function () { d.classList.remove("veil-in"); }, 1500); } } catch (e) {}
+  })();
+</script>
+<script src="../../vendor/gsap.min.js" defer></script>
+<script src="../../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../../vendor/SplitText.min.js" defer></script>
+<script src="../../vendor/lenis.min.js" defer></script>
+<script type="module" src="../../js/case.js"></script>
+</head>
+<body class="case-page">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <a class="nav__mark" href="../../">Shruti Kale</a>
+  <nav aria-label="Primary">
+    <ul class="nav__links">
+      <li class="nav__about"><a href="../../#about">About</a></li>
+      <li><a href="../../#work">Work</a></li>
+      <li><a href="#contact" data-scroll-to>Contact</a></li>
+      <li><a class="nav__ext" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="nav__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- The chapters, as a quiet index on the left: a short line for each, the
+     current one long and orange, names on hover. Phones get a progress bar. -->
+<nav class="case-index" aria-label="Chapters" data-case-index>
+  <ol>
+    <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 About the product</span></a></li>
+    <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 The environment I was designing for</span></a></li>
+    <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 What research revealed</span></a></li>
+    <li><a href="#ch-4" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">04 The decisions</span></a></li>
+    <li><a href="#ch-5" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">05 The work</span></a></li>
+    <li><a href="#ch-6" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">06 The impact</span></a></li>
+    <li><a href="#ch-7" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">07 What I took away</span></a></li>
+  </ol>
+</nav>
+<div class="case-progress" aria-hidden="true"><span data-case-progress></span></div>
+
+<main id="main">
+  <!-- The redesigned screen on a tablet, the way operators use it on the shop
+       floor, in front of the plant itself (blurred and warmed) with the site's
+       orange light behind it. The tablet is drawn in CSS, so it stays sharp. -->
+  <div class="case-hero" id="top" data-case-hero>
+    <div class="case-hero__bg" aria-hidden="true">
+      <img class="case-hero__plant" src="../../assets/img/work/leucine/plant-floor.webp" width="1024" height="658" alt="">
+    </div>
+    <div class="case-hero__stage" data-case-hero-frame>
+      <div class="case-tilt" data-case-tilt>
+        <div class="case-device">
+          <img class="case-device__screen" data-case-shot src="../../assets/img/work/leucine/after.png" srcset="../../assets/img/work/leucine/after-1240.png 1240w, ../../assets/img/work/leucine/after.png 2481w" sizes="(max-width: 767px) 92vw, 72vw" width="2481" height="1654" fetchpriority="high" alt="Leucine’s redesigned execution screen on a tablet: the stages and tasks of an equipment cleaning log on the left; on the right, the current task’s fields, verification notes, a timer and a Complete Task button.">
+          <span class="case-device__cam" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+    <div class="case-hero__shade" data-case-hero-shade></div>
+  </div>
+
+  <!-- The case study itself, on a sheet that slides up over the hero. One
+       typeface for all of it; the hierarchy comes from size, weight and colour:
+       white for headings, soft white for reading, grey for labels. -->
+  <article class="case-sheet" aria-labelledby="case-title" data-case-sheet>
+    <div class="case-top">
+      <a class="case-back" href="../../#work"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M9.5 6h-7M6 2.5 2.5 6 6 9.5"/></svg>Back to work</a>
+      <p class="case-time">About 3 min read</p>
+    </div>
+
+    <header class="case-head">
+      <h1 class="case-name" id="case-title"><span class="case-name__fit" data-case-name>Leucine</span></h1>
+      <p class="case-sub" data-reveal>Redesigning compliance-critical workflows for pharmaceutical manufacturing teams moving from paper to digital.</p>
+      <dl class="case-facts" data-reveal>
+        <div><dt>Role</dt><dd>Product Designer</dd></div>
+        <div><dt>Industry</dt><dd>Pharma SaaS, Compliance</dd></div>
+        <div><dt>Timeline</dt><dd>2022–2024</dd></div>
+        <div><dt>Scope</dt><dd>Research · Workflow Design · Design System · Usability Testing · <span class="case-keep">Cross-Functional</span> Collaboration · Developer Handoff</dd></div>
+      </dl>
+    </header>
+
+    <section class="case-ch" id="ch-1" aria-labelledby="ch-1-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">01</p>
+        <h2 class="case-h2" id="ch-1-title" data-split>About the product</h2>
+      </header>
+      <p class="case-lead" data-reveal>Leucine helps pharma manufacturers digitize regulated production — SOPs, audits, testing, approvals. The product was live and growing when I joined, but the design hadn’t scaled with real-world complexity. Operators were making errors, workflows had gaps, and a missed step wasn’t just a UX problem. It was a compliance risk.</p>
+    </section>
+
+    <section class="case-ch" id="ch-2" aria-labelledby="ch-2-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">02</p>
+        <h2 class="case-h2" id="ch-2-title" data-split>The environment I was designing for</h2>
+      </header>
+      <ol class="case-cols case-cols--4">
+        <li data-reveal><span class="case-num" aria-hidden="true">01</span><h3 class="case-h3">Regulatory complexity</h3><p class="case-small">Strict SOPs, no room for ambiguity.</p></li>
+        <li data-reveal><span class="case-num" aria-hidden="true">02</span><h3 class="case-h3">High cognitive load</h3><p class="case-small">Accuracy, documentation, and approval, all at once.</p></li>
+        <li data-reveal><span class="case-num" aria-hidden="true">03</span><h3 class="case-h3">Limited research access</h3><p class="case-small">Direct end-user research was restricted; insight came from onsite visits and customer success data.</p></li>
+        <li data-reveal><span class="case-num" aria-hidden="true">04</span><h3 class="case-h3">Real-world conditions</h3><p class="case-small">Tablets, gloves, shop floor — desktop-first design was causing execution errors.</p></li>
+      </ol>
+    </section>
+
+    <section class="case-ch" id="ch-3" aria-labelledby="ch-3-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">03</p>
+        <h2 class="case-h2" id="ch-3-title" data-split>What research revealed</h2>
+      </header>
+      <p class="case-quote" data-reveal><span class="case-quote__soft">Support tickets couldn’t tell me this.</span> <span class="case-quote__keep">Onsite visits could.</span></p>
+      <figure class="case-photos">
+        <div class="case-media" data-reveal-media><img src="../../assets/img/work/leucine/plant-exterior.webp" width="720" height="824" loading="lazy" decoding="async" alt="A manufacturing plant visited during research, seen from outside: a long, curved building with a glass front."></div>
+        <div class="case-media" data-reveal-media><img src="../../assets/img/work/leucine/plant-floor.webp" width="1024" height="658" loading="lazy" decoding="async" alt="Inside a plant: operators in cleanroom suits working at rows of steel process vessels."></div>
+        <figcaption class="case-caption">Onsite visits</figcaption>
+      </figure>
+      <ol class="case-cols case-cols--3">
+        <li data-reveal><span class="case-num" aria-hidden="true">01</span><p class="case-finding">Missing context caused mid-task stops</p></li>
+        <li data-reveal><span class="case-num" aria-hidden="true">02</span><p class="case-finding">Exceptions weren’t accounted for anywhere in the system</p></li>
+        <li data-reveal><span class="case-num" aria-hidden="true">03</span><p class="case-finding">Tablets were the real device. The UI still wasn’t.</p></li>
+      </ol>
+    </section>
+
+    <section class="case-ch" id="ch-4" aria-labelledby="ch-4-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">04</p>
+        <h2 class="case-h2" id="ch-4-title" data-split>The decisions</h2>
+      </header>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3"><span class="case-num" aria-hidden="true">01</span>Structure execution around hierarchy, not a flat list</h3>
+        <p class="case-body">SOPs have stages, tasks within stages, controls within tasks. The original view flattened all of it. Rebuilding the information architecture to match the real hierarchy meant operators always knew where they stood and what came next.</p>
+      </div>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3"><span class="case-num" aria-hidden="true">02</span>Bring context to the point of execution</h3>
+        <p class="case-body">Each task now carries what an operator needs to complete it correctly, without leaving the screen — progressive disclosure kept it clean while solving the single biggest cause of mid-task interruptions.</p>
+      </div>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3"><span class="case-num" aria-hidden="true">03</span>Design for exceptions, not just the ideal path</h3>
+        <p class="case-body">Real manufacturing rarely goes to plan. We added conditional branching, scheduled/recurring automation, and repeatable flows for high-frequency tasks — less manual work, more accurate audit trails.</p>
+      </div>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3"><span class="case-num" aria-hidden="true">04</span>Design for the tablet, not just make it responsive</h3>
+        <p class="case-body">Solo effort, start to finish: research, onsite observation, redesign. Standing, gloved, time-pressured use on a shop floor needed rethinking, not resizing. Fixed a recurring source of bugs and freed engineering from constant responsiveness fixes.</p>
+      </div>
+    </section>
+
+    <section class="case-ch" id="ch-5" aria-labelledby="ch-5-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">05</p>
+        <h2 class="case-h2" id="ch-5-title" data-split>The work</h2>
+      </header>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">SOP Execution</h3>
+          <p class="case-body">Redesigned around one goal: an operator always knows what’s next, and feels confident doing it. Job/equipment context up top, visible stage status, conditional branching, and a personal inbox that replaced a disconnected email-and-list system.</p>
+        </div>
+        <!-- Before and after, on top of each other: drag (or use the arrow keys)
+             to reveal more of either. -->
+        <figure class="compare" data-compare data-reveal-media>
+          <div class="compare__labels" aria-hidden="true"><span>Before</span><span>After</span></div>
+          <div class="compare__frame" data-cursor="Drag">
+            <img draggable="false" class="compare__img" src="../../assets/img/work/leucine/after.png" srcset="../../assets/img/work/leucine/after-1240.png 1240w, ../../assets/img/work/leucine/after.png 2481w" sizes="(max-width: 767px) 92vw, 1124px" width="2481" height="1654" loading="lazy" decoding="async" alt="After: the redesigned execution screen, with the stages and tasks as a hierarchy on the left, and the current task’s fields, verification notes, timer and Complete Task button on the right.">
+            <img draggable="false" class="compare__img compare__img--before" src="../../assets/img/work/leucine/before.png" srcset="../../assets/img/work/leucine/before-1240.png 1240w, ../../assets/img/work/leucine/before.png 2048w" sizes="(max-width: 767px) 92vw, 1124px" width="2048" height="1366" loading="lazy" decoding="async" alt="Before: the old job screen, Line Clearance of Compression Machine, with stages, tasks and task information in three separate columns.">
+            <span class="compare__handle" aria-hidden="true"><span class="compare__knob"><svg viewBox="0 0 24 12"><path d="M8 2 4 6l4 4M16 2l4 4-4 4"/></svg></span></span>
+            <input class="compare__range" type="range" min="0" max="100" step="1" value="50" aria-label="Before and after: move to compare">
+          </div>
+          <figcaption class="case-caption">Drag to compare the job screen before and after the redesign</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Tablet-Friendly Execution</h3>
+          <p class="case-body">Redesigned for how operators actually use the product: standing, gloved, on the shop floor, under time pressure. Not a responsive tweak, a rethink of layout, touch targets, and information density for tablet-first use.</p>
+        </div>
+        <figure class="case-panel" data-reveal-media>
+          <img src="../../assets/img/work/leucine/tablet.webp" width="2000" height="1212" loading="lazy" decoding="async" alt="The tablet layout of one task, before it starts and once it’s completed: large fields for container weight, cleaning agent and date, a video with reference images, and a Task Completed state.">
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Design System</h3>
+          <p class="case-body">As Leucine grew from two products to a full suite, inconsistency was slowing every handoff. Audited, filled the gaps, consolidated into one system — and introduced a structured Figma-to-ClickUp workflow the team didn’t have before.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The impact, in its own block of colour. -->
+    <section class="case-ch" id="ch-6" aria-labelledby="ch-6-title">
+      <div class="case-impact" data-cursor-tone="orange" data-reveal-block>
+        <header class="case-ch__head">
+          <p class="case-num" aria-hidden="true">06</p>
+          <h2 class="case-h2" id="ch-6-title" data-split>The impact</h2>
+        </header>
+        <ul class="case-metrics">
+          <li class="case-metric">
+            <p class="case-metric__figure"><span aria-hidden="true">~<span data-count="40">40</span>%</span><span class="sr-only">About 40%</span></p>
+            <p class="case-metric__text">client acquisition growth within ~6 months</p>
+          </li>
+          <li class="case-metric">
+            <p class="case-metric__figure"><svg class="case-metric__arrow" viewBox="0 0 40 56" aria-hidden="true"><path d="M20 4v46M6 36l14 14 14-14"/></svg><span class="sr-only">Fewer</span></p>
+            <p class="case-metric__text">recurring SOP errors and tablet responsiveness bugs</p>
+          </li>
+          <li class="case-metric">
+            <p class="case-metric__figure"><svg class="case-metric__arrow" viewBox="0 0 40 56" aria-hidden="true"><path d="M20 52V6M6 20 20 6l14 14"/></svg><span class="sr-only">More</span></p>
+            <p class="case-metric__text">adoption across new plants and geographies (India, US, Europe)</p>
+          </li>
+        </ul>
+        <div class="case-row">
+          <h3 class="case-h3">Better audit readiness</h3>
+          <p class="case-body">Clearer reasoning captured during execution reduced compliance risk and follow-up effort.</p>
+        </div>
+        <div class="case-row">
+          <h3 class="case-h3">Design collaboration that scaled</h3>
+          <p class="case-body">A unified system and structured process reduced miscommunication as the team grew.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-ch" id="ch-7" aria-labelledby="ch-7-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">07</p>
+        <h2 class="case-h2" id="ch-7-title" data-split>What I took away</h2>
+      </header>
+      <p class="case-lead" data-reveal>Leucine taught me what research actually costs when you skip it. In a domain this regulated, a missing status indicator can fail an audit — every decision had to be justified, and that discipline made me more deliberate. It was also my deepest exposure to cross-functional work: PMs for priorities, engineers for what’s feasible under compliance, QA for edge cases, customer success for what users were actually hitting. Synthesizing across all of those lenses, instead of designing alone, changed how I work. And starting with zero pharma background turned out to be an advantage — it forced me to learn fast, ask better questions, and trust observation over assumption.</p>
+    </section>
+
+    <p class="case-up"><a href="#top" data-scroll-to>Back to top<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6"/></svg></a></p>
+  </article>
+
+  <!-- On to the next project: one big card. -->
+  <section class="case-next" aria-label="Next case study">
+    <a class="case-next__card" href="../bridge/" data-cursor="Next case study">
+      <span class="case-next__text">
+        <span class="case-next__label">Next case study</span>
+        <span class="case-next__name">Bridge</span>
+        <span class="case-next__line">Turning manual admin work into a smarter system.</span>
+        <span class="case-next__go" aria-hidden="true"><svg viewBox="0 0 24 12"><path d="M1 6h21M17 1l5 5-5 5"/></svg></span>
+      </span>
+      <span class="case-next__media">
+        <img src="../../assets/img/work/bridge-900.jpg" srcset="../../assets/img/work/bridge-900.jpg 900w, ../../assets/img/work/bridge-1600.jpg 1600w" sizes="(max-width: 767px) 90vw, 50vw" width="1600" height="1383" loading="lazy" decoding="async" alt="">
+      </span>
+    </a>
+  </section>
+</main>
+
+<!-- The end, and the page's one burst of colour. The same footer as the home
+     page: why to write, the address and LinkedIn, and "Get in touch". -->
+<footer class="contact" id="contact" aria-labelledby="contact-title" data-contact data-cursor-tone="orange">
+  <div class="contact__inner" data-contact-inner>
+    <div class="contact__row">
+      <p class="contact__intro">For enquiries, collaboration requests or job opportunities, don’t hesitate to reach&nbsp;out.</p>
+      <div class="contact__links">
+        <a class="contact__link contact__link--mail" href="mailto:shrutikale2996@gmail.com">shrutikale2996@gmail.com<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+        <a class="contact__link contact__link--in" href="https://www.linkedin.com/in/shruti48011/" target="_blank" rel="noopener"><svg class="contact__logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="contact__link contact__link--cv" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+      <p class="contact__legal">© 2026 Shruti Kale</p>
+    </div>
+    <h2 class="contact__title" id="contact-title"><a class="contact__cta" href="mailto:shrutikale2996@gmail.com" data-contact-cta><span class="contact__line">Get in</span> <span class="contact__line">touch</span></a></h2>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
+</body>
+</html>

@@ -1,0 +1,1187 @@
+/* Case study pages: the hero, the sheet that slides up over it, chapters,
+   the before/after slider, the numbers and the card to the next project.
+   Tokens, footer and cursor come from main.css.
+
+   One typeface (Mona Sans) for the whole case study, so it reads cleanly.
+   What to read first comes from size, weight and colour:
+     1. the project name and the headline, large, white;
+     2. chapter titles, then item titles, white, medium weight;
+     3. reading text, soft white, 18–22px at a comfortable line length;
+     4. labels and numbers, small capitals, grey (numbers in orange). */
+
+.case-page {
+  --c-head: var(--paper); /* 16:1 on the page */
+  --c-body: #CBC5BC; /* 11:1 */
+  --c-soft: #9A948C; /* 6.5:1 */
+  --t-micro: .75rem;
+  --t-small: .9375rem;
+  --t-body: clamp(1rem, .96rem + .2vw, 1.125rem);
+  --t-lead: clamp(1.1875rem, 1.02rem + .6vw, 1.5rem);
+  --t-h3: clamp(1.125rem, 1.02rem + .4vw, 1.375rem);
+  --t-h3-work: clamp(1.5rem, 1.2rem + 1vw, 2.125rem);
+  --t-sub: clamp(1.625rem, 1.15rem + 1.5vw, 2.75rem);
+  --t-h2: clamp(2rem, 1.35rem + 2vw, 3.375rem);
+}
+
+/* ---------- The nav: solid and out of the way while reading ---------- */
+
+/* Over the hero it floats; once the sheet reaches it, it gets a solid
+   backing so text never runs under it, and it slides away while you read
+   down and comes back as soon as you scroll up. */
+.case-page .nav {
+  mix-blend-mode: normal;
+  border-bottom: 1px solid transparent;
+  transition: translate .45s var(--ease-out), background-color .3s, border-color .3s;
+}
+.nav-solid .nav {
+  border-bottom-color: var(--rule);
+  background: rgba(12, 11, 10, .88);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.nav-hidden .nav:not(:focus-within) { translate: 0 -100%; }
+.case-page.nav-on-orange .nav { color: var(--paper); }
+
+/* ---------- Hero: the redesigned screen on a tablet ---------- */
+
+.case-hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--noir);
+}
+/* The plant floor behind it: dark, nearly monochrome and softly blurred, so
+   the vessels and pipework still read but never compete with the screen. */
+.case-hero__bg { position: absolute; inset: -4%; z-index: 0; }
+.case-hero__plant {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(7px) grayscale(.85) sepia(.3) brightness(.3) contrast(1.1);
+}
+/* Warm light behind the tablet; the edges fall away to the page. */
+.case-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(58% 62% at 50% 54%, rgba(245, 133, 63, .42), rgba(245, 133, 63, .12) 45%, transparent 72%),
+    radial-gradient(120% 90% at 50% 40%, transparent 50%, rgba(12, 11, 10, .85) 100%);
+  pointer-events: none;
+}
+.case-hero__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--nav-h) + 2vh) var(--gutter) 15svh;
+}
+/* The tablet: a dark glass bezel inside a thin aluminium edge, a camera on
+   top. Sized so all of it sits between the nav and the sheet's edge. */
+.case-device {
+  position: relative;
+  width: min(80vw, calc((85svh - var(--nav-h) - 40px) * 1.45), 1160px);
+  padding: 2.4%;
+  border-radius: clamp(18px, 2.4vw, 38px);
+  background: linear-gradient(160deg, #1A1A1C, #0B0B0C 60%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .08),
+    0 0 0 1.5px #48484C,
+    0 0 0 3px #19191B,
+    0 50px 90px -30px rgba(0, 0, 0, .75),
+    0 30px 140px -40px rgba(245, 133, 63, .35);
+  transition: opacity 1s var(--ease-out), translate 1.4s var(--ease-out), scale 1.6s var(--ease-out);
+}
+.case-device__screen { display: block; width: 100%; height: auto; border-radius: clamp(6px, .8vw, 12px); }
+.case-device__cam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: .55%;
+  margin-top: .925%; /* centred in the top bezel (margins are a share of the width) */
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #34404D, #0A0A0B 72%);
+}
+/* Deepens as the sheet slides over it. */
+.case-hero__shade { position: absolute; inset: 0; z-index: 3; background: var(--noir); opacity: 0; pointer-events: none; }
+.case-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 3;
+  height: 26%;
+  background: linear-gradient(to bottom, transparent, rgba(12, 11, 10, .85));
+  pointer-events: none;
+}
+
+/* ---------- The sheet ---------- */
+
+.case-sheet {
+  --g: calc(var(--col-gap) * 2);
+  position: relative;
+  z-index: 1;
+  margin-top: -14vh;
+  margin-top: -14svh;
+  padding: clamp(24px, 3.4vh, 40px) var(--gutter) clamp(80px, 12vh, 140px);
+  border-radius: clamp(22px, 3vw, 40px) clamp(22px, 3vw, 40px) 0 0;
+  background: var(--noir);
+  box-shadow: 0 -24px 64px rgba(0, 0, 0, .45);
+  transition: opacity 1s var(--ease-out), translate 1.3s var(--ease-out);
+}
+.case-sheet > * { max-width: 1240px; margin-inline: auto; }
+/* First paint: the sheet and the tablet wait just below, then settle (the class is lifted by case.js, or by a failsafe). */
+.case-enter .case-sheet { opacity: 0; translate: 0 10vh; }
+.case-enter .case-device { opacity: 0; translate: 0 6vh; scale: .96; }
+
+/* Small capitals, for labels, numbers and captions. */
+.case-top, .case-facts dt, .case-caption, .case-num, .case-next__label {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.case-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; color: var(--c-soft); white-space: nowrap; }
+.case-back { display: inline-flex; align-items: center; gap: 10px; min-height: 24px; padding-block: 4px; color: var(--c-head); text-decoration: none; }
+.case-back svg, .case-up svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.4; transition: translate .35s var(--ease-out); }
+.case-back:hover svg { translate: -3px 0; }
+.case-time { margin: 0; }
+.case-num { display: block; margin: 0 0 14px; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+/* ---------- The head: name, headline, facts ---------- */
+
+/* The project name, as wide as the column (fitted by case.js). */
+.case-name {
+  margin: clamp(48px, 9vh, 96px) 0 0;
+  color: var(--c-head);
+  font-size: 17vw;
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: .8;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+}
+.case-name__fit { display: inline-block; white-space: nowrap; }
+.case-sub {
+  max-width: 21em;
+  margin: clamp(28px, 4.5vh, 48px) 0 0;
+  color: var(--c-head);
+  font-size: var(--t-sub);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -.025em;
+}
+.case-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 2fr);
+  gap: 24px var(--col-gap);
+  margin: clamp(48px, 8vh, 88px) 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+.case-facts dt { color: var(--c-soft); }
+.case-facts dd { margin: 8px 0 0; color: var(--c-head); font-size: var(--t-small); line-height: 1.55; }
+
+/* ---------- Chapters ---------- */
+
+.case-ch { padding-top: clamp(104px, 16vh, 176px); }
+.case-ch__head { margin-bottom: clamp(36px, 6vh, 64px); }
+.case-h2 {
+  max-width: 18em;
+  margin: 0;
+  color: var(--c-head);
+  font-size: var(--t-h2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+}
+.case-h3 {
+  margin: 0;
+  color: var(--c-head);
+  font-size: var(--t-h3);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+}
+.case-h3 .case-num { margin-bottom: 12px; }
+.case-h3--work { font-size: var(--t-h3-work); line-height: 1.15; letter-spacing: -.02em; }
+.case-lead { max-width: 38em; margin: 0; color: var(--c-body); font-size: var(--t-lead); line-height: 1.6; }
+.case-body { max-width: 36em; margin: 0; color: var(--c-body); font-size: var(--t-body); line-height: 1.7; }
+.case-small { margin: 10px 0 0; color: var(--c-body); font-size: var(--t-small); line-height: 1.6; }
+
+/* Headings rise line by line; the masks leave room for descenders. */
+.split-line-mask { padding-bottom: .16em; margin-bottom: -.16em; }
+
+/* Items side by side, split by hairlines (chapters 02 and 03). */
+.case-cols { display: grid; margin: 0; padding: 0; border-top: 1px solid var(--rule); list-style: none; }
+.case-cols--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.case-cols--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.case-cols > li { padding: 28px clamp(16px, 2vw, 28px) 4px; border-left: 1px solid var(--rule); }
+.case-cols > li:first-child { padding-left: 0; border-left: 0; }
+.case-cols .case-num { margin-bottom: clamp(28px, 5vh, 48px); }
+.case-finding { max-width: 16em; margin: 0; color: var(--c-head); font-size: var(--t-h3); font-weight: 500; line-height: 1.35; letter-spacing: -.01em; }
+
+/* A heading on the left, the words on the right, a hairline above. */
+.case-row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: var(--g);
+  row-gap: 14px;
+  padding: clamp(28px, 4.5vh, 44px) 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* Chapter 03: the line that sums it up, in two tones, then the plant. */
+.case-quote {
+  max-width: 21em;
+  margin: 0 0 clamp(40px, 7vh, 72px);
+  color: var(--c-head);
+  font-size: var(--t-sub);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -.025em;
+}
+.case-quote__soft { color: var(--c-soft); }
+.case-quote__keep { white-space: nowrap; }
+/* Two photos side by side at the same height: columns in the ratio of
+   their widths to heights. */
+.case-photos { display: grid; grid-template-columns: .874fr 1.556fr; gap: var(--col-gap); margin: 0 0 clamp(48px, 8vh, 88px); }
+.case-media { overflow: hidden; border-radius: 16px; background: #131110; }
+.case-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.case-caption { grid-column: 1 / -1; margin-top: 14px; color: var(--c-soft); }
+
+/* Chapter 05: each piece of work, then its images. */
+.case-work + .case-work { margin-top: clamp(64px, 10vh, 120px); }
+.case-panel {
+  margin: 8px 0 0;
+  padding: clamp(16px, 4vw, 64px);
+  overflow: hidden;
+  border-radius: 20px;
+  background: radial-gradient(70% 90% at 50% 105%, rgba(245, 133, 63, .2), transparent 70%), #131110;
+}
+.case-panel img { display: block; width: 100%; height: auto; }
+
+/* Before and after. --pos is how much of "before" shows, from the left. */
+.compare { margin: 8px 0 0; }
+.compare .case-caption { display: block; text-align: center; }
+.compare__frame {
+  --pos: 50%;
+  position: relative;
+  width: min(100%, calc((100svh - 150px) * 1.5)); /* the whole frame fits on screen while you drag */
+  margin-inline: auto;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #131110;
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+/* The images are inert: no native image drag, no selection, no long-press
+   menu, and every pointer event goes to the frame, so dragging only ever
+   moves the handle. */
+.compare__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+.compare__img--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  translate: -1px 0;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(12, 11, 10, .2);
+  pointer-events: none;
+}
+.compare__knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--noir);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+  transition: scale .35s var(--ease-out);
+}
+.compare__knob svg { width: 22px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.compare__frame:hover .compare__knob, .compare.is-dragging .compare__knob { scale: 1.1; }
+/* Which side is which, above the frame so they never cover the screens. */
+.compare__labels {
+  display: flex;
+  justify-content: space-between;
+  width: min(100%, calc((100svh - 150px) * 1.5));
+  margin: 0 auto 12px;
+  color: var(--c-soft);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+/* The range is for keyboards and screen readers; the frame shows its focus. */
+.compare__range {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  opacity: 0;
+}
+.compare__frame:has(.compare__range:focus-visible) { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Chapter 06: the impact, in a block of the accent with near-black type
+   (7:1 or better). */
+.case-impact {
+  padding: clamp(32px, 5vw, 72px);
+  border-radius: clamp(20px, 2.4vw, 32px);
+  background: linear-gradient(180deg, #F5853F 0%, #F47638 60%, #F2672D 100%);
+  color: var(--noir);
+}
+.case-impact .case-num, .case-impact .case-h2, .case-impact .case-h3 { color: var(--noir); }
+.case-impact .case-body { color: #2A1A10; }
+.case-impact .case-row { border-top-color: rgba(12, 11, 10, .22); }
+.case-impact .case-row:last-child { padding-bottom: 0; }
+/* Three results side by side, split by hairlines. */
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 0 clamp(32px, 6vh, 64px);
+  padding: 0;
+  border-top: 1px solid rgba(12, 11, 10, .22);
+  list-style: none;
+}
+.case-metric { padding: clamp(24px, 4vh, 36px) clamp(16px, 2vw, 32px) 0 0; }
+.case-metric + .case-metric { padding-left: clamp(16px, 2vw, 32px); border-left: 1px solid rgba(12, 11, 10, .22); }
+.case-metric__figure {
+  margin: 0;
+  font-size: clamp(3.25rem, 2rem + 4.4vw, 6.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.045em;
+  font-variant-numeric: tabular-nums;
+}
+.case-metric__arrow { display: block; width: .6em; height: .84em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.case-metric__text { max-width: 19em; margin: clamp(16px, 2.6vh, 28px) 0 0; color: #2A1A10; font-size: var(--t-body); line-height: 1.5; }
+
+.case-up { margin: clamp(96px, 14vh, 160px) auto 0; text-align: center; }
+.case-up a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 4px;
+  color: var(--c-soft);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.case-up a:hover { color: var(--c-head); }
+.case-up a:hover svg { translate: 0 -3px; }
+
+/* ---------- The next project ---------- */
+
+.case-next {
+  position: relative;
+  z-index: 1;
+  padding: clamp(24px, 4vh, 56px) var(--gutter) clamp(96px, 14vh, 160px);
+  background: var(--noir);
+}
+.case-next__card {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--col-gap);
+  min-height: clamp(380px, 60vh, 600px);
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 44px);
+  overflow: hidden;
+  border: 1px solid rgba(237, 232, 224, .08);
+  border-radius: clamp(20px, 2.4vw, 32px);
+  background: #131110;
+  color: inherit;
+  text-decoration: none;
+}
+.case-next__text { display: flex; flex-direction: column; gap: 16px; }
+.case-next__label { color: var(--c-soft); }
+.case-next__name { margin-top: auto; color: var(--c-head); font-size: clamp(3rem, 2rem + 4vw, 6rem); font-weight: 500; line-height: 1; letter-spacing: -.045em; }
+.case-next__line { max-width: 22em; color: var(--c-body); font-size: var(--t-body); line-height: 1.5; }
+.case-next__go {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-top: 8px;
+  border: 1px solid rgba(237, 232, 224, .2);
+  border-radius: 50%;
+  transition: background-color .4s, border-color .4s, color .4s, translate .5s var(--ease-out);
+}
+.case-next__go svg { width: 22px; height: 11px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+.case-next__card:hover .case-next__go { border-color: transparent; background: var(--accent); color: var(--noir); translate: 6px 0; }
+.case-next__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: radial-gradient(90% 80% at 80% 15%, rgba(245, 133, 63, .38), transparent 70%), #1B1512;
+}
+.case-next__media img {
+  position: absolute;
+  left: 12%;
+  top: 14%;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, .4);
+  transform-origin: 0 0;
+  transition: scale 1s var(--ease-out);
+}
+.case-next__card:hover .case-next__media img { scale: 1.04; }
+.case-next__card:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+
+/* ---------- The chapter index, and the progress bar on smaller screens ---------- */
+
+.case-index {
+  position: fixed;
+  top: 50%;
+  left: clamp(14px, 1.6vw, 28px);
+  z-index: 40;
+  translate: 0 -50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s, visibility .4s;
+}
+.case-index.is-on { opacity: 1; visibility: visible; }
+.case-index ol { margin: 0; padding: 0; list-style: none; }
+/* Each link is at least 24px tall, a comfortable target. */
+.case-index a { display: flex; align-items: center; gap: 12px; min-height: 24px; padding: 2px 0; color: var(--c-soft); text-decoration: none; }
+.case-index__line { flex: none; width: 14px; height: 1px; background: currentColor; transition: width .4s var(--ease-out), background-color .3s; }
+.case-index a:hover .case-index__line, .case-index a.is-active .case-index__line { width: 30px; }
+.case-index a.is-active { color: var(--c-head); }
+.case-index a.is-active .case-index__line { background: var(--accent); }
+.case-index__name {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(12, 11, 10, .9);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  translate: -6px 0;
+  transition: opacity .3s, translate .35s var(--ease-out);
+}
+.case-index:hover .case-index__name, .case-index:focus-within .case-index__name { opacity: 1; translate: 0 0; }
+/* At rest only the short lines take the pointer, never the hidden names
+   (which would otherwise sit invisibly over the page and catch clicks and
+   drags meant for it). Hover a line and the names open and become links. */
+.case-index { pointer-events: none; }
+.case-index__line { position: relative; pointer-events: auto; }
+.case-index__line::before { content: ""; position: absolute; inset: -11px -8px; }
+.case-index:hover a, .case-index:focus-within a { pointer-events: auto; }
+.case-progress { position: fixed; inset: 0 0 auto; z-index: 41; height: 2px; pointer-events: none; }
+.case-progress span { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+
+@media (max-width: 1099px) {
+  .case-index { display: none; }
+  .case-cols--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-cols--4 > li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .case-cols--4 > li:nth-child(n + 3) { margin-top: 20px; border-top: 1px solid var(--rule); }
+}
+@media (min-width: 1100px) {
+  .case-progress { display: none; }
+}
+
+@media (max-width: 900px) {
+  .case-row { grid-template-columns: minmax(0, 1fr); }
+  .case-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .case-facts > div:last-child { grid-column: 1 / -1; }
+  .case-metrics { grid-template-columns: minmax(0, 1fr); }
+  .case-metric { padding-right: 0; }
+  .case-metric + .case-metric { margin-top: 28px; padding-left: 0; border-top: 1px solid rgba(12, 11, 10, .22); border-left: 0; }
+  .case-next__card { grid-template-columns: minmax(0, 1fr); }
+  .case-next__media { min-height: 260px; }
+}
+
+@media (max-width: 767px) {
+  /* Phones: the tablet full width, under the nav, with room around it. */
+  .case-hero { height: auto; min-height: 0; }
+  .case-hero__stage { position: relative; inset: auto; padding: calc(var(--nav-h) + 28px) 16px 72px; }
+  .case-tilt, .case-device { width: 100%; }
+  .case-device { border-radius: 16px; }
+  .case-sheet { margin-top: -28px; }
+  .case-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-cols--4, .case-cols--3 { grid-template-columns: minmax(0, 1fr); }
+  .case-cols > li { padding-left: 0; border-left: 0; }
+  .case-cols > li + li { margin-top: 0; border-top: 1px solid var(--rule); }
+  .case-cols .case-num { margin-bottom: 16px; }
+  .case-photos { grid-template-columns: minmax(0, 1fr); }
+  .compare__knob { width: 40px; height: 40px; }
+}
+
+/* ---------- Bridge: a laptop on a road at night ---------- */
+
+/* The road is drawn on a canvas by road.js; the light comes from here: warm
+   where the road meets the sky, a haze along the horizon, and the edges
+   falling away to the page. */
+.case-hero__road {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  /* The road fades out before the laptop's base, so no line meets it from
+     below (that reads as a stand). */
+  -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 80%);
+  mask-image: linear-gradient(180deg, #000 58%, transparent 80%);
+  transition: opacity 1.2s var(--ease-out) .6s;
+}
+/* On arrival the road comes up just after the laptop, never through it. */
+.case-enter .case-hero__road { opacity: 0; }
+.case-hero--road::before {
+  background:
+    radial-gradient(46% 30% at 50% 16%, rgba(245, 133, 63, .55), rgba(245, 133, 63, .14) 55%, transparent 80%),
+    linear-gradient(180deg, transparent 4%, rgba(245, 133, 63, .1) 16%, transparent 34%),
+    radial-gradient(120% 90% at 50% 40%, transparent 50%, rgba(12, 11, 10, .85) 100%);
+}
+
+/* The laptop: a black glass bezel in a thin rim, on a dark base a little
+   wider than the lid, with the notch you open it by. Every proportion is a
+   share of its width, so it scales as one piece; sized so all of it sits
+   between the nav and the sheet's edge. */
+.laptop {
+  position: relative;
+  width: min(72vw, calc((82svh - var(--nav-h) - 40px) * 1.68), 1080px);
+  transition: opacity 1s var(--ease-out), translate 1.4s var(--ease-out), scale 1.6s var(--ease-out);
+}
+.case-enter .laptop { opacity: 0; translate: 0 6vh; scale: .96; }
+.laptop__lid {
+  position: relative;
+  width: 87%;
+  margin-inline: auto;
+  padding: 2.1% 1.9% 2.4%;
+  border-radius: clamp(10px, 1.5vw, 20px) clamp(10px, 1.5vw, 20px) clamp(3px, .4vw, 6px) clamp(3px, .4vw, 6px);
+  background: linear-gradient(180deg, #18181B, #0B0B0C 65%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .07),
+    0 0 0 1px #37363B,
+    0 -2px 22px -8px rgba(245, 133, 63, .6),
+    0 50px 90px -30px rgba(0, 0, 0, .75),
+    0 30px 140px -40px rgba(245, 133, 63, .3);
+}
+.laptop__cam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: .6%;
+  aspect-ratio: 1;
+  margin-top: .9%; /* centred in the top bezel (margins are a share of the lid's width) */
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #34404D, #0A0A0B 72%);
+}
+.laptop__screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #F6F6F6;
+}
+/* The dashboard from the top; the rest of it runs on below the fold. */
+.laptop__shot { width: 100%; height: auto; }
+/* A faint reflection across the glass. */
+.laptop__screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+}
+.laptop__base {
+  position: relative;
+  height: 0;
+  padding-top: 2%;
+  border-radius: 0 0 clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px) / 0 0 100% 100%;
+  background: linear-gradient(180deg, #77767C 0%, #4B4A50 16%, #2B2A2F 52%, #141416 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 214, 180, .45);
+}
+.laptop__base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 15%;
+  height: 40%;
+  translate: -50% 0;
+  border-radius: 0 0 clamp(4px, .6vw, 8px) clamp(4px, .6vw, 8px) / 0 0 100% 100%;
+  background: linear-gradient(180deg, #1C1B1F, #38373C);
+}
+/* Its shadow on the road, and the screen's light spilling in front of it. */
+.laptop__base::after {
+  content: "";
+  position: absolute;
+  inset: 100% 3% auto;
+  height: clamp(10px, 1.6vw, 22px);
+  background: radial-gradient(50% 100% at 50% 0, rgba(0, 0, 0, .7), transparent 75%);
+}
+.laptop::after {
+  content: "";
+  position: absolute;
+  inset: 94% 4% auto;
+  height: 46%;
+  background: radial-gradient(50% 55% at 50% 0, rgba(255, 238, 220, .1), transparent 75%);
+  pointer-events: none;
+}
+
+/* ---------- Bridge: the reading ---------- */
+
+/* No word left alone on a last line; hyphenated words kept whole. */
+.case-sub, .case-lead, .case-body, .case-small, .case-quote, .case-finding, .case-facts dd { text-wrap: pretty; }
+.case-keep { white-space: nowrap; }
+/* The line that sums it up, its last sentence on a line of its own. */
+.case-quote--stack { max-width: 27em; text-wrap: balance; }
+.case-quote--stack .case-quote__keep { display: block; white-space: normal; }
+
+/* Paragraphs, the line that sums them up, and lists, kept apart. */
+.case-lead + .case-quote, .case-body + .case-quote, .case-lead + .case-cols { margin-top: clamp(40px, 7vh, 72px); }
+.case-lead + .case-body, .case-quote + .case-body { margin-top: 24px; }
+.case-quote:last-child { margin-bottom: 0; }
+
+/* Findings told as sentences (chapter 03): the words that carry each in white. */
+.case-finding--line { max-width: 22em; color: var(--c-body); font-size: var(--t-body); font-weight: 400; line-height: 1.6; letter-spacing: 0; }
+.case-finding--line strong { color: var(--c-head); font-weight: 500; }
+
+/* A decision with the piece of the product that shows it (chapter 04): the
+   real screen, cut to that piece and lifted onto a warm panel. --x, --y, --w
+   and --h are the piece, --iw the whole screen's width, in its pixels. */
+.case-row__main { display: grid; gap: clamp(20px, 3vh, 28px); align-content: start; }
+.case-detail {
+  margin: 0;
+  padding: clamp(16px, 3vw, 36px);
+  border-radius: 16px;
+  background: radial-gradient(80% 110% at 50% 115%, var(--detail-glow, rgba(245, 133, 63, .26)), transparent 70%), #131110;
+}
+.case-crop {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(8px, 1vw, 12px);
+  background: #FFF;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 24px 48px -24px rgba(0, 0, 0, .7);
+}
+.case-crop img {
+  position: absolute;
+  left: calc(var(--x) / var(--w) * -100%);
+  top: calc(var(--y) / var(--h) * -100%);
+  width: calc(var(--iw) / var(--w) * 100%);
+  max-width: none;
+  height: auto;
+}
+
+/* The impact without numbers: the line that frames it, then four changes. */
+.case-impact__intro {
+  max-width: 30em;
+  margin: 0 0 clamp(28px, 5vh, 48px);
+  color: var(--noir);
+  font-size: var(--t-lead);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -.01em;
+}
+.case-outcomes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(12, 11, 10, .22);
+  list-style: none;
+}
+.case-outcomes li { padding: clamp(24px, 4vh, 36px) clamp(16px, 2.4vw, 40px) clamp(24px, 4vh, 36px) 0; }
+.case-outcomes li:nth-child(even) { padding-right: 0; padding-left: clamp(16px, 2.4vw, 40px); border-left: 1px solid rgba(12, 11, 10, .22); }
+.case-outcomes li:nth-child(n + 3) { border-top: 1px solid rgba(12, 11, 10, .22); }
+.case-outcomes li:nth-last-child(-n + 2) { padding-bottom: 0; }
+.case-outcomes p {
+  max-width: 19em;
+  color: var(--noir);
+  font-size: clamp(1.375rem, 1.1rem + .9vw, 1.875rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+
+/* The next project is a phone app: its screen centred, cropped by the edge. */
+.case-next__media--phone img { left: 32%; top: 12%; width: 36%; border-radius: 22px 22px 0 0; transform-origin: 50% 0; }
+
+/* ---------- Bridge: the screens (chapter 05) ---------- */
+
+/* Each piece of work on a warm dark panel, like Leucine's tablet. */
+.case-stage {
+  position: relative;
+  margin: 8px 0 0;
+  padding: clamp(28px, 5vw, 72px) clamp(16px, 4vw, 64px);
+  overflow: hidden;
+  border-radius: 20px;
+  background: radial-gradient(70% 90% at 50% 105%, var(--stage-glow, rgba(245, 133, 63, .2)), transparent 70%), #131110;
+}
+.case-stage .case-caption { display: block; margin-top: clamp(28px, 4.5vh, 44px); text-align: center; text-wrap: balance; }
+
+/* A browser window, drawn in CSS, for the screens you read whole. Sized so
+   all of it fits on screen. */
+.browser {
+  width: min(100%, calc((100svh - 240px) * 1.1));
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: clamp(8px, 1vw, 14px);
+  background: #F6F6F6;
+  box-shadow:
+    0 0 0 1px rgba(237, 232, 224, .1),
+    0 50px 90px -40px rgba(0, 0, 0, .8),
+    0 30px 120px -50px rgba(245, 133, 63, .35);
+}
+.browser__bar {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 1.4fr) 1fr;
+  align-items: center;
+  height: clamp(24px, 2.6vw, 36px);
+  padding-inline: clamp(10px, 1.2vw, 16px);
+  background: #1D1B19;
+}
+.browser__dots { display: flex; gap: clamp(5px, .5vw, 7px); }
+.browser__dots i { width: clamp(7px, .7vw, 10px); aspect-ratio: 1; border-radius: 50%; background: #3B3733; }
+.browser__url { height: clamp(12px, 1.4vw, 20px); border-radius: 6px; background: #2B2825; }
+.browser img { width: 100%; height: auto; }
+
+/* A screen on its own, floating: its own rounded corners (--r, a share of
+   its width) and a soft shadow. */
+.screen { container-type: inline-size; transition: translate .6s var(--ease-out); }
+.screen img {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--r, 3.2) * 1cqi);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 40px 70px -30px rgba(0, 0, 0, .85);
+}
+
+/* The admission form's four steps, overlapping down a tilted table, each one
+   a step on. Hover one to bring it to the front. */
+.flow {
+  position: relative;
+  aspect-ratio: 100 / 63;
+  transform: perspective(2600px) rotateX(14deg) rotateY(-10deg) rotateZ(2deg);
+}
+.flow__step {
+  position: absolute;
+  left: calc(var(--i) * 16%);
+  top: calc(var(--i) * 12.7%); /* 8% of the width, as a share of the height */
+  width: 52%;
+}
+.flow__step:hover { z-index: 5; }
+.flow__step:hover .screen { translate: 0 -10px; }
+
+/* Clients, payments and vehicles: the middle one facing you, the other two
+   turned in on either side of it. */
+.trio { position: relative; aspect-ratio: 100 / 40; }
+.trio__item { position: absolute; top: 50%; }
+.trio__item--l { left: 0; width: 42%; z-index: 1; }
+.trio__item--c { left: 25%; width: 50%; z-index: 2; }
+.trio__item--r { right: 0; width: 42%; z-index: 1; }
+.trio__tilt { transform: perspective(1800px) translateY(-50%) rotateY(var(--ry, 0deg)); }
+.trio__item--l .trio__tilt { --ry: 28deg; transform-origin: 100% 50%; }
+.trio__item--r .trio__tilt { --ry: -28deg; transform-origin: 0 50%; }
+
+@media (max-width: 767px) {
+  .laptop { width: 100%; }
+  .case-detail { padding: 14px; border-radius: 14px; }
+  .case-outcomes { grid-template-columns: minmax(0, 1fr); }
+  .case-outcomes li, .case-outcomes li:nth-child(even) { padding: 24px 0; border-left: 0; }
+  .case-outcomes li + li { border-top: 1px solid rgba(12, 11, 10, .22); }
+  .case-outcomes li:last-child { padding-bottom: 0; }
+  .case-stage { padding: 24px 14px; border-radius: 16px; }
+  .flow { aspect-ratio: 100 / 84; transform: perspective(1600px) rotateX(10deg) rotateY(-6deg); }
+  .flow__step { left: calc(var(--i) * 8%); top: calc(var(--i) * 10.7%); width: 76%; }
+  .trio { aspect-ratio: 100 / 52; }
+  .trio__item--l { left: -4%; width: 48%; }
+  .trio__item--c { left: 18%; width: 64%; }
+  .trio__item--r { right: -4%; width: 48%; }
+}
+
+/* ---------- Bridge: chapters 01–04, a screen each ---------- */
+
+/* A sharper hierarchy on this page: bigger chapter titles, reading text a
+   step quieter than the headings (7.7:1), and the grey half of each two-tone
+   line further back (4:1, large text). */
+.case-page--bold {
+  --c-body: #ABA59D;
+  --t-h2: clamp(2.5rem, 1.45rem + 3.3vw, 4.75rem);
+  --t-lead: clamp(1.25rem, 1.08rem + .55vw, 1.5625rem);
+}
+.case-page--bold .case-quote { font-size: clamp(1.875rem, 1.25rem + 2vw, 3.25rem); line-height: 1.12; }
+.case-page--bold .case-quote__soft { color: #77716A; }
+.case-page--bold .case-finding--line { font-size: clamp(1.0625rem, .95rem + .45vw, 1.3125rem); }
+
+/* A chapter that fills the screen, content centred in it, so each scroll
+   brings one idea. */
+.case-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: clamp(72px, 10vh, 120px);
+}
+.case-quote--close { margin: clamp(56px, 9vh, 96px) 0 0; }
+
+/* A chapter in its own container (02): deep navy into plum, lit from inside
+   by soft blue and violet light (the blue of Bridge's own buttons), with
+   light neutral text on top. */
+.case-night {
+  --night-glows:
+    radial-gradient(48% 62% at 6% 0%, rgba(66, 102, 240, .34), transparent 72%),
+    radial-gradient(44% 58% at 100% 100%, rgba(132, 68, 196, .32), transparent 72%),
+    radial-gradient(34% 44% at 72% 18%, rgba(84, 72, 200, .16), transparent 70%);
+  --night-base: linear-gradient(140deg, #0B0F24, #120E28 58%, #170D25);
+  --night-label: #9A97AE; /* 4.6:1 even where the glow is brightest */
+  --night-soft: #7D7A93; /* 3:1 or better, large text */
+  --night-body: #B4B1C2;
+  --night-rule: rgba(205, 210, 255, .12);
+  padding: clamp(32px, 6vw, 96px) clamp(22px, 5vw, 88px);
+  border-radius: clamp(20px, 2.4vw, 32px);
+  background: var(--night-glows), var(--night-base);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+}
+/* Nestwise's: deep teal into forest, lit by teal and green, after the app's
+   own teal buttons and muted greens. */
+.case-night--teal {
+  --night-glows:
+    radial-gradient(48% 62% at 6% 0%, rgba(30, 150, 160, .32), transparent 72%),
+    radial-gradient(44% 58% at 100% 100%, rgba(70, 150, 96, .3), transparent 72%),
+    radial-gradient(34% 44% at 72% 18%, rgba(40, 120, 130, .16), transparent 70%);
+  --night-base: linear-gradient(140deg, #061C21, #0A2422 58%, #0C2219);
+  --night-label: #9AB0AA; /* 4.7:1 on the brightest glow */
+  --night-soft: #76928B; /* 3.2:1, large text */
+  --night-body: #B3C3BE;
+  --night-rule: rgba(190, 240, 225, .12);
+}
+.case-night__head { display: flex; align-items: baseline; gap: 14px; }
+.case-night .case-num { margin: 0; }
+.case-kicker {
+  margin: 0;
+  color: var(--night-label, var(--c-soft));
+  font-size: var(--t-micro);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+/* The filter every decision went through, as the chapter's headline. */
+.case-statement {
+  max-width: 23em;
+  margin: clamp(20px, 3.5vh, 36px) 0 0;
+  color: var(--c-head);
+  font-size: clamp(1.75rem, 1.15rem + 1.9vw, 3rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+.case-statement__soft { color: var(--night-soft, var(--c-soft)); }
+.case-statement__keep { display: block; }
+.case-night .case-cols { margin-top: clamp(40px, 7vh, 80px); }
+.case-night .case-cols, .case-night .case-cols > li { border-color: var(--night-rule); }
+.case-night .case-small, .case-night .case-body { color: var(--night-body); }
+/* What the chapter says, under its headline. */
+.case-night__lede { max-width: 38em; margin-top: clamp(24px, 4vh, 40px); }
+
+/* Each item's line icon and number. The icons are drawn in their lines as
+   they arrive (case.js). */
+.case-mark { display: flex; align-items: center; gap: 16px; margin-bottom: clamp(20px, 3.5vh, 32px); }
+.case-mark .case-num { margin: 0; }
+.case-cols--icons .case-mark { justify-content: space-between; }
+.case-icon {
+  display: block;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  color: var(--c-head);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.case-icon .acc { fill: var(--accent); stroke: none; }
+.case-icon .dot { stroke-dasharray: .1 3.4; }
+.case-icon .faint { opacity: .4; }
+
+/* The decisions: their titles larger, so the four read at a glance. */
+.case-h3--lg { font-size: clamp(1.375rem, 1.15rem + .8vw, 1.875rem); line-height: 1.2; letter-spacing: -.015em; }
+.case-row--decision { padding-block: clamp(36px, 6vh, 56px); }
+
+@media (max-width: 767px) {
+  /* Phones: chapters run on, with room between them. */
+  .case-screen { min-height: 0; padding-block: 88px 0; }
+  .case-night { padding: 32px 20px; }
+  .case-night .case-cols > li { padding-left: 0; }
+}
+
+/* ---------- Phones, drawn in CSS ---------- */
+
+/* A phone: a black frame with an island, the screen inside it. Every
+   measure is a share of the phone's own width (cqi), so it scales whole. */
+.phone { container-type: inline-size; width: 100%; }
+.phone__frame {
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  padding: 3.4cqi;
+  border-radius: 15cqi;
+  background: linear-gradient(160deg, #1C1C1F, #0B0B0C 60%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .08),
+    0 0 0 1.5px #38383D,
+    0 40px 80px -30px rgba(0, 0, 0, .8);
+}
+.phone__frame::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 6.4cqi;
+  left: 50%;
+  width: 29cqi;
+  height: 8.4cqi;
+  translate: -50% 0;
+  border-radius: 99px;
+  background: #050506;
+}
+.phone__screen { position: relative; height: 100%; overflow: hidden; border-radius: 11.6cqi; background: var(--screen, #FFF); }
+.phone__screen img { width: 100%; height: auto; }
+
+/* ---------- Nestwise: three phones on a commute map ---------- */
+
+.case-page--nestwise {
+  --stage-glow: rgba(38, 130, 140, .26);
+  --detail-glow: rgba(38, 130, 140, .3);
+}
+.case-hero__map {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 1.2s var(--ease-out) .6s;
+}
+.case-enter .case-hero__map { opacity: 0; }
+/* Teal light behind the phones; the edges fall away to the page. */
+.case-hero--map::before {
+  background:
+    radial-gradient(34% 44% at 50% 47%, rgba(30, 120, 128, .34), rgba(30, 120, 128, .08) 55%, transparent 76%),
+    radial-gradient(120% 90% at 50% 40%, transparent 50%, rgba(12, 11, 10, .85) 100%);
+}
+/* The listing in front; the welcome and the lifestyle picks behind it,
+   turned out a little to either side. */
+.phones {
+  position: relative;
+  width: min(24vw, calc((80svh - var(--nav-h) - 40px) * .4615), 300px);
+  transition: opacity 1s var(--ease-out), translate 1.4s var(--ease-out), scale 1.6s var(--ease-out);
+}
+.case-enter .phones { opacity: 0; translate: 0 6vh; scale: .96; }
+.phones .phone--main { position: relative; z-index: 2; }
+.phones .phone--side { position: absolute; z-index: 1; top: 9%; width: 82%; }
+.phones .phone--left { right: 68%; rotate: -7deg; }
+.phones .phone--right { left: 68%; rotate: 7deg; }
+
+/* ---------- Nestwise: the reading ---------- */
+
+/* A line that introduces what follows it (a list, a set of columns). */
+.case-intro {
+  max-width: 34em;
+  margin: clamp(40px, 7vh, 64px) 0 clamp(24px, 4vh, 36px);
+  color: var(--c-head);
+  font-size: var(--t-h3);
+  font-weight: 500;
+  line-height: 1.4;
+}
+/* A heading for a group of items within a chapter, with its line. */
+.case-group { margin-bottom: clamp(28px, 5vh, 48px); }
+.case-group__title { margin: 0; color: var(--c-head); font-size: var(--t-h3-work); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
+.case-group .case-body { margin-top: 10px; }
+/* A close-up kept small (its screen is small), or two side by side. */
+.case-detail--narrow { max-width: 460px; }
+.case-detail--pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+
+/* The palette, taken from the screens. */
+.case-palette {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: calc(var(--col-gap) * 2);
+  align-items: center;
+  margin-top: clamp(80px, 13vh, 140px);
+  padding-top: clamp(40px, 6vh, 64px);
+  border-top: 1px solid var(--rule);
+}
+.case-palette .case-small { max-width: 30em; }
+/* Room to breathe between the rules, the palette and each piece of work. */
+.case-palette + .case-work { margin-top: clamp(104px, 17vh, 184px); }
+.case-page--nestwise .case-work + .case-work { margin-top: clamp(104px, 16vh, 176px); }
+.case-swatches {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  color: var(--c-head);
+  font-size: var(--t-small);
+  font-weight: 500;
+  list-style: none;
+}
+.case-swatch { display: block; aspect-ratio: 1; margin-bottom: 12px; border-radius: 14px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.case-swatch__hex { display: block; margin-top: 2px; color: var(--c-soft); font-size: var(--t-micro); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+
+/* The onboarding questions, one phone each, staggered. */
+.phone-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 28px);
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.phone-strip > li:nth-child(even) { margin-top: clamp(24px, 4vw, 56px); }
+.phone-strip__label {
+  margin: 16px 0 0;
+  color: var(--c-soft);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.phone-strip__label span { margin-right: 6px; color: var(--accent); }
+
+/* The listing card, and its four questions pointing at the part of it that
+   answers each: a line from the note to a dot on the card. --x and --y are
+   that point, in percent of the card. */
+.anno { display: grid; justify-items: center; }
+.anno__card { position: relative; width: min(100%, 360px); container-type: inline-size; }
+.anno__card > img { width: 100%; height: auto; border-radius: 3cqi; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .08); }
+.anno__notes { margin: 0; padding: 0; list-style: none; }
+.anno__note {
+  position: absolute;
+  top: calc(var(--y) * 1%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  translate: 0 -50%;
+  color: var(--c-head);
+  font-size: var(--t-body);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.anno__note--left { right: calc(100% + 56px); flex-direction: row-reverse; }
+.anno__note--right { left: calc(100% + 56px); }
+.anno__note::before, .anno__note::after { content: ""; position: absolute; top: 50%; pointer-events: none; }
+.anno__note::before { height: 1px; background: rgba(237, 232, 224, .45); }
+.anno__note::after { width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(245, 133, 63, .25); }
+.anno__note--left::before { left: 100%; width: calc(56px + var(--x) * 1cqi); }
+.anno__note--left::after { left: calc(100% + 56px + var(--x) * 1cqi - 4.5px); }
+.anno__note--right::before { right: 100%; width: calc(56px + (100 - var(--x)) * 1cqi); }
+.anno__note--right::after { right: calc(100% + 56px + (100 - var(--x)) * 1cqi - 4.5px); }
+.anno__num {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(245, 133, 63, .6);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: var(--t-micro);
+  font-variant-numeric: tabular-nums;
+}
+.anno__legend { display: none; }
+
+/* Two phones side by side; long screens scroll inside them as you go. */
+.phone-pair { display: flex; justify-content: center; gap: clamp(24px, 6vw, 96px); }
+.phone-pair__item { width: min(42%, 300px); }
+.phone-pair .case-caption { display: block; margin-top: 18px; text-align: center; }
+
+/* How she'd know it works: three measures on the orange. */
+.case-measures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(12, 11, 10, .22);
+  list-style: none;
+}
+.case-measures li { padding: clamp(24px, 4vh, 36px) clamp(16px, 2vw, 32px) 0; }
+.case-measures li:first-child { padding-left: 0; }
+.case-measures li + li { border-left: 1px solid rgba(12, 11, 10, .22); }
+.case-measure__title { margin: 0; color: var(--noir); font-size: clamp(1.375rem, 1.1rem + .9vw, 1.875rem); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
+.case-measures p { max-width: 22em; margin: 12px 0 0; color: #2A1A10; font-size: var(--t-body); line-height: 1.55; }
+.case-impact .case-icon { color: var(--noir); }
+.case-impact .case-icon .acc { fill: var(--noir); }
+
+@media (max-width: 1099px) {
+  /* The notes come in closer to the card. */
+  .anno__note { font-size: var(--t-small); }
+  .anno__note--left { right: calc(100% + 28px); }
+  .anno__note--right { left: calc(100% + 28px); }
+  .anno__note--left::before { width: calc(28px + var(--x) * 1cqi); }
+  .anno__note--left::after { left: calc(100% + 28px + var(--x) * 1cqi - 4.5px); }
+  .anno__note--right::before { width: calc(28px + (100 - var(--x)) * 1cqi); }
+  .anno__note--right::after { right: calc(100% + 28px + (100 - var(--x)) * 1cqi - 4.5px); }
+  .anno__card { width: min(100%, 300px); }
+}
+@media (max-width: 900px) {
+  .case-palette { grid-template-columns: minmax(0, 1fr); }
+  .case-measures { grid-template-columns: minmax(0, 1fr); }
+  .case-measures li, .case-measures li:first-child { padding: 24px 0 0; }
+  .case-measures li + li { margin-top: 24px; border-top: 1px solid rgba(12, 11, 10, .22); border-left: 0; }
+}
+@media (max-width: 767px) {
+  .phones { width: 44vw; }
+  .case-detail--pair { grid-template-columns: minmax(0, 1fr); }
+  .case-swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* The onboarding phones scroll sideways. */
+  .phone-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 44%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+  .phone-strip > li { scroll-snap-align: start; }
+  .phone-strip > li:nth-child(even) { margin-top: 0; }
+  /* The card's notes become numbered dots on the card, listed below it. */
+  .anno__note { top: calc(var(--y) * 1%); left: calc(var(--x) * 1cqi); right: auto; translate: -50% -50%; flex-direction: row; }
+  .anno__note--left, .anno__note--right { left: calc(var(--x) * 1cqi); right: auto; }
+  .anno__note::before, .anno__note::after { display: none; }
+  .anno__num { width: 26px; height: 26px; border: 0; background: var(--accent); color: var(--noir); box-shadow: 0 4px 12px rgba(0, 0, 0, .4); }
+  .anno__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .anno__legend { display: grid; gap: 12px; width: min(100%, 300px); margin: 24px auto 0; padding: 0; color: var(--c-head); font-size: var(--t-small); font-weight: 500; list-style: none; }
+  .anno__legend span { margin-right: 10px; color: var(--accent); font-size: var(--t-micro); }
+  .phone-pair { gap: 16px; }
+  .phone-pair__item { width: 50%; }
+}

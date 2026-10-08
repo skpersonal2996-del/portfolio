@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nestwise case study – Shruti Kale</title>
+<meta name="description" content="From 500 listings to 5 right homes: designing rental discovery around personalization and trust. A case study by Shruti Kale, product designer.">
+<meta name="theme-color" content="#0C0B0A">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="../../assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/MonaSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/img/work/nestwise/details-1.png" as="image" fetchpriority="high">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/case.css">
+<script>
+  // Runs before first paint: scripts on, reduced motion, and the veil when
+  // arriving from another page of the site.
+  (function () {
+    var d = document.documentElement;
+    d.classList.replace("no-js", "js");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("still")) d.classList.add("rm");
+    // The phones and the sheet settle in on arrival (lifted by case.js, or after 2.5s regardless).
+    else { d.classList.add("case-enter"); setTimeout(function () { d.classList.remove("case-enter"); }, 2500); }
+    try { if (sessionStorage.getItem("sk:veil") === "1") { d.classList.add("veil-in"); sessionStorage.removeItem("sk:veil"); setTimeout(function () { d.classList.remove("veil-in"); }, 1500); } } catch (e) {}
+  })();
+</script>
+<script src="../../vendor/gsap.min.js" defer></script>
+<script src="../../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../../vendor/SplitText.min.js" defer></script>
+<script src="../../vendor/lenis.min.js" defer></script>
+<script type="module" src="../../js/case.js"></script>
+</head>
+<body class="case-page case-page--bold case-page--nestwise">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <a class="nav__mark" href="../../">Shruti Kale</a>
+  <nav aria-label="Primary">
+    <ul class="nav__links">
+      <li class="nav__about"><a href="../../#about">About</a></li>
+      <li><a href="../../#work">Work</a></li>
+      <li><a href="#contact" data-scroll-to>Contact</a></li>
+      <li><a class="nav__ext" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="nav__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- The chapters, as a quiet index on the left: a short line for each, the
+     current one long and orange, names on hover. Phones get a progress bar. -->
+<nav class="case-index" aria-label="Chapters" data-case-index>
+  <ol>
+    <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 Where it started</span></a></li>
+    <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 The real problem</span></a></li>
+    <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 What research revealed</span></a></li>
+    <li><a href="#ch-4" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">04 The decisions</span></a></li>
+    <li><a href="#ch-5" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">05 The design</span></a></li>
+    <li><a href="#ch-6" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">06 How I’d know it works</span></a></li>
+    <li><a href="#ch-7" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">07 What I took away</span></a></li>
+  </ol>
+</nav>
+<div class="case-progress" aria-hidden="true"><span data-case-progress></span></div>
+
+<main id="main">
+  <!-- Three phones on a city map at night: the welcome, a listing, and the
+       lifestyle picks. Behind them, the commute rings around where you work,
+       about 500 listings as faint dots and five right homes lit inside. -->
+  <div class="case-hero case-hero--map" id="top" data-case-hero>
+    <canvas class="case-hero__map" data-map aria-hidden="true"></canvas>
+    <div class="case-hero__stage" data-case-hero-frame>
+      <div class="case-tilt" data-case-tilt>
+        <div class="phones" data-map-avoid>
+          <div class="phone phone--side phone--left" style="--screen: #F9F6F3">
+            <div class="phone__frame"><div class="phone__screen">
+              <img src="../../assets/img/work/nestwise/onboarding-welcome.png" width="434" height="931" fetchpriority="high" alt="Nestwise’s welcome screen: “Homes that actually fit your life”, over a drawing of city buildings, with a Get started button.">
+            </div></div>
+          </div>
+          <div class="phone phone--main" style="--screen: #F7F4F0">
+            <div class="phone__frame"><div class="phone__screen">
+              <img data-case-shot src="../../assets/img/work/nestwise/details-1.png" width="720" height="2405" fetchpriority="high" alt="A Nestwise listing on a phone: a photo of a furnished living room, marked available and confirmed 3 days ago with a verified badge, then the 2 BHK in Kharghar with its size, furnishing, floor and facing.">
+            </div></div>
+          </div>
+          <div class="phone phone--side phone--right">
+            <div class="phone__frame"><div class="phone__screen">
+              <img src="../../assets/img/work/nestwise/onboarding-lifestyle.png" width="434" height="931" fetchpriority="high" alt="Onboarding: “What matters most in your daily life?”, with pet-friendly, women-friendly and near cafés picked from nine choices.">
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="case-hero__shade" data-case-hero-shade></div>
+  </div>
+
+  <!-- The case study itself, on a sheet that slides up over the hero. -->
+  <article class="case-sheet" aria-labelledby="case-title" data-case-sheet>
+    <div class="case-top">
+      <a class="case-back" href="../../#work"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M9.5 6h-7M6 2.5 2.5 6 6 9.5"/></svg>Back to work</a>
+      <p class="case-time">About 4 min read</p>
+    </div>
+
+    <header class="case-head">
+      <h1 class="case-name" id="case-title"><span class="case-name__fit" data-case-name>Nestwise</span></h1>
+      <p class="case-sub" data-reveal>From 500 listings to 5 right homes: designing rental discovery around personalization and trust.</p>
+      <dl class="case-facts" data-reveal>
+        <div><dt>Role</dt><dd>Product Designer, <span class="case-keep">End-to-End</span></dd></div>
+        <div><dt>Project</dt><dd>Personal Project</dd></div>
+        <div><dt>Industry</dt><dd>Rental-Home Discovery</dd></div>
+        <div><dt>Scope</dt><dd>Secondary Research · Product Strategy · UX/UI Design</dd></div>
+      </dl>
+    </header>
+
+    <!-- Chapters 01 to 04 each get at least a screen of their own: one idea
+         per screen, and a line icon for each item. Chapter 02 has its own
+         container, in Nestwise's teal. -->
+    <section class="case-ch case-screen" id="ch-1" aria-labelledby="ch-1-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">01</p>
+        <h2 class="case-h2" id="ch-1-title" data-split>Where it started</h2>
+      </header>
+      <p class="case-lead" data-reveal>Finding a home in a new city is one of the most stressful decisions young Indians make. Friends described the same experience again and again: hundreds of listings, most outdated or misleading, and no sense of what a neighbourhood actually feels like. I’d been through it myself.</p>
+      <p class="case-quote case-quote--stack case-quote--close" data-reveal><span class="case-quote__soft">Nestwise started as a question:</span> <span class="case-quote__keep">what would a rental platform look like if it were built around the user’s confidence?</span></p>
+    </section>
+
+    <section class="case-ch case-screen" id="ch-2" aria-labelledby="ch-2-title">
+      <div class="case-night case-night--teal" data-reveal-block>
+        <header class="case-night__head">
+          <p class="case-num" aria-hidden="true">02</p>
+          <h2 class="case-kicker" id="ch-2-title">The real problem</h2>
+        </header>
+        <p class="case-statement"><span class="case-statement__soft">This isn’t a search problem.</span> <span class="case-statement__keep">It’s a decision-anxiety problem.</span></p>
+        <p class="case-body case-night__lede">People weren’t struggling to find listings. They were struggling to trust what they found, picture where they’d actually live, and choose under deadline pressure. The existing platforms compete on listing volume, which is the opposite of what renters need.</p>
+        <ol class="case-cols case-cols--4 case-cols--icons">
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h7"/><path d="M10 10h8M10 14h6"/><circle cx="22" cy="22" r="6.5"/><path d="M22 19v3.2l2 1.3"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+            <h3 class="case-h3">Stale listings that never get removed</h3>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="6" width="24" height="20" rx="2.5"/><circle cx="11" cy="12.5" r="2"/><path d="M4 22l6.5-6 4.5 4"/><path d="M19 6l-2.5 6 3.5 3-3 5 2 6"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+            <h3 class="case-h3">Photos that don’t match reality</h3>
+            <p class="case-small">For someone relocating who can’t visit, a structural trust failure, not an edge case</p>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 4.5h14M9 27.5h14"/><path d="M10.5 4.5c0 6.5 5.5 8 5.5 11.5S10.5 21 10.5 27.5M21.5 4.5c0 6.5-5.5 8-5.5 11.5s5.5 5 5.5 11.5"/><path class="acc" d="M12.5 26.5c0-2.6 1.6-4.2 3.5-5.2 1.9 1 3.5 2.6 3.5 5.2z"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+            <h3 class="case-h3">Hard deadline pressure</h3>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28.5s-9-8.3-9-15a9 9 0 0 1 18 0c0 6.7-9 15-9 15z"/><path d="M13.5 11a2.6 2.6 0 1 1 3.7 2.4c-.7.3-1.2.9-1.2 1.7v.6"/><circle class="acc" cx="16" cy="18.6" r="1.1"/></svg><span class="case-num" aria-hidden="true">04</span></div>
+            <h3 class="case-h3">No neighbourhood context</h3>
+            <p class="case-small">Users ask “what’s it like to live here?” and platforms answer with square footage</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="case-ch case-screen" id="ch-3" aria-labelledby="ch-3-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">03</p>
+        <h2 class="case-h2" id="ch-3-title" data-split>What research revealed</h2>
+      </header>
+      <p class="case-lead" data-reveal>I read through Reddit threads, Quora answers, and the Facebook and WhatsApp groups where renters swap advice, and used the existing platforms myself to map what each did well and where it failed. I also had a few informal conversations with people who were mid-search. That’s too small a sample to prove anything, but enough to check whether the patterns I was reading about matched real experience.</p>
+      <p class="case-intro" data-reveal>Three mental models kept showing up that no platform was designing for:</p>
+      <ol class="case-cols case-cols--3 case-cols--icons">
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle class="dot" cx="16" cy="16" r="12.5"/><circle cx="16" cy="16" r="7"/><circle class="acc" cx="16" cy="16" r="2.4"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+          <h3 class="case-h3">Commute radius comes first.</h3>
+          <p class="case-small">People draw a circle around their office before looking at a single home. Every platform does the opposite: show everything, let the user filter.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="11.5" cy="11" r="3.6"/><path d="M4.5 25.5a7 7 0 0 1 14 0"/><circle cx="22" cy="12.5" r="3"/><path d="M19.6 18.7a5.8 5.8 0 0 1 8 5.3"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+          <h3 class="case-h3">Vibe matters as much as specs.</h3>
+          <p class="case-small">“What kind of people live here?” outranks BHK count. Users are predicting daily life, not comparing apartments.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l10 4v7.5c0 6.3-4.3 11-10 12.8C10.3 26.5 6 21.8 6 15.5V8z"/><path d="M11.5 16l3.2 3.2 6-6.2"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+          <h3 class="case-h3">For women moving alone, safety is the first filter.</h3>
+          <p class="case-small">It’s applied before price, before commute, before anything else.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="case-ch case-screen" id="ch-4" aria-labelledby="ch-4-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">04</p>
+        <h2 class="case-h2" id="ch-4-title" data-split>The decisions</h2>
+      </header>
+      <p class="case-quote case-quote--stack" data-reveal><span class="case-quote__soft">I started from one question:</span> <span class="case-quote__keep">what would it take for someone to feel confident enough to shortlist a home they haven’t visited?</span></p>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M20.5 11.5l-2.4 6.6-6.6 2.4 2.4-6.6z"/><circle class="acc" cx="16" cy="16" r="1.3"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+          <h3 class="case-h3 case-h3--lg">Help people decide, not just search</h3>
+        </div>
+        <div class="case-row__main">
+          <p class="case-body">Most platforms are search engines. The real need is decision support. That changed the onboarding, the hierarchy of the listing card, and what gets surfaced first. Instead of “what are you looking for?”, onboarding asks “where do you need to be?” and builds outward from there.</p>
+          <figure class="case-detail case-detail--narrow">
+            <div class="case-crop" style="aspect-ratio: 382 / 240; --x: 26; --y: 96; --w: 382; --h: 240; --iw: 434">
+              <img src="../../assets/img/work/nestwise/onboarding-work.png" width="434" height="931" loading="lazy" decoding="async" alt="From onboarding: “Where will you be working?”, with a field for an area, office or company name, and a note that homes will be found nearby so the commute is one less thing to worry about.">
+            </div>
+          </figure>
+        </div>
+      </div>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="13" cy="11" r="4.2"/><path d="M5 26.5a8 8 0 0 1 16 0"/><path d="M20.5 18.5l2.8 2.8 5-5.2"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+          <h3 class="case-h3 case-h3--lg">Design trust in, don’t bolt it on</h3>
+        </div>
+        <div class="case-row__main">
+          <p class="case-body">Airbnb builds trust through review volume, LinkedIn through verified identity. I borrowed from both: identity-anchored landlord profiles, freshness indicators showing when a listing was last confirmed, and photo verification signals. My own constraint: none of it could feel like a compliance form. Bureaucratic trust would break the calm the whole product depends on.</p>
+          <figure class="case-detail case-detail--pair">
+            <div class="case-crop" style="aspect-ratio: 664 / 286; --x: 28; --y: 604; --w: 664; --h: 286; --iw: 720">
+              <img src="../../assets/img/work/nestwise/details-1.png" width="720" height="2405" loading="lazy" decoding="async" alt="From a listing: available, confirmed 3 days ago and a verified badge, above the home’s type, the 2 BHK in Kharghar, and its building.">
+            </div>
+            <div class="case-crop" style="aspect-ratio: 920 / 524; --x: 38; --y: 2356; --w: 920; --h: 524; --iw: 997">
+              <img src="../../assets/img/work/nestwise/details-2.png" width="997" height="3760" loading="lazy" decoding="async" alt="From a listing: the direct owner’s profile, a member since 2022 who usually replies within 2 hours and replies to 9 out of 10 inquiries.">
+            </div>
+          </figure>
+        </div>
+      </div>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="8.5" cy="9" r="3.5"/><circle cx="8.5" cy="23" r="3.5"/><path d="M11.4 11.1 27 24M11.4 20.9 27 8"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+          <h3 class="case-h3 case-h3--lg">Cut what adds complexity without adding confidence</h3>
+        </div>
+        <p class="case-body">Early explorations included reviews, and tenant forums. I cut them. They were valuable, but each added a decision variable for someone already under pressure. The test for every feature: does it help a user move from “maybe” to “I want to see this place”?</p>
+      </div>
+    </section>
+
+    <!-- The design: the principles, the palette taken from the screens, then
+         each piece of the product on phones. -->
+    <section class="case-ch" id="ch-5" aria-labelledby="ch-5-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">05</p>
+        <h2 class="case-h2" id="ch-5-title" data-split>The design</h2>
+      </header>
+      <header class="case-group" data-reveal>
+        <h3 class="case-group__title">The four rules I kept coming back to</h3>
+        <p class="case-body">Whenever I got stuck on a design call, one of these settled it.</p>
+      </header>
+      <ol class="case-cols case-cols--4 case-cols--icons">
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 11V7a2 2 0 0 1 2-2h4M21 5h4a2 2 0 0 1 2 2v4M27 21v4a2 2 0 0 1-2 2h-4M11 27H7a2 2 0 0 1-2-2v-4"/><circle class="acc" cx="16" cy="16" r="2.6"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+          <h4 class="case-h3">Clarity over completeness</h4>
+          <p class="case-small">Show less, mean more.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M10.5 16.2l3.6 3.6 7.4-7.6"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+          <h4 class="case-h3">Confidence over choice</h4>
+          <p class="case-small">Five right homes, not 500.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8.5l8-3.5 8 3.5 8-3.5v18.5l-8 3.5-8-3.5-8 3.5z"/><path d="M12 5v18.5M20 8.5V27"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+          <h4 class="case-h3">Context over raw data</h4>
+          <p class="case-small">Commute, vibe, fit.</p>
+        </li>
+        <li data-reveal>
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 26C6 14.5 14 6 26 6c0 12-8.5 20-20 20z"/><path d="M6 26 17.5 14.5"/></svg><span class="case-num" aria-hidden="true">04</span></div>
+          <h4 class="case-h3">Calm over transactional</h4>
+          <p class="case-small">A helpful guide, not a marketplace.</p>
+        </li>
+      </ol>
+      <!-- The colours, taken from the screens themselves. -->
+      <div class="case-palette" data-reveal>
+        <div>
+          <h3 class="case-h3">Warm neutrals over clinical whites</h3>
+          <p class="case-small">Cream, soft earth tones, muted greens, with large, generously spaced type. Reassuring, not promotional.</p>
+        </div>
+        <ul class="case-swatches" aria-label="Nestwise’s colours">
+          <li style="--c: #F7F4F0"><span class="case-swatch" aria-hidden="true"></span>Cream <span class="case-swatch__hex">#F7F4F0</span></li>
+          <li style="--c: #E9D29F"><span class="case-swatch" aria-hidden="true"></span>Sand <span class="case-swatch__hex">#E9D29F</span></li>
+          <li style="--c: #7C4720"><span class="case-swatch" aria-hidden="true"></span>Earth <span class="case-swatch__hex">#7C4720</span></li>
+          <li style="--c: #4CA480"><span class="case-swatch" aria-hidden="true"></span>Green <span class="case-swatch__hex">#4CA480</span></li>
+          <li style="--c: #016983"><span class="case-swatch" aria-hidden="true"></span>Teal <span class="case-swatch__hex">#016983</span></li>
+          <li style="--c: #043C48"><span class="case-swatch" aria-hidden="true"></span>Ink <span class="case-swatch__hex">#043C48</span></li>
+        </ul>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Onboarding that narrows before it shows</h3>
+          <p class="case-body">Work location, commute time, lifestyle choices (solo woman, family, student). By the first listing, the irrelevant 90% is already gone.</p>
+        </div>
+        <!-- The onboarding questions, one phone each, in order. -->
+        <figure class="case-stage case-stage--strip" data-reveal-panel>
+          <ol class="phone-strip">
+            <li data-reveal><div class="phone"><div class="phone__frame"><div class="phone__screen"><img src="../../assets/img/work/nestwise/onboarding-city.png" width="434" height="931" loading="lazy" decoding="async" alt="“Which city are you moving to?”, with suggestions as you type."></div></div></div><p class="phone-strip__label"><span aria-hidden="true">01</span> City</p></li>
+            <li data-reveal><div class="phone"><div class="phone__frame"><div class="phone__screen"><img src="../../assets/img/work/nestwise/onboarding-reason.png" width="434" height="931" loading="lazy" decoding="async" alt="“What brings you to town?”: work or a new job, college or studies, moving with family, or something else."></div></div></div><p class="phone-strip__label"><span aria-hidden="true">02</span> Reason</p></li>
+            <li data-reveal><div class="phone"><div class="phone__frame"><div class="phone__screen"><img src="../../assets/img/work/nestwise/onboarding-work.png" width="434" height="931" loading="lazy" decoding="async" alt="“Where will you be working?”, with a field for an area, office or company name."></div></div></div><p class="phone-strip__label"><span aria-hidden="true">03</span> Work</p></li>
+            <li data-reveal><div class="phone"><div class="phone__frame"><div class="phone__screen"><img src="../../assets/img/work/nestwise/onboarding-budget.png" width="434" height="931" loading="lazy" decoding="async" alt="“What’s a comfortable monthly rent for you?”: a range from ₹20K to ₹40K, what to expect in it, and quick ranges."></div></div></div><p class="phone-strip__label"><span aria-hidden="true">04</span> Budget</p></li>
+            <li data-reveal><div class="phone"><div class="phone__frame"><div class="phone__screen"><img src="../../assets/img/work/nestwise/onboarding-lifestyle.png" width="434" height="931" loading="lazy" decoding="async" alt="“What matters most in your daily life?”: pick up to three must-haves."></div></div></div><p class="phone-strip__label"><span aria-hidden="true">05</span> Lifestyle</p></li>
+          </ol>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Cards that answer four questions</h3>
+          <p class="case-body">Is it available? In budget? In the right area? Does it fit me? Only what’s needed to make someone curious enough to open it.</p>
+        </div>
+        <!-- The card, with each of the four questions pointing at the part
+             of it that answers it. -->
+        <figure class="case-stage" data-reveal-panel>
+          <div class="anno">
+            <div class="anno__card">
+              <img src="../../assets/img/work/nestwise/card.png" width="874" height="1698" loading="lazy" decoding="async" alt="A Nestwise listing card: available and confirmed 3 days ago; the 2 BHK in Kharghar Sec- 2 with its size, furnishing and floor; 22 minutes to the office by metro or about 35 by road; tags for near metro, pet-friendly and woman friendly; and ₹25,000 a month.">
+              <ol class="anno__notes">
+                <li class="anno__note anno__note--left" style="--x: 7; --y: 4.5"><span class="anno__num" aria-hidden="true">01</span><span class="anno__text">Is it available?</span></li>
+                <li class="anno__note anno__note--right" style="--x: 95; --y: 91.5"><span class="anno__num" aria-hidden="true">02</span><span class="anno__text">In budget?</span></li>
+                <li class="anno__note anno__note--left" style="--x: 5; --y: 66"><span class="anno__num" aria-hidden="true">03</span><span class="anno__text">In the right area?</span></li>
+                <li class="anno__note anno__note--right" style="--x: 77; --y: 75"><span class="anno__num" aria-hidden="true">04</span><span class="anno__text">Does it fit me?</span></li>
+              </ol>
+            </div>
+            <ol class="anno__legend" aria-hidden="true">
+              <li><span>01</span>Is it available?</li>
+              <li><span>02</span>In budget?</li>
+              <li><span>03</span>In the right area?</li>
+              <li><span>04</span>Does it fit me?</li>
+            </ol>
+          </div>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Detail pages built for confidence</h3>
+          <p class="case-body">Specs, pricing and deposits, amenities, commute and neighbourhood context, lifestyle fit, and owner expectations, grouped in a clear hierarchy so people can evaluate a home without contacting anyone for basics. They show what it will be like to live there, not just what’s available.</p>
+        </div>
+        <!-- The whole listing page on two phones; each scrolls through its
+             half as you scroll past. -->
+        <figure class="case-stage" data-reveal-panel>
+          <div class="phone-pair">
+            <div class="phone-pair__item">
+              <div class="phone" style="--screen: #F7F4F0"><div class="phone__frame"><div class="phone__screen"><img data-phone-scroll src="../../assets/img/work/nestwise/details-1.png" width="720" height="2405" loading="lazy" decoding="async" alt="The top of a listing page: photos, availability, the home’s details and rooms, then pricing and terms (rent, deposit, maintenance, brokerage, parking) and the lock-in, notice and duration."></div></div></div>
+              <p class="case-caption">The home, pricing and terms</p>
+            </div>
+            <div class="phone-pair__item">
+              <div class="phone" style="--screen: #F7F4F0"><div class="phone__frame"><div class="phone__screen"><img data-phone-scroll src="../../assets/img/work/nestwise/details-2.png" width="997" height="3760" loading="lazy" decoding="async" alt="The rest of the listing page: amenities; how the place fits you, with the commute, matching preferences and the area; the owner’s profile and preferences; and buttons to call or chat."></div></div></div>
+              <p class="case-caption">Amenities, fit, the area and the owner</p>
+            </div>
+          </div>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work">Two-tier filters</h3>
+          <p class="case-body">Tier 1 covers what’s needed to judge a home quickly: stay type, property type, home size, budget, furnishing, commute time. Tier 2 holds detailed preferences: amenities, neighbourhood, availability date, near metro. Revealed progressively, so the screen never overwhelms.</p>
+        </div>
+        <figure class="case-stage" data-reveal-panel>
+          <div class="phone-pair">
+            <div class="phone-pair__item">
+              <div class="phone"><div class="phone__frame"><div class="phone__screen"><img data-phone-scroll src="../../assets/img/work/nestwise/filters-1.png" width="925" height="5170" loading="lazy" decoding="async" alt="Filters with the first tier open (budget, type of home, home size, furnishing, commute time) and the detailed groups folded below."></div></div></div>
+              <p class="case-caption">Tier 2 folded away</p>
+            </div>
+            <div class="phone-pair__item">
+              <div class="phone"><div class="phone__frame"><div class="phone__screen"><img data-phone-scroll src="../../assets/img/work/nestwise/filters-2.png" width="936" height="4218" loading="lazy" decoding="async" alt="Filters with the detailed groups open: building and home, lifestyle and preferences, cost and availability, location and connectivity, and for women."></div></div></div>
+              <p class="case-caption">Tier 2 open</p>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- How she'd know it works, in the block of colour the other case
+         studies give their impact. These are the measures she'd watch. -->
+    <section class="case-ch" id="ch-6" aria-labelledby="ch-6-title">
+      <div class="case-impact" data-cursor-tone="orange" data-reveal-block>
+        <header class="case-ch__head">
+          <p class="case-num" aria-hidden="true">06</p>
+          <h2 class="case-h2" id="ch-6-title" data-split>How I’d know it works</h2>
+        </header>
+        <p class="case-impact__intro">Success isn’t contact rate. It’s whether people trust the platform enough to come back.</p>
+        <ul class="case-measures">
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5l2.6 9.9 9.9 2.6-9.9 2.6-2.6 9.9-2.6-9.9-9.9-2.6 9.9-2.6z"/></svg><span class="case-num" aria-hidden="true">01</span></div>
+            <h3 class="case-measure__title">2 saves + 7-day return</h3>
+            <p>The north star. Saving two or more homes means real options were found; returning within a week means they chose us for the search.</p>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 21s-6-5.4-6-10a6 6 0 0 1 12 0c0 4.6-6 10-6 10z"/><circle cx="16" cy="11" r="2"/><path d="M8.5 22.5c-2.5.7-4 1.7-4 2.8 0 2 5.1 3.7 11.5 3.7s11.5-1.7 11.5-3.7c0-1.1-1.5-2.1-4-2.8"/></svg><span class="case-num" aria-hidden="true">02</span></div>
+            <h3 class="case-measure__title">Area profile engagement</h3>
+            <p>The share of users who view a neighbourhood profile before contacting. High means the context layer is working.</p>
+          </li>
+          <li>
+            <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7.5h22v14.5H14l-6 5v-5H5z"/><path d="M11 14.8l3.3 3.2 6.6-6.6"/></svg><span class="case-num" aria-hidden="true">03</span></div>
+            <h3 class="case-measure__title">Contact quality rate</h3>
+            <p>The share of contacts where the renter says the listing was available and accurate. The system-level trust metric.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-ch" id="ch-7" aria-labelledby="ch-7-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">07</p>
+        <h2 class="case-h2" id="ch-7-title" data-split>What I took away</h2>
+      </header>
+      <p class="case-lead" data-reveal>The most important decision on this project was reframing the problem.</p>
+      <p class="case-body" data-reveal>Rental platforms have a trust deficit because their business model is misaligned with what renters need. Designing around that, rather than around the same browse-and-scroll pattern everyone uses, is what made the direction distinct.</p>
+      <p class="case-quote case-quote--stack" data-reveal><span class="case-quote__soft">The hardest constraint was making trust feel like a feature, not a form:</span> <span class="case-quote__keep">verification without friction.</span></p>
+      <p class="case-body" data-reveal>That tension shaped almost every visual and structural choice.</p>
+    </section>
+
+    <p class="case-up"><a href="#top" data-scroll-to>Back to top<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6"/></svg></a></p>
+  </article>
+  <!-- The last case study: no card to a next one, straight on to the footer. -->
+</main>
+
+<!-- The end, and the page's one burst of colour. The same footer as the home
+     page: why to write, the address and LinkedIn, and "Get in touch". -->
+<footer class="contact" id="contact" aria-labelledby="contact-title" data-contact data-cursor-tone="orange">
+  <div class="contact__inner" data-contact-inner>
+    <div class="contact__row">
+      <p class="contact__intro">For enquiries, collaboration requests or job opportunities, don’t hesitate to reach&nbsp;out.</p>
+      <div class="contact__links">
+        <a class="contact__link contact__link--mail" href="mailto:shrutikale2996@gmail.com">shrutikale2996@gmail.com<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+        <a class="contact__link contact__link--in" href="https://www.linkedin.com/in/shruti48011/" target="_blank" rel="noopener"><svg class="contact__logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="contact__link contact__link--cv" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+      <p class="contact__legal">© 2026 Shruti Kale</p>
+    </div>
+    <h2 class="contact__title" id="contact-title"><a class="contact__cta" href="mailto:shrutikale2996@gmail.com" data-contact-cta><span class="contact__line">Get in</span> <span class="contact__line">touch</span></a></h2>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
+</body>
+</html>

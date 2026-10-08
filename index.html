@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shruti Kale, Product Designer</title>
+<meta name="description" content="Shruti Kale is a product designer who trained as an engineer and keeps asking why some products feel effortless and others don’t.">
+<meta name="theme-color" content="#0C0B0A">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/MonaSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/main.css">
+<script>
+  // Runs before first paint. Decides whether the intro plays, and makes sure
+  // nothing stays hidden if the scripts below never arrive.
+  (function () {
+    var d = document.documentElement;
+    var q = new URLSearchParams(location.search);
+    var seen = false;
+    try { seen = sessionStorage.getItem("sk:intro") === "1"; } catch (e) {}
+    // Arriving from another page of the site: start under the veil, then lift it.
+    try { if (sessionStorage.getItem("sk:veil") === "1") { d.classList.add("veil-in"); sessionStorage.removeItem("sk:veil"); setTimeout(function () { d.classList.remove("veil-in"); }, 1500); } } catch (e) {}
+    d.classList.replace("no-js", "js");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || q.has("still")) d.classList.add("rm");
+    if (!d.classList.contains("rm") && (!seen || q.has("intro"))) {
+      d.classList.add("is-intro");
+      window.__introFailsafe = setTimeout(function () { d.classList.remove("is-intro"); }, 4000);
+    }
+  })();
+</script>
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="vendor/lenis.min.js" defer></script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <a class="nav__mark" href="#top" data-scroll-to>Shruti Kale</a>
+  <nav aria-label="Primary">
+    <ul class="nav__links">
+      <li class="nav__about"><a href="#about" data-scroll-to>About</a></li>
+      <li><a href="#work" data-scroll-to>Work</a></li>
+      <li><a href="#contact" data-scroll-to>Contact</a></li>
+      <li><a class="nav__ext" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="nav__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Behind the story and "How I think": a slow orange-amber glow and a glass
+     form that is faceted during the story and turns organic for "How I think".
+     Decorative, and driven by scroll only. -->
+<canvas class="ambient" data-ambient aria-hidden="true"></canvas>
+
+<main id="main">
+  <!-- The hero's stage: pinned while the photo grows, then it scrolls away. -->
+  <div class="stage" data-stage>
+    <canvas class="stage__canvas" data-stage-canvas role="img" aria-label="Shruti Kale, a black and white portrait. She rests her chin on her hand and smiles."></canvas>
+
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__inner">
+        <p class="hero__eyebrow" data-hero-top><span class="eyebrow__dot hero__dot" aria-hidden="true"></span><span class="hero__eyebrow-text">Product Designer, Shruti Kale</span></p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line" data-hero-top><span class="line__in">I can’t stop</span></span>
+          <span class="line"><span class="line__in"><span class="word" data-word="left">asking</span> <span class="slot" data-slot aria-hidden="true"><img class="slot__img" src="assets/img/shruti-portrait.webp" width="1024" height="1536" alt="" fetchpriority="high" decoding="async"></span> <span class="word" data-word="right">why.</span></span></span>
+        </h1>
+        <p class="hero__sub" data-hero-bottom>Trained as an engineer. Spent the years since figuring out why some products feel effortless and others don’t&nbsp;– then building the ones that&nbsp;do.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Sections just for reading. Lines rise into view, then warm from light
+       grey through light orange to white as you read down. -->
+  <section class="reading" id="about" aria-labelledby="reading-title" data-story>
+    <h2 class="sr-only" id="reading-title">Where it started</h2>
+    <p class="reading__text" data-reading-text>It started with engineering – code, systems, hardware. Somewhere in there I noticed something: a product could be technically correct and still feel bad to use. That question never really left me. It’s the same one I ask now, just pointed at screens instead of&nbsp;circuits.</p>
+  </section>
+
+  <section class="reading reading--think" id="think" aria-labelledby="think-title" data-think>
+    <h2 class="sr-only" id="think-title">How I think</h2>
+    <p class="reading__text" data-reading-text>I don’t think finishing a task means the experience was good. I care about what someone feels while they’re doing it&nbsp;– calm, confident, confused, overwhelmed. A form can work perfectly and still feel bad if the language is unclear or you don’t know why it’s asking what it’s asking. That gap&nbsp;– between something working and something feeling right&nbsp;– is basically where I&nbsp;live.</p>
+  </section>
+
+  <!-- Selected work. On wide screens the section pins and the projects move
+       sideways as you scroll; on phones they stack. Each card is one link, and
+       its text comes first in the markup so it reads in a sensible order. -->
+  <section class="work" id="work" aria-labelledby="work-title" data-work>
+    <div class="work__track" data-work-track>
+      <header class="work__intro">
+        <p class="eyebrow" data-work-eyebrow><span class="eyebrow__dot" aria-hidden="true"></span>Since 2021</p>
+        <h2 class="work__title" id="work-title"><span class="work__title-in">Selected work</span></h2>
+        <p class="work__lede">Three projects, from pharma factory floors to finding a home in a new&nbsp;city.</p>
+        <div class="work__progress" aria-hidden="true"><span data-work-progress></span></div>
+      </header>
+
+      <article class="card" data-tint="violet">
+        <h3 class="card__name"><a class="card__link" href="work/leucine/" data-cursor="View case study">Leucine</a></h3>
+        <p class="card__line">Simplifying complex workflows for pharma manufacturing.</p>
+        <ul class="card__tags"><li>B2B SaaS</li><li>Workflow Design</li><li>UX Research</li></ul>
+        <div class="card__media card__media--inset">
+          <img class="card__shot" src="assets/img/work/leucine-900.jpg" srcset="assets/img/work/leucine-900.jpg 900w, assets/img/work/leucine-1600.jpg 1600w" sizes="(max-width: 767px) 90vw, 44vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Leucine's job execution screen: a staged task list on the left and a form for logging equipment parameters on the right.">
+        </div>
+      </article>
+
+      <article class="card" data-tint="orange">
+        <h3 class="card__name"><a class="card__link" href="work/bridge/" data-cursor="View case study">Bridge</a></h3>
+        <p class="card__line">Turning manual admin work into a smarter system.</p>
+        <ul class="card__tags"><li>0→1 SaaS</li><li>Product Design</li><li>Workflow Design</li></ul>
+        <div class="card__media card__media--inset">
+          <img class="card__shot" src="assets/img/work/bridge-900.jpg" srcset="assets/img/work/bridge-900.jpg 900w, assets/img/work/bridge-1600.jpg 1600w" sizes="(max-width: 767px) 90vw, 44vw" width="1600" height="1383" loading="lazy" decoding="async" alt="Bridge's admin dashboard: upcoming learning and final tests, RTO work, clients with pending payments, expiring vehicle documents and an admissions chart.">
+        </div>
+      </article>
+
+      <article class="card" data-tint="violet">
+        <h3 class="card__name"><a class="card__link" href="work/nestwise/" data-cursor="View case study">Nestwise</a></h3>
+        <p class="card__line">Making rental search more personal and trustworthy.</p>
+        <ul class="card__tags"><li>Product Concept</li><li>UX Research</li><li>Personalization</li></ul>
+        <div class="card__media card__media--phone">
+          <img class="card__shot" src="assets/img/work/nestwise-480.jpg" srcset="assets/img/work/nestwise-480.jpg 480w, assets/img/work/nestwise-824.jpg 824w" sizes="(max-width: 767px) 45vw, 16vw" width="824" height="1704" loading="lazy" decoding="async" alt="A Nestwise listing on a phone: a furnished 2 BHK in Kharghar marked available and recently confirmed, with room details and buttons to call or chat.">
+        </div>
+      </article>
+    </div>
+    <p class="sr-only" aria-live="polite" data-soon-status></p>
+  </section>
+
+  <!-- What I do: three roles set big and bold, with room between them, each
+       arriving from the side as you scroll. Each bracket holds a small glass
+       shape (0 ring, 1 rounded cube, 2 pebble), all drawn by one canvas; a
+       second canvas leaves embers behind the cursor. -->
+  <section class="roles" aria-label="What I do" data-roles>
+    <canvas class="roles__jewels" data-roles-jewels aria-hidden="true"></canvas>
+    <canvas class="roles__sparks" data-roles-sparks aria-hidden="true"></canvas>
+    <ul class="roles__list">
+      <li class="roles__role">
+        <span class="roles__line roles__line--1"><span class="roles__in" data-from="left">Product <br class="roles__br">Designer <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="0"></span>)</span></span></span>
+      </li>
+      <li class="roles__role">
+        <span class="roles__line roles__line--2"><span class="roles__in" data-from="right">UI/UX <br class="roles__br">Designer <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="1"></span>)</span></span></span>
+      </li>
+      <li class="roles__role">
+        <span class="roles__line roles__line--3"><span class="roles__in" data-from="left">Compulsive</span></span>
+        <span class="roles__line roles__line--4"><span class="roles__in" data-from="right">Question-<br class="roles__br">Asker <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="2"></span>)</span></span></span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Outside of work: a small pixel scene in a box. Tiny Shruti stands among
+       five things; pick one and she does it, and her line appears in a speech
+       bubble. The lines also sit in the markup after each button, so they read
+       in order without the scene, and without scripts it's a plain list. -->
+  <section class="life" id="life" aria-labelledby="life-title" data-life>
+    <header class="life__head">
+      <p class="eyebrow life__eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Pick something around her</p>
+      <h2 class="life__title" id="life-title"><span class="life__title-in">Outside of work</span></h2>
+    </header>
+    <div class="life__box" data-life-box data-cursor-plain>
+      <canvas class="life__scene" data-life-scene aria-hidden="true"></canvas>
+      <ul class="life__things">
+        <li class="life__thing" data-thing="camera">
+          <button class="life__btn" type="button"><canvas class="life__icon" aria-hidden="true"></canvas><span class="life__name">Camera</span></button>
+          <p class="life__line">Taking photos of things I’ll probably never post.</p>
+        </li>
+        <li class="life__thing" data-thing="book">
+          <button class="life__btn" type="button"><canvas class="life__icon" aria-hidden="true"></canvas><span class="life__name">Book</span></button>
+          <p class="life__line">Getting lost in books and forgetting what time it is.</p>
+        </li>
+        <li class="life__thing" data-thing="clothes">
+          <button class="life__btn" type="button"><canvas class="life__icon" aria-hidden="true"></canvas><span class="life__name">Clothes</span></button>
+          <p class="life__line">I really like clothes. Probably more than a reasonable person should.</p>
+        </li>
+        <li class="life__thing" data-thing="pencil">
+          <button class="life__btn" type="button"><canvas class="life__icon" aria-hidden="true"></canvas><span class="life__name">Pencil</span></button>
+          <p class="life__line">Making terrible sketches. The standards in my head are unfortunately much higher than my hands.</p>
+        </li>
+        <li class="life__thing" data-thing="suitcase">
+          <button class="life__btn" type="button"><canvas class="life__icon" aria-hidden="true"></canvas><span class="life__name">Suitcase</span></button>
+          <p class="life__line">I’ll almost always choose somewhere I’ve never been.</p>
+        </li>
+      </ul>
+      <div class="life__bubble" data-life-bubble aria-hidden="true"><p class="life__say" data-life-say></p></div>
+      <div class="life__flash" data-life-flash aria-hidden="true"></div>
+      <p class="life__coda">The list only gets longer. I’ve made peace with that.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- The end, and the page's one burst of colour. A small row with only what's
+     useful: why to write, the address and LinkedIn. Below it, "Get in touch"
+     as wide as the page, which starts an email. -->
+<footer class="contact" id="contact" aria-labelledby="contact-title" data-contact data-cursor-tone="orange">
+  <div class="contact__inner" data-contact-inner>
+    <div class="contact__row">
+      <p class="contact__intro">For enquiries, collaboration requests or job opportunities, don’t hesitate to reach&nbsp;out.</p>
+      <div class="contact__links">
+        <a class="contact__link contact__link--mail" href="mailto:shrutikale2996@gmail.com">shrutikale2996@gmail.com<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+        <a class="contact__link contact__link--in" href="https://www.linkedin.com/in/shruti48011/" target="_blank" rel="noopener"><svg class="contact__logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="contact__link contact__link--cv" href="https://drive.google.com/file/d/1a2asEsaJS9R0l9y0fTwC3uQaBijBUl7J/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+      <p class="contact__legal">© 2026 Shruti Kale</p>
+    </div>
+    <h2 class="contact__title" id="contact-title"><a class="contact__cta" href="mailto:shrutikale2996@gmail.com" data-contact-cta><span class="contact__line">Get in</span> <span class="contact__line">touch</span></a></h2>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
+</body>
+</html>
