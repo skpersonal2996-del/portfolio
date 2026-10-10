@@ -25,7 +25,6 @@ function boot() {
   if (mapEl) commuteMap(mapEl, reduced);
   compare(reduced);
   chapters();
-  navBar();
   // Reduced motion: the page as it is, still; the slider still works.
   if (reduced) {
     html.classList.remove("case-enter");
@@ -82,29 +81,6 @@ function name(reduced) {
 }
 
 /* ---------- The nav while reading ---------- */
-
-// Over the hero the nav floats. Once the sheet reaches it, it gets a solid
-// backing; it slides away while you read down and returns when you scroll up.
-function navBar() {
-  const nav = $(".nav");
-  const sheet = $("[data-case-sheet]");
-  if (!nav || !sheet) return;
-  let solid = false;
-  let hidden = false;
-  let last = 0;
-  ScrollTrigger.create({
-    start: 0,
-    end: "max",
-    onUpdate(self) {
-      const y = self.scroll();
-      const isSolid = sheet.getBoundingClientRect().top <= nav.offsetHeight;
-      if (isSolid !== solid) html.classList.toggle("nav-solid", (solid = isSolid));
-      const isHidden = isSolid && y > last + 2 ? true : y < last - 2 || !isSolid ? false : hidden;
-      last = y;
-      if (isHidden !== hidden) html.classList.toggle("nav-hidden", (hidden = isHidden));
-    },
-  });
-}
 
 /* ---------- Arriving: the device settles, the sheet rises into place ---------- */
 

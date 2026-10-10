@@ -23,25 +23,6 @@
   --t-h2: clamp(2rem, 1.35rem + 2vw, 3.375rem);
 }
 
-/* ---------- The nav: solid and out of the way while reading ---------- */
-
-/* Over the hero it floats; once the sheet reaches it, it gets a solid
-   backing so text never runs under it, and it slides away while you read
-   down and comes back as soon as you scroll up. */
-.case-page .nav {
-  mix-blend-mode: normal;
-  border-bottom: 1px solid transparent;
-  transition: translate .45s var(--ease-out), background-color .3s, border-color .3s;
-}
-.nav-solid .nav {
-  border-bottom-color: var(--rule);
-  background: rgba(12, 11, 10, .88);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-}
-.nav-hidden .nav:not(:focus-within) { translate: 0 -100%; }
-.case-page.nav-on-orange .nav { color: var(--paper); }
-
 /* ---------- Hero: the redesigned screen on a tablet ---------- */
 
 .case-hero {
@@ -1184,4 +1165,94 @@
   .anno__legend span { margin-right: 10px; color: var(--accent); font-size: var(--t-micro); }
   .phone-pair { gap: 16px; }
   .phone-pair__item { width: 50%; }
+}
+
+/* ---------- Sahar ---------- */
+
+/* Her site's restrained blue, for the light behind the laptop and the panels. */
+.case-page--sahar {
+  --stage-glow: rgba(70, 140, 200, .24);
+  --detail-glow: rgba(70, 140, 200, .28);
+}
+.case-hero--glow::before {
+  background:
+    radial-gradient(52% 58% at 50% 50%, rgba(60, 130, 200, .36), rgba(60, 130, 200, .08) 55%, transparent 76%),
+    radial-gradient(120% 90% at 50% 40%, transparent 50%, rgba(12, 11, 10, .85) 100%);
+}
+
+/* The link out to the live site: small capitals, an arrow, in the accent. */
+.case-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+/* In the facts: a filled orange button, so the live site is the first thing to try. */
+.case-live--cta {
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 2px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--noir);
+  text-decoration: none;
+  box-shadow: 0 0 0 0 rgba(244, 160, 106, .45);
+  transition: background .35s var(--ease-out), box-shadow .35s var(--ease-out);
+}
+.case-live--cta:hover { background: #F4A06A; box-shadow: 0 0 0 6px rgba(244, 160, 106, .18); }
+.case-live--cta .case-live__arrow { width: 12px; height: 12px; }
+.case-live__arrow { flex: none; width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.4; transition: translate .35s var(--ease-out); }
+.case-live:hover .case-live__arrow { translate: 2px -2px; }
+
+/* Browser windows for 16:10 desktop screens, sized to fit the window. */
+.browser--wide { width: min(100%, calc((100svh - 240px) * 1.5)); }
+
+/* Two screens side by side (or a before and after, with an arrow between). */
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px); align-items: center; }
+.pair .browser { width: 100%; }
+.pair--turn { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+.pair__arrow { color: var(--accent); }
+.pair__arrow svg { display: block; width: 28px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+
+/* A row of small screens, each with a label: the site's flow, or the frames
+   of the lab tour. */
+.shot-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 20px); margin: 0; padding: 0; list-style: none; }
+.shot-strip--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.shot { overflow: hidden; border-radius: 10px; box-shadow: 0 0 0 1px rgba(237, 232, 224, .1), 0 24px 48px -24px rgba(0, 0, 0, .8); }
+.shot img { width: 100%; height: auto; }
+.shot-strip__label { margin: 14px 0 0; color: var(--c-head); font-size: var(--t-small); font-weight: 500; text-align: center; }
+
+/* The outcome on the orange, and the note that it's an independent concept. */
+.case-outcome { max-width: 26em; margin: 0 0 clamp(24px, 4vh, 36px); color: var(--noir); font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); font-weight: 500; line-height: 1.3; letter-spacing: -.02em; }
+.case-impact .case-live { color: var(--noir); }
+/* At the end of the outcome: the same link, as a dark button on the orange. */
+.case-impact .case-live--button {
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: 999px;
+  background: var(--noir);
+  color: var(--paper, #EDE8E0);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background .35s var(--ease-out);
+}
+.case-impact .case-live--button:hover { background: #000; }
+.case-impact .case-live--button .case-live__arrow { width: 12px; height: 12px; }
+.case-disclaimer { max-width: 44em; margin: 24px 0 0; color: var(--c-soft); font-size: var(--t-small); line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .shot-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .shot-strip--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .pair, .pair--turn { grid-template-columns: minmax(0, 1fr); }
+  .pair__arrow { justify-self: center; rotate: 90deg; }
+  .shot-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

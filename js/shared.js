@@ -31,9 +31,28 @@ export function setup() {
   }
   const cursor = reduced ? null : createCursor(gsap);
   anchors(lenis);
+  headroom();
   soon(cursor);
   veil(reduced);
   return { reduced, lenis, cursor };
+}
+
+// The nav slides away while you scroll down, past its own height, and comes
+// back as soon as you scroll up (or reach the top).
+function headroom() {
+  let last = scrollY;
+  let hidden = false;
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const y = scrollY;
+    const hide = y > 120 && y > last + 4 ? true : y < last - 4 || y <= 120 ? false : hidden;
+    last = y;
+    if (hide !== hidden) html.classList.toggle("nav-hidden", (hidden = hide));
+  };
+  addEventListener("scroll", () => {
+    if (!queued) (queued = true), requestAnimationFrame(update);
+  }, { passive: true });
 }
 
 function anchors(lenis) {

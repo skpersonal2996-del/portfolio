@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sahar case study – Shruti Kale</title>
+<meta name="description" content="Reimagining Dr. Sahar Yousef’s website: a self-initiated concept exploring visual storytelling, AI-generated visuals, and motion. A case study by Shruti Kale, product designer.">
+<meta name="theme-color" content="#0C0B0A">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="../../assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/MonaSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/img/work/sahar/hero.jpg" as="image" fetchpriority="high">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/case.css">
+<script>
+  // Runs before first paint: scripts on, reduced motion, and the veil when
+  // arriving from another page of the site.
+  (function () {
+    var d = document.documentElement;
+    d.classList.replace("no-js", "js");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("still")) d.classList.add("rm");
+    // The laptop and the sheet settle in on arrival (lifted by case.js, or after 2.5s regardless).
+    else { d.classList.add("case-enter"); setTimeout(function () { d.classList.remove("case-enter"); }, 2500); }
+    try { if (sessionStorage.getItem("sk:veil") === "1") { d.classList.add("veil-in"); sessionStorage.removeItem("sk:veil"); setTimeout(function () { d.classList.remove("veil-in"); }, 1500); } } catch (e) {}
+  })();
+</script>
+<script src="../../vendor/gsap.min.js" defer></script>
+<script src="../../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../../vendor/SplitText.min.js" defer></script>
+<script src="../../vendor/lenis.min.js" defer></script>
+<script type="module" src="../../js/case.js"></script>
+</head>
+<body class="case-page case-page--bold case-page--sahar">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <a class="nav__mark" href="../../">Shruti Kale</a>
+  <nav aria-label="Primary">
+    <ul class="nav__links">
+      <li class="nav__about"><a href="../../#about">About</a></li>
+      <li><a href="../../#work">Work</a></li>
+      <li><a href="#contact" data-scroll-to>Contact</a></li>
+      <li><a class="nav__ext" href="https://drive.google.com/file/d/1TlH67RspdcD6grU6v7CUHheN0Rj49Lgq/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="nav__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- The chapters, as a quiet index on the left: a short line for each, the
+     current one long and orange, names on hover. Phones get a progress bar. -->
+<!-- The chapters, as a quiet index on the left. Phones get a progress bar. -->
+<nav class="case-index" aria-label="Chapters" data-case-index>
+  <ol>
+    <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 The idea</span></a></li>
+    <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 My approach</span></a></li>
+    <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 The outcome</span></a></li>
+  </ol>
+</nav>
+<div class="case-progress" aria-hidden="true"><span data-case-progress></span></div>
+
+<main id="main">
+  <!-- The concept's hero on a laptop, in its own blue light. -->
+  <div class="case-hero case-hero--glow" id="top" data-case-hero>
+    <div class="case-hero__stage" data-case-hero-frame>
+      <div class="case-tilt" data-case-tilt>
+        <div class="laptop">
+          <div class="laptop__lid">
+            <span class="laptop__cam" aria-hidden="true"></span>
+            <div class="laptop__screen">
+              <img class="laptop__shot" data-case-shot src="../../assets/img/work/sahar/hero.jpg" srcset="../../assets/img/work/sahar/hero-800.jpg 800w, ../../assets/img/work/sahar/hero.jpg 1600w" sizes="(max-width: 767px) 86vw, 62vw" width="1600" height="1000" fetchpriority="high" alt="The concept site’s hero on a laptop: “I make Superhumans” beside Dr. Sahar Yousef’s portrait, with a halo of neural particles behind her.">
+            </div>
+          </div>
+          <div class="laptop__base" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+    <div class="case-hero__shade" data-case-hero-shade></div>
+  </div>
+
+  <article class="case-sheet" aria-labelledby="case-title" data-case-sheet>
+    <div class="case-top">
+      <a class="case-back" href="../../#work"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M9.5 6h-7M6 2.5 2.5 6 6 9.5"/></svg>Back to work</a>
+      <p class="case-time">About 2 min read</p>
+    </div>
+
+    <header class="case-head">
+      <h1 class="case-name" id="case-title"><span class="case-name__fit" data-case-name>Sahar</span></h1>
+      <p class="case-sub" data-reveal>Reimagining Dr. Sahar Yousef’s website: a self-initiated concept exploring visual storytelling, AI-generated visuals, and motion.</p>
+      <dl class="case-facts" data-reveal>
+        <div><dt>Role</dt><dd>Product designer, solo, end to end</dd></div>
+        <div><dt>Project</dt><dd>Self-initiated concept</dd></div>
+        <div><dt>Tools</dt><dd>Claude · Higgsfield · ChatGPT · Vercel</dd></div>
+        <div><dt>Live</dt><dd><a class="case-live case-live--cta" href="https://sahar-yousef-site-r7vq.vercel.app/" target="_blank" rel="noopener">View the live site<svg class="case-live__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></dd></div>
+      </dl>
+    </header>
+
+    <section class="case-ch case-screen" id="ch-1" aria-labelledby="ch-1-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">01</p>
+        <h2 class="case-h2" id="ch-1-title" data-split>The idea</h2>
+      </header>
+      <p class="case-lead" data-reveal>I came across Dr. Sahar Yousef through her podcast with Raj Shamani and was drawn to her work at the intersection of neuroscience, productivity, and technology.</p>
+      <p class="case-quote case-quote--stack case-quote--close" data-reveal><span class="case-quote__soft">Her website covers the right ground, but it reads like notes.</span> <span class="case-quote__keep">I wanted to explore how it could reflect the depth of her work and give visitors a reason to stay curious.</span></p>
+    </section>
+
+    <!-- The approach: four steps, each with the part of the site that shows it. -->
+    <section class="case-ch" id="ch-2" aria-labelledby="ch-2-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">02</p>
+        <h2 class="case-h2" id="ch-2-title" data-split>My approach</h2>
+      </header>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">01</span>Rethinking the flow</h3>
+          <p class="case-body">I kept her strong content and made it tighter, cutting repetition. I reordered it around the questions a visitor naturally asks: who she is, what she believes, what she does, why to trust her, and how to work with her.</p>
+        </div>
+        <!-- The site in the order of those questions. -->
+        <figure class="case-stage">
+          <ol class="shot-strip">
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/hero-800.jpg" srcset="../../assets/img/work/sahar/hero-800.jpg 800w, ../../assets/img/work/sahar/hero.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="The hero: “I make Superhumans” and her portrait."></div><p class="shot-strip__label">Who she is</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/belief-800.jpg" srcset="../../assets/img/work/sahar/belief-800.jpg 800w, ../../assets/img/work/sahar/belief.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="Her belief, set as a large quote that fills in as you read."></div><p class="shot-strip__label">What she believes</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/expertise-800.jpg" srcset="../../assets/img/work/sahar/expertise-800.jpg 800w, ../../assets/img/work/sahar/expertise.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="Expertise and contributions: teaching, research and features, as cards."></div><p class="shot-strip__label">What she does</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/press-800.jpg" srcset="../../assets/img/work/sahar/press-800.jpg 800w, ../../assets/img/work/sahar/press.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="A strip of the press she’s featured in: Forbes, Bloomberg, BBC, CNBC, The New York Times."></div><p class="shot-strip__label">Why to trust her</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/lab-3-800.jpg" srcset="../../assets/img/work/sahar/lab-3-800.jpg 800w, ../../assets/img/work/sahar/lab-3.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="The lab: research, training and application, with the topics she trains people on."></div><p class="shot-strip__label">How to work with her</p></li>
+          </ol>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">02</span>Finding the visual direction</h3>
+          <p class="case-body">My first directions leaned into neuroscience and felt cold and clinical, the opposite of her. I moved to a light, airy look with a restrained blue accent and subtle neural patterns, so the site signals science while staying warm.</p>
+        </div>
+<!-- The directions she tried first, dark to light, before the final one. -->
+        <figure class="case-stage">
+          <ol class="shot-strip shot-strip--four">
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/explore-1-800.jpg" srcset="../../assets/img/work/sahar/explore-1-800.jpg 800w, ../../assets/img/work/sahar/explore-1.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="An early hero: a dark, near-black page with her portrait in a bright blue turtleneck and “Superhumans” in electric blue."></div></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/explore-2-800.jpg" srcset="../../assets/img/work/sahar/explore-2-800.jpg 800w, ../../assets/img/work/sahar/explore-2.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="An early belief section: white text on deep navy, crossed by thin glowing network lines."></div></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/explore-3-800.jpg" srcset="../../assets/img/work/sahar/explore-3-800.jpg 800w, ../../assets/img/work/sahar/explore-3.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="A lighter hero: a white page with orbit lines, labelled nodes and a blue accent around her portrait."></div></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/explore-4-800.jpg" srcset="../../assets/img/work/sahar/explore-4-800.jpg 800w, ../../assets/img/work/sahar/explore-4.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="A lighter hero on a soft, cloudy white, with fine blue arcs and dots."></div></li>
+          </ol>
+          <figcaption class="case-caption">Tried and discarded</figcaption>
+        </figure>
+                <figure class="case-stage" data-reveal-panel>
+          <div class="pair">
+            <div class="browser browser--wide"><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/sahar/belief.jpg" srcset="../../assets/img/work/sahar/belief-800.jpg 800w, ../../assets/img/work/sahar/belief.jpg 1600w" sizes="(max-width: 767px) 88vw, 560px" width="1600" height="1000" loading="lazy" decoding="async" alt="Her belief as a quote on a light page: “The way we work and live today is fundamentally opposed to how our brains and our bodies work best.”, with the key words in blue."></div>
+            <div class="browser browser--wide"><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/sahar/believe.jpg" srcset="../../assets/img/work/sahar/believe-800.jpg 800w, ../../assets/img/work/sahar/believe.jpg 1600w" sizes="(max-width: 767px) 88vw, 560px" width="1600" height="1000" loading="lazy" decoding="async" alt="A light page of her belief and mission in large type, the key phrases picked out in blue."></div>
+          </div>
+          <figcaption class="case-caption">The final direction</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">03</span>Exploring AI and motion</h3>
+          <p class="case-body">I used AI tools to generate and refine the visuals, then brought them to life with scroll-driven motion: her profile turns toward the viewer, and a camera tour reveals the lab. Some of the work was correcting the AI. My first backgrounds defaulted to the generic glossy “AI network” look, so I rewrote the direction toward something more organic and brain-specific.</p>
+        </div>
+        <!-- Her profile turning toward you as you scroll. -->
+        <figure class="case-stage" data-reveal-panel>
+          <div class="pair pair--turn">
+            <div class="browser browser--wide"><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/sahar/hero-side.jpg" srcset="../../assets/img/work/sahar/hero-side-800.jpg 800w, ../../assets/img/work/sahar/hero-side.jpg 1600w" sizes="(max-width: 767px) 88vw, 560px" width="1600" height="1000" loading="lazy" decoding="async" alt="The hero at the top of the page: her portrait in profile, looking away."></div>
+            <span class="pair__arrow" aria-hidden="true"><svg viewBox="0 0 24 12"><path d="M1 6h21M17 1l5 5-5 5"/></svg></span>
+            <div class="browser browser--wide"><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/sahar/hero.jpg" srcset="../../assets/img/work/sahar/hero-800.jpg 800w, ../../assets/img/work/sahar/hero.jpg 1600w" sizes="(max-width: 767px) 88vw, 560px" width="1600" height="1000" loading="lazy" decoding="async" alt="A little further down: she has turned to face the viewer."></div>
+          </div>
+          <figcaption class="case-caption">Scroll, and her profile turns toward you</figcaption>
+        </figure>
+        <!-- The camera tour of the lab, frame by frame. -->
+        <figure class="case-stage">
+          <ol class="shot-strip shot-strip--four">
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/lab-1-800.jpg" srcset="../../assets/img/work/sahar/lab-1-800.jpg 800w, ../../assets/img/work/sahar/lab-1.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="The lab tour opens wide on a sunlit room with a long wooden table."></div><p class="shot-strip__label">01</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/lab-2-800.jpg" srcset="../../assets/img/work/sahar/lab-2-800.jpg 800w, ../../assets/img/work/sahar/lab-2.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="The camera moves in: “Inside the Becoming Superhuman Lab”."></div><p class="shot-strip__label">02</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/lab-3-800.jpg" srcset="../../assets/img/work/sahar/lab-3-800.jpg 800w, ../../assets/img/work/sahar/lab-3.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="Closer, past an EEG cap and a brain model: “Redefining productivity for the human brain.”"></div><p class="shot-strip__label">03</p></li>
+            <li data-reveal><div class="shot"><img src="../../assets/img/work/sahar/lab-4-800.jpg" srcset="../../assets/img/work/sahar/lab-4-800.jpg 800w, ../../assets/img/work/sahar/lab-4.jpg 1600w" sizes="(max-width: 767px) 80vw, 300px" width="800" height="500" loading="lazy" decoding="async" alt="On into a lounge with a view: “Research. Training. Application.”"></div><p class="shot-strip__label">04</p></li>
+          </ol>
+          <figcaption class="case-caption">A camera tour reveals the lab</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-work">
+        <div class="case-row" data-reveal>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">04</span>Bringing it together</h3>
+          <p class="case-body">Content, visuals, and interaction come together in one site concept that communicates both the science of her work and its human impact.</p>
+        </div>
+        <figure class="case-stage" data-reveal-panel>
+          <div class="pair">
+            <div class="browser browser--wide"><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/sahar/expertise.jpg" srcset="../../assets/img/work/sahar/expertise-800.jpg 800w, ../../assets/img/work/sahar/expertise.jpg 1600w" sizes="(max-width: 767px) 88vw, 560px" width="1600" height="1000" loading="lazy" decoding="async" alt="Expertise and contributions: three cards for teaching, research and features, on a deep blue page."></div>
+            <div class="browser browser--wide"><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/sahar/footer.jpg" srcset="../../assets/img/work/sahar/footer-800.jpg 800w, ../../assets/img/work/sahar/footer.jpg 1600w" sizes="(max-width: 767px) 88vw, 560px" width="1600" height="1000" loading="lazy" decoding="async" alt="The footer: “Becoming Superhuman” in large type under a flowing teal wave."></div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="case-ch" id="ch-3" aria-labelledby="ch-3-title">
+      <div class="case-impact" data-cursor-tone="orange" data-reveal-block>
+        <header class="case-ch__head">
+          <p class="case-num" aria-hidden="true">03</p>
+          <h2 class="case-h2" id="ch-3-title" data-split>The outcome</h2>
+        </header>
+        <p class="case-outcome">A working, scroll-driven concept built solo. More than anything, it was a chance to translate my admiration for someone’s work into a design exploration of my own.</p>
+        <p><a class="case-live case-live--button" href="https://sahar-yousef-site-r7vq.vercel.app/" target="_blank" rel="noopener">View the live site<svg class="case-live__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
+      </div>
+      <p class="case-disclaimer" data-reveal>Independent concept, not affiliated with or endorsed by Dr. Sahar Yousef. Her portrait is from her public site; the lab and other scenes are fictional, for demonstration.</p>
+    </section>
+
+    <p class="case-up"><a href="#top" data-scroll-to>Back to top<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6"/></svg></a></p>
+  </article>
+  <!-- The last case study: no card to a next one, straight on to the footer. -->
+</main>
+
+<!-- The end, and the page's one burst of colour. The same footer as the home
+     page: why to write, the address and LinkedIn, and "Get in touch". -->
+<footer class="contact" id="contact" aria-labelledby="contact-title" data-contact data-cursor-tone="orange">
+  <div class="contact__inner" data-contact-inner>
+    <div class="contact__row">
+      <p class="contact__intro">For enquiries, collaboration requests or job opportunities, don’t hesitate to reach&nbsp;out.</p>
+      <div class="contact__links">
+        <a class="contact__link contact__link--mail" href="mailto:shrutikale2996@gmail.com">shrutikale2996@gmail.com<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+        <a class="contact__link contact__link--in" href="https://www.linkedin.com/in/shruti48011/" target="_blank" rel="noopener"><svg class="contact__logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="contact__link contact__link--cv" href="https://drive.google.com/file/d/1TlH67RspdcD6grU6v7CUHheN0Rj49Lgq/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="contact__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+      <p class="contact__legal">© 2026 Shruti Kale</p>
+    </div>
+    <h2 class="contact__title" id="contact-title"><a class="contact__cta" href="mailto:shrutikale2996@gmail.com" data-contact-cta><span class="contact__line">Get in</span> <span class="contact__line">touch</span></a></h2>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
+</body>
+</html>
