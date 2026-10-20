@@ -1031,3 +1031,96 @@ html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ---------- Work cards: a scene for each project ---------- */
+
+/* Each card is a small scene in the project's own colour: the real product
+   in a device, with line drawings of its world around it. Everything is a
+   share of the panel's width (cqi). On hover the device lifts and the
+   drawings move a little. */
+.card__media--scene { container-type: inline-size; }
+.card__media--scene::before { display: none; }
+.scene { position: absolute; inset: 0; overflow: hidden; background: var(--scene-bg); }
+.scene__art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.scene__art * { transition: transform .9s var(--ease-out), opacity .9s var(--ease-out); transform-box: fill-box; transform-origin: center; }
+.scene__device { position: absolute; z-index: 2; transition: translate .9s var(--ease-out); }
+.scene__float { position: absolute; z-index: 3; transition: translate .9s var(--ease-out), rotate .9s var(--ease-out); }
+@media (hover: hover) {
+  .card:hover .card__media--scene .card__shot { scale: 1; }
+  .card:hover .scene__device { translate: 0 -2.4cqi; }
+}
+
+/* Devices, drawn in CSS. */
+.sc-tablet { padding: 1.5cqi; border-radius: 3cqi; background: linear-gradient(160deg, #1B1C1F, #0A0A0B); box-shadow: 0 0 0 .25cqi #3A3B40, 0 4cqi 8cqi -3cqi rgba(0, 0, 0, .7); }
+.sc-tablet img, .sc-lid img { display: block; width: 100%; height: auto; border-radius: 1.3cqi; }
+.sc-lid { padding: 1.3cqi 1.3cqi 1.7cqi; border-radius: 2.2cqi 2.2cqi 0 0; background: #0C0C0E; box-shadow: 0 0 0 .25cqi #3B3B40; }
+.sc-lid img { border-radius: .6cqi; }
+.sc-base { height: 2.2cqi; margin: 0 -7%; border-radius: 0 0 2cqi 2cqi; background: linear-gradient(#D5D6DB, #8E9097); box-shadow: 0 3cqi 6cqi -2cqi rgba(0, 0, 0, .7); }
+.sc-browser { overflow: hidden; border-radius: 1.8cqi; background: #FFF; box-shadow: 0 5cqi 10cqi -4cqi rgba(0, 0, 0, .55), 0 0 0 .2cqi rgba(255, 255, 255, .2); }
+.sc-browser__bar { display: flex; gap: .9cqi; align-items: center; height: 4cqi; padding-inline: 1.8cqi; background: #EEF0F4; }
+.sc-browser__bar i { width: 1.2cqi; height: 1.2cqi; border-radius: 50%; background: #C9CDD6; }
+.sc-browser img { display: block; width: 100%; height: auto; }
+.sc-phone { position: relative; aspect-ratio: 9 / 19.5; padding: 1.1cqi; border-radius: 5cqi; background: linear-gradient(160deg, #1C1C1F, #0B0B0C 60%); box-shadow: 0 0 0 .25cqi #3A3A40, 0 5cqi 10cqi -4cqi rgba(0, 0, 0, .7); }
+.sc-phone::before { content: ""; position: absolute; top: 2.2cqi; left: 50%; z-index: 1; width: 9cqi; height: 2.6cqi; border-radius: 99px; background: #050506; translate: -50% 0; }
+.sc-phone__screen { height: 100%; overflow: hidden; border-radius: 3.9cqi; background: #F7F6FB; }
+.sc-phone__screen img { display: block; width: 100%; height: auto; }
+
+/* Leucine: pharma manufacturing, in a deep cleanroom emerald. */
+.scene--leucine { --scene-bg: radial-gradient(70% 70% at 80% 10%, rgba(80, 220, 180, .28), transparent 70%), linear-gradient(150deg, #0F4D46, #072A27 75%); }
+.scene--leucine .scene__device { left: 17cqi; top: 15cqi; width: 76cqi; rotate: -3deg; }
+.scene--leucine .scene__float { left: 6cqi; top: 50cqi; width: 26cqi; }
+.card:hover .scene--leucine .sc-molecule { transform: rotate(14deg) translate(-2%, 2%); }
+.card:hover .scene--leucine .sc-flask { transform: rotate(-8deg) translateY(-4%); }
+.card:hover .scene--leucine .scene__float { translate: -1cqi -4cqi; rotate: -3deg; }
+
+/* A task ticked off: the small card that floats in front. */
+.sc-task { padding: 2.4cqi; border-radius: 2.2cqi; background: #FFF; box-shadow: 0 3cqi 6cqi -2cqi rgba(0, 0, 0, .5); }
+.sc-task div { display: flex; align-items: center; gap: 1.6cqi; }
+.sc-task div + div { margin-top: 1.6cqi; }
+.sc-task b { flex: none; width: 3.6cqi; height: 3.6cqi; border-radius: 50%; background: #1FA971 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6.2 5 8.2 9 4' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 80% no-repeat; }
+.sc-task div:last-child b { background: #E3E8EE; }
+.sc-task span { flex: 1; height: 1.4cqi; border-radius: 1cqi; background: #DCE2EA; }
+.sc-task div:first-child span { background: #B9C4D1; }
+
+/* Bridge: driving schools, a laptop on a road at night. */
+.scene--bridge { --scene-bg: radial-gradient(60% 45% at 50% 42%, rgba(255, 190, 90, .22), transparent 70%), linear-gradient(180deg, #0A1430, #121F44 55%, #0B1430); }
+.scene--bridge .scene__device { left: 19cqi; top: 9cqi; width: 62cqi; }
+.scene--bridge .scene__float { left: 6cqi; top: 50cqi; width: 11cqi; rotate: -6deg; }
+.sc-road-dash { stroke-dasharray: 9 9; animation: road 1.2s linear infinite; animation-play-state: paused; }
+@keyframes road { to { stroke-dashoffset: -18; } }
+@media (hover: hover) { .card:hover .sc-road-dash { animation-play-state: running; } }
+.card:hover .scene--bridge .scene__float { translate: 1cqi -2cqi; rotate: 4deg; }
+.card:hover .scene--bridge .sc-wheel { transform: rotate(40deg); }
+/* A traffic cone, like the ones on a practice ground. */
+.sc-cone { display: block; width: 100%; height: auto; filter: drop-shadow(0 2cqi 3cqi rgba(0, 0, 0, .5)); }
+
+/* DocFit: documents, in its cobalt, the format fanned out behind. */
+.scene--docfit { --scene-bg: linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px) 0 0 / 100% 6cqi, linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px) 0 0 / 12cqi 100%, radial-gradient(70% 70% at 85% 15%, rgba(120, 160, 255, .45), transparent 70%), linear-gradient(150deg, #2348D8, #13288C 80%); }
+.scene--docfit .scene__device { left: 7cqi; top: 17cqi; width: 70cqi; }
+.sc-docs { position: absolute; right: 5cqi; top: 9cqi; z-index: 1; width: 26cqi; aspect-ratio: 1 / 1.32; }
+.sc-doc { position: absolute; inset: 0; padding: 2.6cqi 2.4cqi; border-radius: 1.4cqi; background: #FFF; box-shadow: 0 3cqi 6cqi -2cqi rgba(0, 0, 0, .45); transition: rotate .9s var(--ease-out), translate .9s var(--ease-out); }
+.sc-doc:nth-child(1) { rotate: 14deg; translate: 6cqi 3cqi; opacity: .55; }
+.sc-doc:nth-child(2) { rotate: 7deg; translate: 3cqi 1.5cqi; opacity: .8; }
+.sc-doc::before { content: ""; display: block; height: 2.6cqi; margin: 0 2cqi 2.4cqi; border-radius: 1cqi; background: #1E2B57; }
+.sc-doc i { display: block; height: 1.3cqi; margin-top: 1.5cqi; border-radius: 1cqi; background: #E4E8F1; }
+.sc-doc i:nth-child(odd) { width: 70%; background: #CDD6EA; }
+.card:hover .sc-doc:nth-child(1) { rotate: 22deg; translate: 11cqi 5cqi; }
+.card:hover .sc-doc:nth-child(2) { rotate: 11deg; translate: 6cqi 2.5cqi; }
+.card:hover .scene--docfit .sc-spark { transform: scale(1.35) rotate(45deg); }
+
+/* Nestwise: renting in a new city, a phone over a map with commute rings. */
+.scene--nestwise { --scene-bg: radial-gradient(60% 60% at 50% 40%, rgba(170, 150, 255, .35), transparent 72%), linear-gradient(160deg, #4A3ED3, #241A7A 80%); }
+.scene--nestwise .scene__device { left: 34cqi; top: 9cqi; width: 32cqi; }
+.card:hover .scene--nestwise .sc-pin { transform: translateY(-14%); }
+.card:hover .scene--nestwise .sc-ring { transform: scale(1.08); opacity: .9; }
+
+/* Sahar: a personal site, light and airy, neural threads around it. */
+.scene--sahar { --scene-bg: radial-gradient(60% 60% at 50% 45%, rgba(255, 255, 255, .9), transparent 70%), linear-gradient(160deg, #DCEBF8, #B9D4EE 85%); }
+.scene--sahar .scene__device { left: 12cqi; top: 15cqi; width: 76cqi; }
+.card:hover .scene--sahar .sc-net { transform: scale(1.05) rotate(-3deg); }
+.card:hover .scene--sahar .sc-node { transform: scale(1.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene__art *, .scene__device, .scene__float, .sc-doc { transition: none; }
+  .sc-road-dash { animation: none; }
+}
