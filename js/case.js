@@ -2,11 +2,12 @@
 // project name, chapter reveals, the chapter index, the nav while reading,
 // the before/after slider, the numbers and the screens of the work.
 // Scrolling, links and the footer come from shared.js; Bridge's road from
-// road.js.
+// road.js, Nestwise's map from map.js and DocFit's merge from merge.js.
 
 import { setup, contact, $, $$ } from "./shared.js";
 import { road } from "./road.js";
 import { commuteMap } from "./map.js";
+import { merge } from "./merge.js";
 
 const { gsap, ScrollTrigger, SplitText } = window;
 const html = document.documentElement;
@@ -23,8 +24,11 @@ function boot() {
   if (roadEl) road(roadEl, reduced);
   const mapEl = $("[data-map]");
   if (mapEl) commuteMap(mapEl, reduced);
+  const mergeEl = $("[data-merge]");
+  if (mergeEl) merge(mergeEl, reduced);
   compare(reduced);
   chapters();
+  phoneScroll();
   // Reduced motion: the page as it is, still; the slider still works.
   if (reduced) {
     html.classList.remove("case-enter");
@@ -37,7 +41,6 @@ function boot() {
   name(false);
   reveals();
   screens();
-  phoneScroll();
   icons();
   count();
   contact(false);
@@ -217,16 +220,11 @@ function screens() {
 
 /* ---------- Long screens scroll inside their phones ---------- */
 
-// As a phone passes through the window, its screen scrolls from the top of
-// the page shown in it to the bottom.
+// The phone stays where it is; its screen scrolls under the pointer (or a
+// finger, or the arrow keys), like a prototype. The hint goes once it has.
 function phoneScroll() {
-  for (const img of $$("[data-phone-scroll]")) {
-    const screen = img.parentElement;
-    gsap.to(img, {
-      y: () => -Math.max(0, img.offsetHeight - screen.clientHeight),
-      ease: "none",
-      scrollTrigger: { trigger: screen, start: "top 75%", end: "bottom 25%", scrub: true, invalidateOnRefresh: true },
-    });
+  for (const screen of $$("[data-phone-scroll]")) {
+    screen.addEventListener("scroll", () => screen.parentElement.classList.add("is-scrolled"), { once: true, passive: true });
   }
 }
 

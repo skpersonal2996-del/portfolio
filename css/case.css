@@ -963,6 +963,35 @@
 }
 .phone__screen { position: relative; height: 100%; overflow: hidden; border-radius: 11.6cqi; background: var(--screen, #FFF); }
 .phone__screen img { width: 100%; height: auto; }
+/* A long screen that scrolls inside the phone, like a prototype. */
+.phone__screen--scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; cursor: ns-resize; }
+.phone__screen--scroll::-webkit-scrollbar { display: none; }
+.phone__screen--scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.phone__hint {
+  position: absolute;
+  bottom: 9cqi;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 2cqi;
+  padding: 2.4cqi 4.6cqi;
+  border-radius: 99px;
+  background: rgba(12, 11, 10, .82);
+  color: #F2EEE8;
+  font-size: max(11px, 4.4cqi);
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  translate: -50% 0;
+  backdrop-filter: blur(8px);
+  transition: opacity .5s var(--ease-out);
+  animation: hint-nudge 2.4s var(--ease-out) infinite;
+}
+.phone__hint::before { content: "↕"; }
+.is-scrolled .phone__hint { opacity: 0; }
+@keyframes hint-nudge { 0%, 60%, 100% { translate: -50% 0; } 30% { translate: -50% -4px; } }
+.rm .phone__hint { animation: none; }
 
 /* ---------- Nestwise: three phones on a commute map ---------- */
 
@@ -1256,3 +1285,300 @@
   .pair__arrow { justify-self: center; rotate: 90deg; }
   .shot-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ---------- DocFit: the merge, in its own cobalt light ---------- */
+
+/* DocFit's blue (its buttons), for the light behind the hero and the panels. */
+.case-page--docfit {
+  --stage-glow: rgba(46, 96, 236, .26);
+  --detail-glow: rgba(46, 96, 236, .3);
+}
+/* Its own surface, a deep cobalt with the faint dot grid of DocFit's
+   canvas, so the dark sheet sliding up over it reads as the page to scroll
+   to, not more of the same. */
+.case-hero--merge {
+  background:
+    radial-gradient(circle, rgba(170, 190, 255, .16) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    linear-gradient(170deg, #101B4A, #0A1236 55%, #080E2A);
+}
+.case-hero--merge::before {
+  background: radial-gradient(54% 58% at 50% 46%, rgba(70, 120, 255, .38), rgba(70, 120, 255, .08) 55%, transparent 76%);
+}
+.case-hero--merge::after { display: none; }
+.case-hero--merge .case-hero__stage { padding-bottom: 22svh; }
+
+/* "Scroll to read", just above the sheet's edge, a line running down. */
+.case-cue {
+  position: absolute;
+  left: 50%;
+  bottom: calc(14svh + 22px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #C3CCEB;
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  translate: -50% 0;
+  transition: opacity .8s var(--ease-out) .6s;
+}
+.case-enter .case-cue { opacity: 0; }
+.case-cue__line { position: relative; width: 1px; height: 26px; overflow: hidden; background: rgba(195, 204, 235, .25); }
+.case-cue__line::after { content: ""; position: absolute; inset: 0; background: #C3CCEB; animation: cue-drop 1.8s var(--ease-out) infinite; }
+@keyframes cue-drop { from { translate: 0 -100%; } to { translate: 0 100%; } }
+.rm .case-cue__line::after { animation: none; }
+
+/* The spreadsheet, the wire, the format, the wire, the pile. Sized so all of
+   it sits between the nav and the sheet's edge. */
+.merge {
+  --ink: #1B2340;
+  --blue: #2456E8;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, .2fr) minmax(0, 1fr) minmax(0, .2fr) minmax(0, 1fr);
+  align-items: center;
+  width: min(78vw, 1060px, calc((64svh - var(--nav-h)) * 2.3));
+  margin-inline: auto;
+  font-family: var(--sans);
+  transition: opacity 1s var(--ease-out), translate 1.4s var(--ease-out), scale 1.6s var(--ease-out);
+}
+.case-enter .merge { opacity: 0; translate: 0 6vh; scale: .96; }
+.merge__col { position: relative; }
+.merge__label {
+  margin: 0 0 clamp(10px, 1.4vw, 18px);
+  color: #A9B3D6;
+  font-size: clamp(.625rem, .55rem + .3vw, .75rem);
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* The spreadsheet: a file name, then the class list, one row lit at a time. */
+.xl {
+  container-type: inline-size;
+  overflow: hidden;
+  border-radius: clamp(8px, 1vw, 14px);
+  background: #FFF;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 40px 80px -30px rgba(0, 0, 0, .8), 0 20px 100px -40px rgba(46, 96, 236, .55);
+}
+.xl__bar { display: flex; align-items: center; gap: 2cqi; padding: 3cqi 3.6cqi; white-space: nowrap; border-bottom: 1px solid #E6EAF2; font-size: 3.4cqi; font-weight: 600; }
+.xl__icon { width: 4.4cqi; aspect-ratio: 1; border-radius: 1cqi; background: linear-gradient(135deg, #1F9D55, #16803F); }
+.xl__meta { margin-left: auto; color: #7A829C; font-weight: 500; }
+.xl table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 2.9cqi; }
+.xl th, .xl td { overflow: hidden; padding: 2.1cqi 2cqi; text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+.xl th { background: #F1F4FA; color: #59617C; font-size: 2.6cqi; font-weight: 600; }
+.xl td { border-top: 1px solid #EDF0F6; transition: background .35s; }
+.xl col.c-name { width: 28%; }
+.xl col.c-roll { width: 21%; }
+.xl col.c-std { width: 10%; }
+.xl col.c-div { width: 10%; }
+.xl tr.is-on td { background: rgba(36, 86, 232, .1); }
+.xl tr.is-on td:first-child { box-shadow: inset .7cqi 0 var(--blue); }
+
+/* The wire between: a dashed line a pulse runs along. */
+.merge__wire {
+  position: relative;
+  height: 2px;
+  margin: clamp(22px, 2.6vw, 34px) 12% 0;
+  background: repeating-linear-gradient(90deg, rgba(150, 175, 255, .55) 0 5px, transparent 5px 10px);
+}
+.merge__wire i {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #8FB0FF;
+  box-shadow: 0 0 0 4px rgba(143, 176, 255, .2), 0 0 18px rgba(143, 176, 255, .9);
+  opacity: 0;
+  translate: -50% -50%;
+}
+
+/* A hall ticket: the school, the band, five places, the timetable, the
+   signatures. Every measure is a share of its own width. */
+.ticket {
+  container-type: inline-size;
+  aspect-ratio: 1 / 1.3;
+  display: flex;
+  flex-direction: column;
+  padding: 6.5% 6%; /* a share of its own width (cqi here would be the page's) */
+  border-radius: clamp(6px, .8vw, 12px);
+  background: #FFF;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 60px -28px rgba(0, 0, 0, .75);
+}
+.ticket__head { display: flex; align-items: center; justify-content: center; gap: 3cqi; }
+.ticket__logo { flex: none; width: 9cqi; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 62%, #F2B544 0 32%, transparent 33%), #1E2B57; }
+.ticket__school { font-size: 5.4cqi; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.ticket__band { margin: 4.5cqi 0 5cqi; padding: 2cqi 0; border-radius: 1.2cqi; background: #EEF2FA; color: #2A3766; font-size: 3.2cqi; font-weight: 700; letter-spacing: .12em; text-align: center; text-transform: uppercase; }
+.ticket__fields { display: grid; gap: 2.4cqi; margin: 0; }
+.ticket__fields > div { display: grid; grid-template-columns: 31% 1fr; align-items: center; gap: 2cqi; }
+.ticket__fields dt { color: #6E7693; font-size: 3.6cqi; white-space: nowrap; }
+.ticket__fields dd {
+  overflow: hidden;
+  min-height: 7.4cqi;
+  margin: 0;
+  padding: 1cqi 2cqi;
+  border-radius: 1.2cqi;
+  font-size: 4cqi;
+  font-weight: 600;
+  line-height: 5.4cqi;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ticket__lines { display: grid; gap: 2.2cqi; margin-top: 6cqi; }
+.ticket__lines i { display: block; height: 2.6cqi; border-radius: 1cqi; background: #EEF1F7; }
+.ticket__lines i:first-child { background: #E2E7F1; }
+.ticket__signs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5cqi; margin-top: auto; padding-top: 6cqi; }
+.ticket__signs i { display: block; border-top: 1px dashed #B8C0D4; }
+
+/* The format: its places empty, dashed, numbered by where they sit; each
+   fills in blue as the row arrives. */
+.ticket--format .ticket__fields dd { border: 1px dashed #B5C0DB; background: #F6F8FC; }
+.ticket--format .ticket__fields dd.is-filled { border-color: transparent; background: rgba(36, 86, 232, calc(.13 * var(--fill, 1))); }
+
+/* The pile: two finished tickets behind, the newest on top, and the one on
+   its way (moved by merge.js from where the format is). */
+.merge__pile { position: relative; }
+.merge__pile .ticket { position: relative; z-index: 2; }
+.merge__pile .ticket--back { position: absolute; inset: 0; z-index: 1; }
+.merge__pile .ticket--back:nth-child(1) { translate: 7% 5%; rotate: 5deg; opacity: .5; }
+.merge__pile .ticket--back:nth-child(2) { translate: 3.5% 2.5%; rotate: 2.5deg; opacity: .78; }
+.merge__pile .ticket--fly { position: absolute; inset: 0; z-index: 3; transform-origin: 0 0; }
+.merge__pile [data-merge-top] { rotate: -1.5deg; }
+
+/* What the quick check says about the pile. */
+.merge__badge {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(14, 20, 44, .86);
+  box-shadow: 0 0 0 1px rgba(160, 185, 255, .2), 0 16px 32px -12px rgba(0, 0, 0, .7);
+  color: #E6EAF7;
+  font-size: clamp(.6875rem, .6rem + .3vw, .8125rem);
+  font-weight: 500;
+  white-space: nowrap;
+  translate: -50% 55%;
+  backdrop-filter: blur(10px);
+}
+.merge__badge i { width: 7px; height: 7px; border-radius: 50%; background: #5CCB8A; }
+.merge__badge i.is-warn { margin-left: 4px; background: #F2B544; }
+
+@media (max-width: 767px) {
+  /* Phones: the spreadsheet across the top, the format and the pile below. */
+  .merge {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 28px 8vw;
+    width: min(84vw, calc((62svh - var(--nav-h)) * .78));
+  }
+  .merge__col--sheet { grid-column: 1 / -1; }
+  .merge__wire { display: none; }
+  .case-cue { display: none; }
+  .merge__badge { left: auto; right: 0; padding: 7px 12px; translate: 0 70%; }
+}
+
+/* ---------- DocFit: the reading ---------- */
+
+/* Chapter 02's container in DocFit's cobalt: deep navy into indigo, lit by
+   its blue. */
+.case-night--cobalt {
+  --night-glows:
+    radial-gradient(48% 62% at 6% 0%, rgba(46, 96, 236, .38), transparent 72%),
+    radial-gradient(44% 58% at 100% 100%, rgba(80, 70, 220, .3), transparent 72%),
+    radial-gradient(34% 44% at 72% 18%, rgba(46, 110, 255, .16), transparent 70%);
+  --night-base: linear-gradient(140deg, #08102E, #0B1642 58%, #0C1236);
+  --night-label: #A0AACB; /* 4.6:1 on the brightest glow */
+  --night-soft: #7C86AA; /* 3.1:1, large text */
+  --night-body: #B7BED8;
+  --night-rule: rgba(200, 215, 255, .12);
+}
+.case-night .case-intro { color: var(--c-head); }
+.case-night .case-statement + .case-night__lede { margin-top: clamp(28px, 5vh, 48px); }
+.case-statement--sub { margin-top: clamp(56px, 9vh, 96px); font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.375rem); }
+
+/* The tools people use today, a card each. */
+.tool-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); margin: 0; padding: 0; list-style: none; }
+.tool-cards > li {
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: 18px;
+  background: radial-gradient(90% 80% at 0% 0%, rgba(46, 96, 236, .14), transparent 70%), #131110;
+  box-shadow: inset 0 0 0 1px rgba(237, 232, 224, .08);
+}
+.tool-cards .case-mark { justify-content: space-between; }
+.tool-cards .case-small { margin-top: 8px; }
+.case-gap {
+  max-width: 26em;
+  margin: clamp(48px, 8vh, 80px) 0 0;
+  color: var(--c-head);
+  font-size: var(--t-sub);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+/* The four questions research started from. */
+.case-questions { margin-top: clamp(28px, 5vh, 44px); }
+.case-questions .case-finding { max-width: 12em; }
+
+/* Each finding, and the decision it pointed to. */
+.case-map { margin: 0; padding: 0; border-top: 1px solid var(--rule); list-style: none; }
+.case-map > li {
+  display: grid;
+  grid-template-columns: 3.5em minmax(0, 1fr) 4em minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px var(--col-gap);
+  padding: clamp(18px, 3vh, 26px) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.case-map .case-num { margin: 0; }
+.case-map p { margin: 0; font-size: var(--t-h3); line-height: 1.4; text-wrap: pretty; }
+.case-map__from { color: var(--c-body); }
+.case-map__to { color: var(--c-head); font-weight: 500; }
+.case-map__so { display: flex; align-items: center; gap: 8px; color: var(--accent); font-size: var(--t-micro); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.case-map__so svg { width: 18px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+
+/* A real screen, cut to the part that shows the decision. */
+.case-cut { display: block; width: 100%; height: auto; border-radius: clamp(8px, 1vw, 12px); box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 24px 48px -24px rgba(0, 0, 0, .7); }
+.case-detail--pair .case-cut + .case-cut { margin-top: 0; }
+
+/* The flow: each step's number in the title. */
+.case-h3--work .case-num { display: inline-block; margin: 0 14px 0 0; vertical-align: .35em; }
+.case-page--docfit .case-work + .case-work { margin-top: clamp(80px, 13vh, 140px); }
+.case-platform { margin-top: clamp(80px, 13vh, 140px); }
+
+@media (max-width: 900px) {
+  .tool-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .case-map > li { grid-template-columns: 2.6em minmax(0, 1fr); }
+  .case-map__so, .case-map__to { grid-column: 2; }
+  .tool-cards { grid-template-columns: minmax(0, 1fr); }
+}
+.case-facts__wide { grid-column: 3 / -1; }
+.case-night + .case-intro { margin-top: clamp(72px, 11vh, 120px); }
+.case-lead + .case-questions { margin-top: clamp(24px, 4vh, 40px); }
+.case-research { margin-top: clamp(40px, 7vh, 64px); }
+.case-flow-lead { margin-bottom: clamp(40px, 7vh, 72px); }
+.case-outcome--last { margin-bottom: 0; }
+
+/* Easy to scan: the words that carry each paragraph a step brighter and
+   bolder; problems in a warm orange, so the pain points stand out from the
+   decisions that answer them. */
+.case-page--docfit :is(.case-lead, .case-body, .case-small) strong { color: var(--c-head); font-weight: 600; }
+.case-page--docfit strong.pain, .case-pain strong { color: #F7A877; font-weight: 600; }
+.case-night .case-body strong { color: #F2F4FB; }
+/* The pain points themselves: larger, the rest of each line quieter. */
+.case-pain { max-width: 15em; color: var(--night-body, var(--c-body)); font-size: clamp(1.25rem, 1.05rem + .7vw, 1.625rem); font-weight: 400; line-height: 1.3; letter-spacing: -.015em; }
+.case-gap__soft { color: var(--c-soft); }
