@@ -1072,6 +1072,7 @@
   list-style: none;
 }
 .case-swatch { display: block; aspect-ratio: 1; margin-bottom: 12px; border-radius: 14px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.case-swatch__use { display: block; margin-top: 6px; color: var(--c-body); font-size: var(--t-micro); font-weight: 400; line-height: 1.4; }
 .case-swatch__hex { display: block; margin-top: 2px; color: var(--c-soft); font-size: var(--t-micro); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
 
 /* The onboarding questions, one phone each, staggered. */

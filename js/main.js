@@ -53,7 +53,7 @@ function boot() {
   // In page order: each pin changes where everything after it starts.
   hero();
   reading();
-  ambient();
+  // ambient(); // the 3D form behind the story, off for now at her request
   work();
   roles(false);
   life(false);
@@ -76,61 +76,44 @@ function life(reduced) {
     .from(".life__title-in", { yPercent: 110, duration: 1.1, ease: "expo.out" }, 0.1);
 }
 
-/* ---------- Selected work: the projects move sideways as you scroll ---------- */
+/* ---------- Selected work: a row of panels, one open at a time ---------- */
 
+// Hovering or focusing a closed strip opens it (and closes the last one);
+// clicking the open panel goes to its case study. The last one opened stays
+// open when the pointer leaves. Phones get the panels stacked, all open.
 function work() {
   const section = $("[data-work]");
-  const track = $("[data-work-track]");
-  if (!section || !track) return;
-  const progress = $("[data-work-progress]");
+  const items = $$("[data-deck-item]");
+  if (!section || !items.length) return;
 
-  // The heading arrives like the hero's: the rule draws, the title rises.
+  // The heading arrives like the hero's: the dot pops, the title rises.
   gsap
     .timeline({ scrollTrigger: { trigger: section, start: "top 70%", once: true } })
     .from(".work__intro .eyebrow__dot", { scale: 0, duration: 0.6, ease: "back.out(2.4)" })
     .from(".work__title-in", { yPercent: 110, duration: 1.1, ease: "expo.out" }, 0.1)
     .from(".work__lede", { opacity: 0, y: 16, duration: 0.9, ease: "power3.out" }, 0.35);
 
-  const mm = gsap.matchMedia();
-
-  // Wide screens: pin the section and move the track by exactly its overflow.
-  mm.add("(min-width: 768px)", () => {
-    html.classList.add("has-hscroll");
-    const distance = () => Math.max(0, track.scrollWidth - innerWidth);
-    const move = gsap.to(track, {
-      x: () => -distance(),
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: () => `+=${distance()}`,
-        pin: true,
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => progress && (progress.style.transform = `scaleX(${self.progress})`),
-      },
+  const open = (item) => items.forEach((it) => it.classList.toggle("is-open", it === item));
+  for (const item of items) {
+    item.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && open(item));
+    // Keyboard focus opens it too (a tap's focus is left to the click below).
+    item.addEventListener("focusin", (e) => e.target.matches(":focus-visible") && open(item));
+    // Touch on a wide screen: the first tap on a closed strip opens it.
+    item.addEventListener("click", (e) => {
+      if (item.classList.contains("is-open") || innerWidth < 768) return;
+      e.preventDefault();
+      open(item);
     });
-    // Inside each panel the screenshot drifts a little against the card's travel.
-    for (const shot of $$(".card__shot", track)) {
-      gsap.fromTo(
-        shot,
-        { xPercent: 4 },
-        {
-          xPercent: -4,
-          ease: "none",
-          scrollTrigger: { trigger: shot.closest(".card"), containerAnimation: move, start: "left right", end: "right left", scrub: true },
-        }
-      );
-    }
-    return () => html.classList.remove("has-hscroll");
-  });
+  }
 
-  // Phones: the cards stack and each rises in as it arrives.
-  mm.add("(max-width: 767px)", () => {
-    for (const card of $$(".card", track)) {
-      gsap.from(card, { y: 40, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: card, start: "top 88%", once: true } });
-    }
+  // The panels rise in one after another as the row arrives.
+  gsap.from(items, {
+    y: 48,
+    opacity: 0,
+    duration: 1.1,
+    ease: "expo.out",
+    stagger: 0.07,
+    scrollTrigger: { trigger: "[data-deck]", start: "top 85%", once: true },
   });
 }
 
@@ -251,7 +234,7 @@ function ambient() {
   const story = $("[data-story]");
   const think = $("[data-think]");
   const Look = params.get("ambient") === "glass" ? Ambient : Particles;
-  if (!canvas || !story || !think || !Look.supported()) return;
+  if (!canvas || !story || !Look.supported()) return;
   html.classList.add("has-ambient");
   const amb = new Look(canvas, Look === Particles ? { freq: innerWidth < 768 ? 16 : 22 } : {});
   if (!amb.ready) {
@@ -271,7 +254,7 @@ function ambient() {
       onRefresh: (self) => (A[prop] = self.progress),
     });
   track(story, "s");
-  track(think, "k");
+  if (think) track(think, "k");
 
   if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     addEventListener(
@@ -287,7 +270,8 @@ function ambient() {
     const { s, k } = A;
     const W = innerWidth, H = innerHeight;
     const narrow = W < 768;
-    const fade = smooth(0, 0.25, s) * (1 - smooth(0.82, 1, k));
+    // With no "How I think" after it, the form fades out as the story leaves.
+    const fade = smooth(0, 0.25, s) * (think ? 1 - smooth(0.82, 1, k) : 1 - smooth(0.8, 1, s));
     // Nothing to show and already cleared: skip the frame.
     const key = fade <= 0 ? "off" : [s, k, A.par.x, A.par.y, W, H].map((n) => n.toFixed(4)).join();
     if (key === A.key) return;

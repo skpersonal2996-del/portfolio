@@ -388,18 +388,15 @@ main { position: relative; z-index: 1; }
 
 /* ---------- Selected work ---------- */
 
-/* Stacked by default: phones, reduced motion, no JS. On wide screens with
-   motion (html.has-hscroll) the section pins and the track moves sideways. */
+/* The heading above, then the projects as a row of tall panels, one open at
+   a time (main.js opens the one under the pointer or focus). Closed strips
+   show the number, the name turned sideways and a dimmed slice of the scene.
+   Phones, and no JS: the panels stack, all open. */
 .work {
   position: relative;
   padding: clamp(96px, 16vh, 180px) var(--gutter);
 }
-.work__track {
-  display: grid;
-  gap: clamp(64px, 10vh, 112px) calc(var(--col-gap) * 2);
-}
-.work__intro { max-width: 34rem; }
-.work__intro .eyebrow { justify-self: start; }
+.work__intro { margin-bottom: clamp(32px, 5vh, 52px); }
 .work__title, .life__title {
   margin: clamp(18px, 2.8vh, 28px) 0 clamp(16px, 2.4vh, 24px);
   font-family: var(--serif);
@@ -408,160 +405,125 @@ main { position: relative; z-index: 1; }
   line-height: .98;
   letter-spacing: -.03em;
 }
+/* Selected work: a quieter heading, the line under it, so the panels lead. */
+.work__intro .work__title { margin: 16px 0 0; font-size: clamp(2.25rem, 1.6rem + 1.9vw, 3.5rem); line-height: 1.05; letter-spacing: -.02em; }
 .work__title, .life__title { overflow: hidden; padding-bottom: .06em; }
 .work__title-in, .life__title-in { display: inline-block; }
 .work__lede {
-  max-width: 26ch;
-  color: var(--paper-lead);
-  font-size: var(--text-md);
-  line-height: 1.5;
-}
-.work__progress { display: none; }
-
-@media (min-width: 768px) {
-  .work__track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .work__intro { grid-column: 1 / -1; }
-}
-
-/* A card. The whole card is one link (its heading's link stretches over it),
-   the text comes first in the markup, and the grid puts the image on top. */
-.card {
-  position: relative;
-  display: grid;
-  grid-template-areas: "media" "name" "line" "tags";
-  align-content: start;
-}
-.card__media {
-  grid-area: media;
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  border-radius: 18px;
-  background: #141210;
-  isolation: isolate;
-}
-/* Each screenshot sits on its own panel, lit in the site's two colours. */
-.card__media::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(120% 90% at 15% 0%, rgba(245, 133, 63, .28), transparent 60%),
-    radial-gradient(90% 80% at 100% 100%, rgba(148, 128, 255, .2), transparent 62%);
-}
-.card[data-tint="violet"] .card__media::before {
-  background:
-    radial-gradient(120% 90% at 85% 0%, rgba(148, 128, 255, .3), transparent 60%),
-    radial-gradient(90% 80% at 0% 100%, rgba(245, 133, 63, .18), transparent 62%);
-}
-.card__shot { display: block; transition: scale .9s var(--ease-out); }
-/* Product screens sit inset and run off the bottom-right edge. */
-.card__media--inset .card__shot {
-  position: absolute;
-  left: 9%;
-  top: 11%;
-  width: 104%;
-  height: auto;
-  border-radius: 10px 0 0;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .06);
-}
-/* A phone screen, centred and cropped by the bottom edge. */
-.card__media--phone .card__shot {
-  position: absolute;
-  left: 32%;
-  top: 10%;
-  width: 36%;
-  height: auto;
-  border-radius: 22px 22px 0 0;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
-}
-/* A visual piece fills its panel, with room for the drift on wide screens. */
-.card__media--fill .card__shot { width: 100%; height: 100%; object-fit: cover; }
-.has-hscroll .card__media--fill .card__shot { width: 108%; margin-left: -4%; }
-
-.card__name {
-  grid-area: name;
-  margin-top: clamp(18px, 2.6vh, 28px);
-  font-family: var(--serif);
-  font-size: clamp(2rem, 1.2rem + 2.2vw, 3.5rem);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -.025em;
-}
-.card__link { text-decoration: none; }
-.card__link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: 18px;
-}
-.card__link:focus-visible { outline: none; }
-.card__link:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 8px; }
-.card__line {
-  grid-area: line;
-  max-width: 34ch;
-  margin-top: 12px;
+  max-width: none;
+  margin: 12px 0 0;
   color: var(--paper-soft);
-  font-size: clamp(1rem, .92rem + .3vw, 1.1875rem);
-  line-height: 1.5;
+  font-size: clamp(.9375rem, .88rem + .25vw, 1.0625rem);
+  line-height: 1.55;
 }
-.card__tags {
-  grid-area: tags;
+
+/* The row. --open is the open panel's width, so each scene keeps one size
+   while its panel opens and closes, and closed strips show its middle. */
+.deck {
+  --gap: clamp(8px, .9vw, 14px);
+  --grow: 6;
+  --open: calc((100cqw - 4 * var(--gap)) * var(--grow) / (var(--grow) + 4));
+  container-type: inline-size;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 18px 0 0;
+  gap: var(--gap);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
-.card__tags li {
-  padding: 6px 14px;
-  border: 1px solid rgba(237, 232, 224, .22);
-  border-radius: 999px;
-  color: var(--paper-lead);
-  font-size: .8125rem;
-  letter-spacing: .01em;
-}
-
-/* On hover the screenshot leans in a little. */
-@media (hover: hover) {
-  .card:hover .card__shot { scale: 1.035; }
-}
-
-/* Sideways: the section is one screen tall and pinned; main.js moves the
-   track by exactly its overflow. Cards size to the screen's height too. */
-.has-hscroll .work {
-  height: 100vh;
-  height: 100svh;
-  padding: 0;
+.deck__item {
+  --ink: #F4F1EC;
+  --ink-soft: rgba(244, 241, 236, .72);
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: min(calc(var(--open) * .75 + 150px), calc(100svh - 96px));
   overflow: hidden;
+  border-radius: 18px;
+  background: var(--deck-bg);
+  transition: flex-grow .8s var(--ease-out);
 }
-.has-hscroll .work__track {
-  display: flex;
-  align-items: center;
-  gap: clamp(56px, 6vw, 120px);
-  width: max-content;
-  height: 100%;
-  padding: var(--nav-h) var(--gutter) 0;
+.deck__item.is-open { flex-grow: var(--grow); }
+.deck__item--leucine { --deck-bg: #072A27; }
+.deck__item--bridge { --deck-bg: #0B1430; }
+.deck__item--docfit { --deck-bg: #13288C; }
+.deck__item--nestwise { --deck-bg: #241A7A; }
+.deck__item--sahar { --deck-bg: #B9D4EE; --ink: #0E2A44; --ink-soft: rgba(14, 42, 68, .72); }
+
+/* The scene, always the open width, centred, its foot fading into the panel. */
+.deck__media {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--open);
+  aspect-ratio: 4 / 3;
+  translate: -50% 0;
+  -webkit-mask-image: linear-gradient(#000 82%, transparent);
+  mask-image: linear-gradient(#000 82%, transparent);
+  filter: saturate(.3) brightness(.55);
+  transition: filter .8s var(--ease-out);
 }
-.has-hscroll .work__intro { flex: none; width: min(30vw, 32rem); }
-.has-hscroll .card { flex: none; width: min(40vw, 62vh, 760px); }
-.has-hscroll .work__progress {
-  display: block;
-  width: 140px;
-  height: 1px;
-  margin-top: clamp(28px, 5vh, 56px);
-  background: var(--rule);
+.deck__item.is-open .deck__media { filter: none; }
+
+.deck__num, .deck__spine { position: absolute; z-index: 2; color: var(--ink); pointer-events: none; transition: opacity .5s var(--ease-out); }
+.deck__num { top: 20px; left: 20px; font-family: var(--sans); font-size: .8125rem; font-weight: 500; letter-spacing: .08em; font-variant-numeric: tabular-nums; opacity: .85; }
+/* The name, turned to read upwards, at the foot of a closed strip. */
+.deck__spine {
+  bottom: 24px;
+  left: 50%;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 1rem + 1.2vw, 2.25rem);
+  font-weight: 300;
+  line-height: 1;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  translate: -50% 0;
 }
-.has-hscroll .work__progress span {
-  display: block;
-  height: 100%;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
+.deck__item.is-open .deck__spine { opacity: 0; }
+
+/* What the open panel says, along its foot. */
+.deck__body {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  width: var(--open);
+  padding: 0 clamp(20px, 2.2vw, 32px) clamp(20px, 2.4vw, 30px);
+  color: var(--ink);
+  opacity: 0;
+  translate: 0 12px;
+  transition: opacity .35s var(--ease-out), translate .35s var(--ease-out);
 }
+.deck__item.is-open .deck__body { opacity: 1; translate: 0 0; transition-duration: .7s; transition-delay: .3s; }
+.deck__name { margin: 0; font-family: var(--serif); font-size: clamp(1.625rem, 1.2rem + 1.1vw, 2.25rem); font-weight: 300; line-height: 1.05; letter-spacing: -.02em; }
+.deck__link { color: inherit; text-decoration: none; }
+/* The whole panel is the link. */
+.deck__link::after { content: ""; position: absolute; inset: -100vh -100vw; z-index: 3; }
+.deck__item { isolation: isolate; }
+.deck__link:focus-visible { outline: none; }
+.deck__item:focus-within { outline: 2px solid var(--accent); outline-offset: 4px; }
+.deck__line { max-width: 40ch; margin: 8px 0 0; color: var(--ink-soft); font-size: clamp(.9375rem, .88rem + .2vw, 1.0625rem); line-height: 1.5; }
+.deck__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.deck__tags li { padding: 5px 12px; border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent); border-radius: 99px; color: var(--ink); font-size: .8125rem; }
+.deck__go { position: absolute; right: clamp(20px, 2.2vw, 32px); bottom: clamp(20px, 2.4vw, 30px); display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: .9375rem; font-weight: 500; }
+.deck__go svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: translate .35s var(--ease-out); }
+.deck__item:hover .deck__go svg { translate: 2px -2px; }
+
+@media (max-width: 900px) {
+  .deck__go { display: none; }
+}
+/* Phones, and no JS: a stack of open panels. */
+@media (max-width: 767px) {
+  .deck { --open: 100cqw; flex-direction: column; gap: 20px; }
+  .deck__item { flex: none; height: auto; }
+  .deck__media { position: relative; left: 0; filter: none; translate: none; }
+  .deck__spine { display: none; }
+  .deck__body { position: relative; margin-top: -10cqw; opacity: 1; translate: none; }
+}
+.no-js .deck { --open: 100cqw; flex-direction: column; }
+.no-js .deck__item { flex: none; height: auto; }
+.no-js .deck__media { position: relative; left: 0; filter: none; translate: none; }
+.no-js .deck__spine { display: none; }
+.no-js .deck__body { position: relative; margin-top: -10cqw; opacity: 1; translate: none; }
 
 /* ---------- What I do: the roles ---------- */
 
@@ -1039,15 +1001,13 @@ html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .
    share of the panel's width (cqi). On hover the device lifts and the
    drawings move a little. */
 .card__media--scene { container-type: inline-size; }
-.card__media--scene::before { display: none; }
 .scene { position: absolute; inset: 0; overflow: hidden; background: var(--scene-bg); }
 .scene__art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .scene__art * { transition: transform .9s var(--ease-out), opacity .9s var(--ease-out); transform-box: fill-box; transform-origin: center; }
 .scene__device { position: absolute; z-index: 2; transition: translate .9s var(--ease-out); }
 .scene__float { position: absolute; z-index: 3; transition: translate .9s var(--ease-out), rotate .9s var(--ease-out); }
 @media (hover: hover) {
-  .card:hover .card__media--scene .card__shot { scale: 1; }
-  .card:hover .scene__device { translate: 0 -2.4cqi; }
+    .deck__item:hover .scene__device { translate: 0 -2.4cqi; }
 }
 
 /* Devices, drawn in CSS. */
@@ -1069,9 +1029,9 @@ html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .
 .scene--leucine { --scene-bg: radial-gradient(70% 70% at 80% 10%, rgba(80, 220, 180, .28), transparent 70%), linear-gradient(150deg, #0F4D46, #072A27 75%); }
 .scene--leucine .scene__device { left: 17cqi; top: 15cqi; width: 76cqi; rotate: -3deg; }
 .scene--leucine .scene__float { left: 6cqi; top: 50cqi; width: 26cqi; }
-.card:hover .scene--leucine .sc-molecule { transform: rotate(14deg) translate(-2%, 2%); }
-.card:hover .scene--leucine .sc-flask { transform: rotate(-8deg) translateY(-4%); }
-.card:hover .scene--leucine .scene__float { translate: -1cqi -4cqi; rotate: -3deg; }
+.deck__item:hover .scene--leucine .sc-molecule { transform: rotate(14deg) translate(-2%, 2%); }
+.deck__item:hover .scene--leucine .sc-flask { transform: rotate(-8deg) translateY(-4%); }
+.deck__item:hover .scene--leucine .scene__float { translate: -1cqi -4cqi; rotate: -3deg; }
 
 /* A task ticked off: the small card that floats in front. */
 .sc-task { padding: 2.4cqi; border-radius: 2.2cqi; background: #FFF; box-shadow: 0 3cqi 6cqi -2cqi rgba(0, 0, 0, .5); }
@@ -1088,9 +1048,9 @@ html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .
 .scene--bridge .scene__float { left: 6cqi; top: 50cqi; width: 11cqi; rotate: -6deg; }
 .sc-road-dash { stroke-dasharray: 9 9; animation: road 1.2s linear infinite; animation-play-state: paused; }
 @keyframes road { to { stroke-dashoffset: -18; } }
-@media (hover: hover) { .card:hover .sc-road-dash { animation-play-state: running; } }
-.card:hover .scene--bridge .scene__float { translate: 1cqi -2cqi; rotate: 4deg; }
-.card:hover .scene--bridge .sc-wheel { transform: rotate(40deg); }
+@media (hover: hover) { .deck__item:hover .sc-road-dash { animation-play-state: running; } }
+.deck__item:hover .scene--bridge .scene__float { translate: 1cqi -2cqi; rotate: 4deg; }
+.deck__item:hover .scene--bridge .sc-wheel { transform: rotate(40deg); }
 /* A traffic cone, like the ones on a practice ground. */
 .sc-cone { display: block; width: 100%; height: auto; filter: drop-shadow(0 2cqi 3cqi rgba(0, 0, 0, .5)); }
 
@@ -1104,23 +1064,26 @@ html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .
 .sc-doc::before { content: ""; display: block; height: 2.6cqi; margin: 0 2cqi 2.4cqi; border-radius: 1cqi; background: #1E2B57; }
 .sc-doc i { display: block; height: 1.3cqi; margin-top: 1.5cqi; border-radius: 1cqi; background: #E4E8F1; }
 .sc-doc i:nth-child(odd) { width: 70%; background: #CDD6EA; }
-.card:hover .sc-doc:nth-child(1) { rotate: 22deg; translate: 11cqi 5cqi; }
-.card:hover .sc-doc:nth-child(2) { rotate: 11deg; translate: 6cqi 2.5cqi; }
-.card:hover .scene--docfit .sc-spark { transform: scale(1.35) rotate(45deg); }
+.deck__item:hover .sc-doc:nth-child(1) { rotate: 22deg; translate: 11cqi 5cqi; }
+.deck__item:hover .sc-doc:nth-child(2) { rotate: 11deg; translate: 6cqi 2.5cqi; }
+.deck__item:hover .scene--docfit .sc-spark { transform: scale(1.35) rotate(45deg); }
 
 /* Nestwise: renting in a new city, a phone over a map with commute rings. */
 .scene--nestwise { --scene-bg: radial-gradient(60% 60% at 50% 40%, rgba(170, 150, 255, .35), transparent 72%), linear-gradient(160deg, #4A3ED3, #241A7A 80%); }
 .scene--nestwise .scene__device { left: 34cqi; top: 9cqi; width: 32cqi; }
-.card:hover .scene--nestwise .sc-pin { transform: translateY(-14%); }
-.card:hover .scene--nestwise .sc-ring { transform: scale(1.08); opacity: .9; }
+.deck__item:hover .scene--nestwise .sc-pin { transform: translateY(-14%); }
+.deck__item:hover .scene--nestwise .sc-ring { transform: scale(1.08); opacity: .9; }
 
 /* Sahar: a personal site, light and airy, neural threads around it. */
 .scene--sahar { --scene-bg: radial-gradient(60% 60% at 50% 45%, rgba(255, 255, 255, .9), transparent 70%), linear-gradient(160deg, #DCEBF8, #B9D4EE 85%); }
 .scene--sahar .scene__device { left: 12cqi; top: 15cqi; width: 76cqi; }
-.card:hover .scene--sahar .sc-net { transform: scale(1.05) rotate(-3deg); }
-.card:hover .scene--sahar .sc-node { transform: scale(1.5); }
+.deck__item:hover .scene--sahar .sc-net { transform: scale(1.05) rotate(-3deg); }
+.deck__item:hover .scene--sahar .sc-node { transform: scale(1.5); }
 
 @media (prefers-reduced-motion: reduce) {
   .scene__art *, .scene__device, .scene__float, .sc-doc { transition: none; }
   .sc-road-dash { animation: none; }
 }
+
+/* The phrase that carries the hero line, in the accent. */
+.hero__key { color: var(--accent); font-style: normal; }
