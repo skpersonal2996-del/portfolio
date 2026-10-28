@@ -11,8 +11,8 @@
 
 .case-page {
   --c-head: var(--paper); /* 16:1 on the page */
-  --c-body: #CBC5BC; /* 11:1 */
-  --c-soft: #9A948C; /* 6.5:1 */
+  --c-body: #C8BCA9; /* 10:1, warm */
+  --c-soft: #9A8F80; /* 6:1 */
   --t-micro: .75rem;
   --t-small: .9375rem;
   --t-body: clamp(1rem, .96rem + .2vw, 1.125rem);
@@ -122,6 +122,30 @@
 /* First paint: the sheet and the tablet wait just below, then settle (the class is lifted by case.js, or by a failsafe). */
 .case-enter .case-sheet { opacity: 0; translate: 0 10vh; }
 .case-enter .case-device { opacity: 0; translate: 0 6vh; scale: .96; }
+
+/* The project's cover picture in place of a device: a large rounded frame,
+   sized to sit between the nav and the sheet's edge, on the hero's glow. */
+.case-cover {
+  width: min(80vw, calc((82svh - var(--nav-h) - 40px) * 1.5), 1160px);
+  margin: 0;
+  overflow: hidden;
+  border-radius: clamp(14px, 1.8vw, 26px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .08),
+    0 50px 90px -30px rgba(0, 0, 0, .75),
+    0 30px 140px -40px rgba(245, 133, 63, .35);
+  transition: opacity 1s var(--ease-out), translate 1.4s var(--ease-out), scale 1.6s var(--ease-out);
+}
+.case-cover img { display: block; width: 100%; height: auto; }
+.case-enter .case-cover { opacity: 0; translate: 0 6vh; scale: .96; }
+/* Full screen: the picture is the whole hero, no backdrop (and no nav over
+   it; see case.js). */
+.case-hero--cover::before { content: none; }
+.case-hero--cover .case-hero__stage { padding: 0; }
+.case-hero--cover .case-tilt { width: 100%; height: 100%; }
+.case-hero--cover .case-cover { width: 100%; height: 100%; border-radius: 0; box-shadow: none; }
+.case-hero--cover .case-cover img { height: 100%; object-fit: cover; }
+.case-enter .case-hero--cover .case-cover { translate: none; scale: 1.04; }
 
 /* Small capitals, for labels, numbers and captions. */
 .case-top, .case-facts dt, .case-caption, .case-num, .case-next__label {
@@ -719,8 +743,8 @@
   letter-spacing: -.02em;
 }
 
-/* The next project is a phone app: its screen centred, cropped by the edge. */
-.case-next__media--phone img { left: 32%; top: 12%; width: 36%; border-radius: 22px 22px 0 0; transform-origin: 50% 0; }
+/* The next project's cover picture, filling the frame. */
+.case-next__media--photo img { inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; transform-origin: 50% 50%; }
 
 /* ---------- Bridge: the screens (chapter 05) ---------- */
 
@@ -820,7 +844,7 @@
    step quieter than the headings (7.7:1), and the grey half of each two-tone
    line further back (4:1, large text). */
 .case-page--bold {
-  --c-body: #ABA59D;
+  --c-body: #ADA291;
   --t-h2: clamp(2.5rem, 1.45rem + 3.3vw, 4.75rem);
   --t-lead: clamp(1.25rem, 1.08rem + .55vw, 1.5625rem);
 }
@@ -1268,7 +1292,7 @@
   padding: 0 26px;
   border-radius: 999px;
   background: var(--noir);
-  color: var(--paper, #EDE8E0);
+  color: var(--paper, #E4D9C6);
   font-size: 1rem;
   text-decoration: none;
   transition: background .35s var(--ease-out);

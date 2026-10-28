@@ -1,13 +1,13 @@
-import { PortraitGL } from "./portrait-gl.js";
 import { Ambient } from "./ambient.js";
 import { Particles } from "./particles.js";
 import { Jewels } from "./jewels.js";
-import { createCursor } from "./cursor.js";
 import { createEmbers } from "./embers.js";
 import { createLife } from "./life.js";
+import { heroGirl } from "./hero-girl.js";
+import { skills, jumpIn } from "./skills.js";
 import { setup, landOnHash, reading, contact, params, $, $$ } from "./shared.js";
 
-const { gsap, ScrollTrigger } = window;
+const { gsap, ScrollTrigger, SplitText } = window;
 const html = document.documentElement;
 const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -15,20 +15,12 @@ const smooth = (a, b, v) => {
   const t = clamp((v - a) / (b - a));
   return t * t * (3 - 2 * t);
 };
-const easeInOut = (t) => 0.5 - 0.5 * Math.cos(Math.PI * t);
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const store = {
   get: (k) => { try { return sessionStorage.getItem(k); } catch { return null; } },
   set: (k, v) => { try { sessionStorage.setItem(k, v); } catch {} },
 };
 
-// The hero's pinned scroll, in viewport heights: the photo grows to full
-// screen, holds for a moment, then the stage scrolls away.
-const GROW_VH = 1.08;
-const STAGE_VH = 1.4;
-
-const FOCUS = [0.64, 0.38]; // where her face sits in the photo
-const INLINE_ZOOM = 1.38; // tighter crop while the photo sits in the sentence
 
 boot();
 
@@ -44,6 +36,10 @@ function boot() {
   // the reading text arrives already white and the work simply stacks.
   if (reduced) {
     html.classList.remove("is-intro");
+    fitName();
+    const girl = $("[data-hero-girl]");
+    skills({ reduced: true, heroGirl: girl ? heroGirl(girl, true) : null });
+    made(true);
     roles(true);
     life(true);
     contact(true);
@@ -51,13 +47,16 @@ function boot() {
     return;
   }
   // In page order: each pin changes where everything after it starts.
-  hero();
+  const sitting = hero();
+  skills({ reduced: false, heroGirl: sitting });
   reading();
   // ambient(); // the 3D form behind the story, off for now at her request
-  work();
+  made(false);
+  me(false);
   roles(false);
   life(false);
   contact(false);
+  navCurrent(); // after the pins, so it knows where each section really starts
   landOnHash(lenis);
 }
 
@@ -68,7 +67,12 @@ function boot() {
 function life(reduced) {
   const section = $("[data-life]");
   if (!section) return;
-  createLife(section, { gsap, ScrollTrigger, reduced });
+  // On wide screens tiny Shruti from the page hops into the box first, and
+  // the scene's own Shruti appears when she lands.
+  const box = $("[data-life-box]", section);
+  let scene = null;
+  const waiting = !reduced && jumpIn({ box, onLand: () => scene?.appear?.() });
+  scene = createLife(section, { gsap, ScrollTrigger, reduced, manual: waiting });
   if (reduced) return;
   gsap
     .timeline({ scrollTrigger: { trigger: section, start: "top 72%", once: true } })
@@ -76,45 +80,60 @@ function life(reduced) {
     .from(".life__title-in", { yPercent: 110, duration: 1.1, ease: "expo.out" }, 0.1);
 }
 
-/* ---------- Selected work: a row of panels, one open at a time ---------- */
+/* ---------- About me ---------- */
 
-// Hovering or focusing a closed strip opens it (and closes the last one);
-// clicking the open panel goes to its case study. The last one opened stays
-// open when the pointer leaves. Phones get the panels stacked, all open.
-function work() {
-  const section = $("[data-work]");
-  const items = $$("[data-deck-item]");
-  if (!section || !items.length) return;
+// The heading and paragraphs rise in once; the portrait fades up behind.
+function me(reduced) {
+  const section = $("[data-me]");
+  if (!section || reduced) return;
+  gsap.timeline({ scrollTrigger: { trigger: section, start: "top 60%", once: true } })
+    .from(".me__photo", { opacity: 0, x: 40, duration: 1.6, ease: "power3.out" }, 0)
+    .from("[data-me-in]", { y: 28, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.12 }, 0.15);
+}
 
-  // The heading arrives like the hero's: the dot pops, the title rises.
-  gsap
-    .timeline({ scrollTrigger: { trigger: section, start: "top 70%", once: true } })
-    .from(".work__intro .eyebrow__dot", { scale: 0, duration: 0.6, ease: "back.out(2.4)" })
-    .from(".work__title-in", { yPercent: 110, duration: 1.1, ease: "expo.out" }, 0.1)
-    .from(".work__lede", { opacity: 0, y: 16, duration: 0.9, ease: "power3.out" }, 0.35);
 
-  const open = (item) => items.forEach((it) => it.classList.toggle("is-open", it === item));
-  for (const item of items) {
-    item.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && open(item));
-    // Keyboard focus opens it too (a tap's focus is left to the click below).
-    item.addEventListener("focusin", (e) => e.target.matches(":focus-visible") && open(item));
-    // Touch on a wide screen: the first tap on a closed strip opens it.
-    item.addEventListener("click", (e) => {
-      if (item.classList.contains("is-open") || innerWidth < 768) return;
-      e.preventDefault();
-      open(item);
+/* ---------- Things I've made ---------- */
+
+// Each name fills in from the left as its row scrolls up the screen. On
+// fine pointers a small picture of the project trails the pointer while
+// it's over the list, swapping as you move between rows.
+function made(reduced) {
+  const section = $("[data-made]");
+  if (!section) return;
+  const rows = $$("[data-made-row]", section);
+  if (reduced) return;
+
+  gsap.from(".made__title", { y: 24, opacity: 0, ease: "power2.out", scrollTrigger: { trigger: section, start: "top 80%", end: "top 45%", scrub: 0.6 } });
+  for (const row of rows) {
+    gsap.fromTo($("[data-made-fill]", row), { "--rest": "100%" }, {
+      "--rest": "0%",
+      ease: "none",
+      scrollTrigger: { trigger: row, start: "top 92%", end: "top 50%", scrub: 0.4 },
     });
   }
 
-  // The panels rise in one after another as the row arrives.
-  gsap.from(items, {
-    y: 48,
-    opacity: 0,
-    duration: 1.1,
-    ease: "expo.out",
-    stagger: 0.07,
-    scrollTrigger: { trigger: "[data-deck]", start: "top 85%", once: true },
-  });
+  const thumb = $("[data-made-thumb]", section);
+  if (!thumb || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const imgs = $$("[data-thumb-img]", thumb);
+  const x = gsap.quickTo(thumb, "x", { duration: 0.6, ease: "power3.out" });
+  const y = gsap.quickTo(thumb, "y", { duration: 0.6, ease: "power3.out" });
+  const tilt = gsap.quickTo(thumb, "rotation", { duration: 0.8, ease: "power3.out" });
+  let lastX = 0;
+  addEventListener("pointermove", (e) => {
+    // Up and to the right of the pointer, leaning with the movement.
+    x(e.clientX + 28);
+    y(e.clientY - thumb.offsetHeight - 20);
+    tilt(gsap.utils.clamp(-8, 8, (e.clientX - lastX) * 0.4));
+    lastX = e.clientX;
+  }, { passive: true });
+  for (const row of rows) {
+    row.addEventListener("pointerenter", () => {
+      imgs.forEach((img) => img.classList.toggle("is-on", img.dataset.thumbImg === row.dataset.thumb));
+      thumb.classList.add("is-on");
+    });
+  }
+  $(".made__list", section).addEventListener("pointerleave", () => thumb.classList.remove("is-on"));
+  addEventListener("scroll", () => thumb.classList.contains("is-on") && !$(".made__list:hover") && thumb.classList.remove("is-on"), { passive: true });
 }
 
 /* ---------- What I do: three roles, each arriving from its side ---------- */
@@ -301,218 +320,162 @@ function ambient() {
 
 /* ---------- Hero ---------- */
 
+// Type only: the headline rises line by line on the first visit, then the
+// label, the line under it, the button and the nav fade up.
 function hero() {
-  const stageEl = $("[data-stage]");
-  const canvas = $("[data-stage-canvas]");
-  const slot = $("[data-slot]");
-  const slotImg = $(".slot__img", slot);
-  const title = $(".hero__title");
-  const lineIns = $$(".line__in", title);
-  const wordL = $('[data-word="left"]');
-  const wordR = $('[data-word="right"]');
-  const tops = $$("[data-hero-top]");
-  const bottoms = $$("[data-hero-bottom]");
-  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  const S = {
-    d: 0, // pinned scroll so far, in viewport heights
-    reveal: html.classList.contains("is-intro") ? 0 : 1,
-    introDone: !html.classList.contains("is-intro"),
-    introGlitch: 0,
-    pointerGlitch: 0,
-    scrollGlitch: 0,
-    client: { x: -1e4, y: -1e4 },
-    hasPointer: false,
-    over: false,
-    rect: null, // the photo, in viewport px
-    par: { x: 0, y: 0 },
-    parTo: { x: 0, y: 0 },
-    textKey: "",
-    drawKey: "",
-  };
-  // ?debug exposes the state; ?debug&glitch=0.5 holds the glitch on for inspection.
-  if (params.has("debug")) {
-    window.__hero = S;
-    S.debugGlitch = Number(params.get("glitch")) || 0;
+  fitName();
+  document.fonts.ready.then(fitName);
+  addEventListener("resize", fitName);
+  const girl = $("[data-hero-girl]");
+  const name = $("[data-hero-name]");
+  if (name) {
+    kinetic(name);
+    intro(name);
   }
+  return girl ? heroGirl(girl, false) : null;
+}
 
-  const gl = PortraitGL.supported() ? new PortraitGL(canvas, { focus: FOCUS }) : null;
-  const ready = gl ? gl.load(slotImg.currentSrc || slotImg.src).catch(() => false) : Promise.resolve(false);
-  const cursor = createCursor(gsap);
-  if (gl) html.classList.add("has-stage");
+// Both lines of her name at one size: the longer fills about four fifths of
+// the width at rest (leaving its letters room to widen near the pointer),
+// and never taller than the screen allows.
+function fitName() {
+  const name = $("[data-hero-name]");
+  if (!name) return;
+  const lines = $$("[data-fit]", name);
+  lines.forEach((line) => line.style.setProperty("--fit", "100px"));
+  const widest = Math.max(...lines.map((line) => {
+    const range = document.createRange();
+    range.selectNodeContents(line);
+    return range.getBoundingClientRect().width;
+  }));
+  if (!widest) return;
+  const room = name.clientWidth * (innerWidth < 768 ? 0.92 : 0.8);
+  const size = Math.min((room / widest) * 100, innerHeight * 0.3);
+  lines.forEach((line) => line.style.setProperty("--fit", `${size.toFixed(2)}px`));
+}
 
-  let slotRadius = 0;
-  const measure = () => {
-    slotRadius = parseFloat(getComputedStyle(slot).borderTopLeftRadius) || 0;
-    S.textKey = S.drawKey = "";
-  };
-  measure();
-  addEventListener("resize", measure);
+/* ---------- The name's letters stretch toward the pointer ---------- */
 
-  canvas.addEventListener("portrait:lost", () => html.classList.remove("gl-ready"));
-  canvas.addEventListener("portrait:restored", () => {
-    S.drawKey = "";
-    html.classList.add("gl-ready");
-  });
+// Every letter near the pointer (within R) eases toward wide and light;
+// further ones settle back to narrow and heavy. Each line is held to the
+// width it has, so the stretch is scaled down if it would run over.
+// After mikewilcockdesign.com's hero.
+function fvs(t) {
+  return `"wdth" ${(75 + 50 * t).toFixed(1)}, "wght" ${Math.round(800 - 540 * t)}`;
+}
 
-  /* ---------- Pointer: glitch on speed, a little depth on position ---------- */
-
-  let last = { x: 0, y: 0, t: 0 };
-  addEventListener(
-    "pointermove",
-    (e) => {
-      const now = performance.now();
-      const speed = Math.hypot(e.clientX - last.x, e.clientY - last.y) / Math.max(8, now - last.t);
-      last = { x: e.clientX, y: e.clientY, t: now };
-      S.client = { x: e.clientX, y: e.clientY };
-      S.hasPointer = true;
-      if (S.over) S.pointerGlitch = Math.max(S.pointerGlitch, Math.min(0.5, speed * 0.16));
-      if (fine) S.parTo = { x: e.clientX / innerWidth - 0.5, y: e.clientY / innerHeight - 0.5 };
-    },
-    { passive: true }
-  );
-  // A tap on the photo (touch included) gives it a small jolt.
-  addEventListener(
-    "pointerdown",
-    (e) => {
-      const r = S.rect;
-      if (r && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-        S.pointerGlitch = Math.max(S.pointerGlitch, 0.5);
-      }
-    },
-    { passive: true }
-  );
-  html.addEventListener("mouseleave", () => {
-    S.hasPointer = false;
-    S.parTo = { x: 0, y: 0 };
-  });
-
-  /* ---------- Every frame: lay out the text around the photo, then draw it ---------- */
-
-  gsap.ticker.add((time, deltaMs) => {
-    const dt = Math.min(64, deltaMs || 16);
-    const decay = (v, tau) => (v > 0.002 ? v * Math.exp(-dt / tau) : 0);
-    S.pointerGlitch = decay(S.pointerGlitch, 170);
-    S.scrollGlitch = decay(S.scrollGlitch, 240);
-    S.par.x += (S.parTo.x - S.par.x) * 0.06;
-    S.par.y += (S.parTo.y - S.par.y) * 0.06;
-
-    // Read.
-    const st = stageEl.getBoundingClientRect();
-    if (st.bottom <= 0 || st.top >= innerHeight) {
-      S.rect = null;
-      if (S.over) cursor?.setPhoto((S.over = false));
-      return;
-    }
-    const sl = slot.getBoundingClientRect();
-    const sx = sl.left - st.left, sy = sl.top - st.top;
-
-    const g = easeInOut(clamp(S.d / GROW_VH));
-    const hold = clamp((S.d - GROW_VH) / (STAGE_VH - GROW_VH));
-    // Once the pin lets go, the photo trails the page and darkens as it leaves.
-    const exit = clamp(-st.top / st.height);
-    const rect = {
-      x: lerp(sx, 0, g),
-      y: lerp(sy, 0, g) + exit * st.height * 0.4,
-      w: lerp(sl.width, st.width, g),
-      h: lerp(sl.height, st.height, g),
-    };
-
-    // Write. The words ride the photo's edges out of frame as it grows.
-    const px = S.par.x * (1 - g), py = S.par.y * (1 - g);
-    if (S.introDone) {
-      const key = `${rect.x.toFixed(1)},${rect.y.toFixed(1)},${rect.w.toFixed(1)},${rect.h.toFixed(1)},${px.toFixed(3)},${py.toFixed(3)}`;
-      if (key !== S.textKey) {
-        S.textKey = key;
-        const mid = rect.y + rect.h / 2 - (sy + sl.height / 2);
-        wordL.style.transform = `translate3d(${rect.x - sx}px, ${mid}px, 0)`;
-        wordR.style.transform = `translate3d(${rect.x + rect.w - (sx + sl.width)}px, ${mid}px, 0)`;
-        wordL.style.opacity = wordR.style.opacity = String(1 - smooth(0.6, 1, g));
-        for (const el of tops) {
-          el.style.transform = `translate3d(0, ${rect.y - sy}px, 0)`;
-          el.style.opacity = String(1 - smooth(0.18, 0.5, g));
-        }
-        for (const el of bottoms) {
-          el.style.transform = `translate3d(0, ${rect.y + rect.h - (sy + sl.height)}px, 0)`;
-          el.style.opacity = String(1 - smooth(0, 0.3, g));
-        }
-        title.style.transform = `translate3d(${-px * 12}px, ${-py * 8}px, 0)`;
-      }
-    }
-
-    const mouse = { x: S.client.x - st.left, y: S.client.y - st.top };
-    const inPhoto = mouse.x >= rect.x && mouse.x <= rect.x + rect.w && mouse.y >= rect.y && mouse.y <= rect.y + rect.h;
-    const over = S.hasPointer && S.reveal > 0.5 && inPhoto;
-    if (over && !S.over) S.pointerGlitch = Math.max(S.pointerGlitch, 0.3);
-    if (over !== S.over) cursor?.setPhoto((S.over = over));
-    S.rect = { left: st.left + rect.x, top: st.top + rect.y, right: st.left + rect.x + rect.w, bottom: st.top + rect.y + rect.h };
-
-    if (!gl?.ready) return;
-    const glitch = clamp(Math.max(S.introGlitch, S.pointerGlitch, S.scrollGlitch, S.debugGlitch || 0));
-    const state = {
-      rect,
-      radius: lerp(slotRadius, 0, g),
-      zoom: lerp(INLINE_ZOOM, 1, g) + 0.05 * hold,
-      focus: [FOCUS[0] + px * 0.04, FOCUS[1] + py * 0.04],
-      glitch,
-      spread: S.scrollGlitch > S.pointerGlitch ? 1 : 0,
-      reveal: S.reveal,
-      dim: 0.55 * smooth(0.2, 1, g) + 0.12 * hold,
-      fade: exit * 0.85,
-      mouse,
-      time: time % 1000,
-    };
-    const key = [...Object.values(rect), state.reveal, glitch, ...state.focus, state.zoom, state.dim, state.fade]
-      .map((n) => n.toFixed(4))
-      .join();
-    if (glitch > 0 || key !== S.drawKey) {
-      S.drawKey = key;
-      gl.draw(state);
-      if (!html.classList.contains("gl-ready") && S.reveal > 0) html.classList.add("gl-ready");
-    }
-  });
-
-  /* ---------- Scroll: pin the stage while the photo grows ---------- */
-
-  // Pin straight away so an early scroll never meets a layout jump; if the
-  // photo can't be drawn after all, drop the pin and keep the still layout.
-  const pin =
-    gl &&
-    ScrollTrigger.create({
-      trigger: stageEl,
-      start: "top top",
-      end: () => `+=${Math.round(innerHeight * STAGE_VH)}`,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate(self) {
-        S.d = self.progress * STAGE_VH;
-        if (S.d > 0 && S.d < GROW_VH + 0.1) {
-          S.scrollGlitch = Math.max(S.scrollGlitch, Math.min(0.45, Math.abs(self.getVelocity()) / 4200));
-        }
-      },
+function kinetic(name) {
+  const R = 420;
+  const lines = $$("[data-fit]", name).map((line) => {
+    const word = line.textContent.trim();
+    line.setAttribute("aria-hidden", "true");
+    line.textContent = "";
+    const letters = [...word].map((ch) => {
+      const span = document.createElement("span");
+      span.className = "hero__letter";
+      span.textContent = ch;
+      line.append(span);
+      return { el: span, t: 0, v: 0 };
     });
+    return { line, letters };
+  });
+  name.setAttribute("aria-label", "Shruti Kale");
+  if (!matchMedia("(pointer: fine)").matches) return;
 
-  ready.then((ok) => {
-    if (ok) {
-      if (S.reveal > 0) html.classList.add("gl-ready");
-    } else if (pin) {
-      pin.kill(true);
-      html.classList.remove("has-stage");
-      S.d = 0;
-      ScrollTrigger.refresh();
+  // Each letter's width at five steps from narrow to wide (it doesn't grow
+  // evenly, as it thins while it widens), and its centre on the page.
+  const STEPS = [0, 0.25, 0.5, 0.75, 1];
+  const measure = () => {
+    for (const ln of lines) {
+      const w = STEPS.map((t) => {
+        for (const l of ln.letters) l.el.style.fontVariationSettings = fvs(t);
+        return ln.letters.map((l) => l.el.getBoundingClientRect().width);
+      });
+      ln.letters.forEach((l, i) => {
+        l.el.style.fontVariationSettings = fvs(0);
+        l.w = w.map((row) => row[i]);
+        const r = l.el.getBoundingClientRect();
+        l.x = r.left + r.width / 2;
+        l.y = r.top + r.height / 2 + scrollY;
+        l.v = 0;
+      });
+      ln.room = ln.line.clientWidth - 4;
+    }
+  };
+  const widthAt = (l, v) => {
+    const f = v * 4;
+    const i = Math.min(3, Math.floor(f));
+    return l.w[i] + (l.w[i + 1] - l.w[i]) * (f - i);
+  };
+  // How much of each letter's stretch the line has room for.
+  const fit = (ln) => {
+    const total = (s) => ln.letters.reduce((a, l) => a + widthAt(l, l.t * s), 0);
+    if (total(1) <= ln.room) return 1;
+    let lo = 0;
+    let hi = 1;
+    for (let n = 0; n < 12; n++) {
+      const mid = (lo + hi) / 2;
+      if (total(mid) <= ln.room) lo = mid;
+      else hi = mid;
+    }
+    return lo;
+  };
+
+  const p = { x: -9999, y: -9999, inside: false };
+  addEventListener("pointermove", (e) => Object.assign(p, { x: e.clientX, y: e.clientY, inside: true }), { passive: true });
+  document.addEventListener("pointerleave", () => (p.inside = false));
+  addEventListener("resize", () => requestAnimationFrame(measure));
+  document.fonts.ready.then(measure);
+  measure();
+
+  gsap.ticker.add((_, dt) => {
+    const k = 1 - Math.pow(1 - 0.12, (dt || 16) / 16.7);
+    for (const ln of lines) {
+      let near = false;
+      for (const l of ln.letters) {
+        let h = 0;
+        const dy = l.y - scrollY;
+        if (p.inside && dy > -R && dy < innerHeight + R) {
+          const d = Math.hypot(p.x - l.x, p.y - dy);
+          if (d < R) h = 1 - d / R, h = h * h * (3 - 2 * h);
+        }
+        l.t += (h - l.t) * k;
+        if (l.t > 0.001) near = true;
+      }
+      if (!near && ln.letters.every((l) => l.v === 0)) continue;
+      const s = fit(ln);
+      for (const l of ln.letters) {
+        const v = l.t * s;
+        if (Math.abs(v - l.v) < 0.002) continue;
+        l.v = v < 0.002 ? 0 : v;
+        l.el.style.fontVariationSettings = fvs(l.v);
+      }
     }
   });
+}
 
-  intro(S, { ready, lineIns, slotImg });
+// The nav lights the section you're in.
+function navCurrent() {
+  $$(".nav__links a[data-scroll-to]").forEach((a) => {
+    const target = $(a.getAttribute("href"));
+    if (!target) return;
+    ScrollTrigger.create({
+      trigger: target,
+      start: "top 50%",
+      end: "bottom 50%",
+      onToggle: (self) => (self.isActive ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current")),
+    });
+  });
 }
 
 /* ---------- Intro: ~1.5s, once per visit, skipped by any input ---------- */
 
-async function intro(S, { ready, lineIns, slotImg }) {
+async function intro(title) {
   if (!html.classList.contains("is-intro")) return;
-  await Promise.race([Promise.all([document.fonts.ready, ready]), wait(1600)]);
-  const glOK = await Promise.race([ready, wait(0).then(() => false)]);
+  await Promise.race([document.fonts.ready, wait(1200)]);
+  clearTimeout(window.__introFailsafe);
+  const letters = $$(".hero__letter", title);
+  const ins = $$("[data-hero-in]");
 
   const skipOn = ["wheel", "touchstart", "keydown", "pointerdown"];
   const skip = () => tl.progress(1);
@@ -521,26 +484,18 @@ async function intro(S, { ready, lineIns, slotImg }) {
     onComplete() {
       skipOn.forEach((e) => removeEventListener(e, skip));
       html.classList.remove("is-intro");
-      gsap.set([".hero__dot", ".hero__eyebrow-text", ".hero__sub", ".nav", slotImg, ...lineIns], { clearProps: "opacity,visibility,transform" });
-      S.reveal = 1;
-      S.introGlitch = 0;
-      S.introDone = true;
+      gsap.set(letters, { clearProps: "transform" });
+      dispatchEvent(new Event("resize")); // the letters' places, now they're in
+      gsap.set([title, ".nav", ...ins], { clearProps: "opacity,visibility,transform" });
       store.set("sk:intro", "1");
     },
   });
-
-  tl.fromTo(".hero__dot", { scale: 0 }, { scale: 1, duration: 0.6, ease: "back.out(2.4)" }, 0.1)
-    .to(".hero__eyebrow-text", { opacity: 1, x: 0, duration: 0.8 }, 0.38)
-    .fromTo(lineIns, { y: 0, yPercent: 140 }, { yPercent: 0, duration: 1.1, stagger: 0.12 }, 0.08);
-  if (glOK) {
-    tl.to(S, { reveal: 1, duration: 0.8, ease: "power3.out" }, 0.55)
-      .fromTo(S, { introGlitch: 0.85 }, { introGlitch: 0, duration: 1.1, ease: "power2.out" }, 0.55);
-  } else {
-    tl.fromTo(slotImg, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: "power2.out" }, 0.55);
-  }
-  tl.to(".hero__sub", { opacity: 1, y: 0, duration: 0.9 }, 0.75)
-    .to(".nav", { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.85);
+  gsap.set(title, { visibility: "visible" });
+  tl.to(ins[0], { opacity: 1, y: 0, duration: 0.9 }, 0);
+  tl.fromTo(letters, { yPercent: 115 }, { yPercent: 0, duration: 1.3, stagger: 0.055 }, 0.1);
+  tl.to(ins.slice(1), { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 0.7)
+    .to(".nav", { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.75);
 
   skipOn.forEach((e) => addEventListener(e, skip, { passive: true }));
-  if (params.has("debug")) S.intro = tl;
+  if (params.has("debug")) window.__intro = tl;
 }

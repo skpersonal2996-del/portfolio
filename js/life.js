@@ -56,7 +56,7 @@ const NEAR = [P.PALM, P.TOWER, P.CACTUS, P.LIGHTHOUSE];
 const NEAR_GAP = 46;
 const FAR_GAP = 88;
 
-export function createLife(section, { gsap, ScrollTrigger, reduced = false }) {
+export function createLife(section, { gsap, ScrollTrigger, reduced = false, manual = false }) {
   const html = document.documentElement;
   const box = section.querySelector("[data-life-box]");
   const canvas = section.querySelector("[data-life-scene]");
@@ -544,9 +544,12 @@ export function createLife(section, { gsap, ScrollTrigger, reduced = false }) {
     trigger: box,
     start: "top 80%",
     end: "bottom top",
-    onEnter: () => appear(),
+    // Manual: she arrives when the caller says (tiny Shruti from the page
+    // jumping in, see skills.js), not when the box scrolls in.
+    onEnter: () => manual || appear(),
     onToggle: (self) => (S.on = self.isActive),
   });
+  S.appear = () => appear();
 
   let acc = 0;
   gsap.ticker.add((time, deltaMs) => {

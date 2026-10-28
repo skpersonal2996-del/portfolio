@@ -15,7 +15,7 @@ const lerp = (a, b, t) => a + (b - a) * t;
 // Reading colours: unread, the edge where you are, read.
 const UNREAD = "#3A3632";
 const EDGE = "#F4A06A";
-const READ = "#EDE8E0";
+const READ = "#E4D9C6";
 
 // Plugins, smooth scrolling, the cursor and the links every page has.
 export function setup() {

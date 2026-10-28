@@ -38,7 +38,6 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
-  <a class="nav__mark" href="#top" data-scroll-to>Shruti Kale</a>
   <nav aria-label="Primary">
     <ul class="nav__links">
       <li class="nav__about"><a href="#about" data-scroll-to>About</a></li>
@@ -55,131 +54,127 @@
 <canvas class="ambient" data-ambient aria-hidden="true"></canvas>
 
 <main id="main">
-  <!-- The hero's stage: pinned while the photo grows, then it scrolls away. -->
-  <div class="stage" data-stage>
-    <canvas class="stage__canvas" data-stage-canvas role="img" aria-label="Shruti Kale, a black and white portrait. She rests her chin on her hand and smiles."></canvas>
-
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero__inner">
-        <p class="hero__eyebrow" data-hero-top><span class="eyebrow__dot hero__dot" aria-hidden="true"></span><span class="hero__eyebrow-text">AI Native Product Designer, Shruti</span></p>
-        <h1 class="hero__title" id="hero-title">
-          <span class="line" data-hero-top><span class="line__in">I can’t stop</span></span>
-          <span class="line"><span class="line__in"><span class="word" data-word="left">asking</span> <span class="slot" data-slot aria-hidden="true"><img class="slot__img" src="assets/img/shruti-portrait.webp" width="1024" height="1536" alt="" fetchpriority="high" decoding="async"></span> <span class="word" data-word="right">why.</span></span></span>
-        </h1>
-        <p class="hero__sub" data-hero-bottom>Trained as an engineer. Spent the years since figuring out <em class="hero__key">why some products feel effortless</em> and others don’t&nbsp;– then building the ones that&nbsp;do.</p>
+  <!-- The hero: her name as big as the screen allows (its letters widen
+       near the pointer), the line about what she does with its key phrase
+       in orange, the invitation to talk, and tiny pixel Shruti at work. -->
+  <section class="hero" id="top" aria-labelledby="hero-name">
+    <p class="hero__label" data-hero-in>Creative product &amp; UX designer</p>
+    <h1 class="hero__name" id="hero-name" data-hero-name>
+      <span class="hero__line" data-fit>Shruti</span>
+      <span class="hero__line hero__line--second" data-fit>Kale</span>
+    </h1>
+    <div class="hero__bottom">
+      <div class="hero__lede">
+        <p class="hero__title" data-hero-in>I turn complex problems into <em class="hero__key">products people can use</em>, and businesses can grow&nbsp;with.</p>
+        <a class="hero__cta" href="mailto:shrutikale2996@gmail.com" data-hero-in>Let’s chat<span class="hero__cta-arrow" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span></a>
       </div>
-    </section>
+      <canvas class="hero__girl" data-hero-girl data-hero-in role="img" aria-label="Tiny pixel Shruti sitting cross-legged, typing on her laptop, a mug of coffee beside her."></canvas>
+    </div>
+  </section>
 
-  </div>
+  <!-- How I make products better. On wide screens it pins: tiny Shruti has
+       walked in from the hero, a line draws a loop around Product design and
+       each skill appears as the line reaches it, then "But there's more".
+       On phones it's a list with a line drawn down its side. -->
+  <section class="skills" id="how" aria-labelledby="skills-title" data-skills>
+    <div class="skills__stage">
+      <h2 class="skills__title" id="skills-title">How I make products better</h2>
+      <div class="skills__ring" data-skills-ring>
+        <svg class="skills__loop" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path data-skills-path/></svg>
+        <ol class="skills__list">
+          <li class="skill" data-skill data-angle="180" data-place="left"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">01</span><h3 class="skill__name">Product strategy</h3><p class="skill__line">Find the problem worth solving before designing the solution.</p></div></li>
+          <li class="skill" data-skill data-angle="270" data-place="top"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">02</span><h3 class="skill__name">Understand business and users</h3><p class="skill__line">Research, behaviour, user needs and turn into actionable insights.</p></div></li>
+          <li class="skill skill--core" data-skill-core><div class="skill__text"><span class="skill__num">03</span><h3 class="skill__name">Product design</h3></div></li>
+          <li class="skill" data-skill data-angle="360" data-place="right"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">04</span><h3 class="skill__name">Shape the experience</h3><p class="skill__line">Flows, interaction &amp; visual design.</p></div></li>
+          <li class="skill" data-skill data-angle="415" data-place="bottom"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">05</span><h3 class="skill__name">Make it tangible</h3><p class="skill__line">Prototype, testing, iteration.</p></div></li>
+          <li class="skill" data-skill data-angle="485" data-place="bottom"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">06</span><h3 class="skill__name">Build for scale</h3><p class="skill__line">Design system and team collaboration.</p></div></li>
+        </ol>
+      </div>
+      <canvas class="skills__girl" data-skills-girl aria-hidden="true"></canvas>
+    </div>
+  </section>
 
-  <!-- Sections just for reading. Lines rise into view, then warm from light
-       grey through light orange to white as you read down. -->
-  <section class="reading" id="about" aria-labelledby="reading-title" data-story>
-    <h2 class="sr-only" id="reading-title">Where it started</h2>
-    <p class="reading__text" data-reading-text>It started with engineering – code, systems, hardware. Somewhere in there I noticed something: a product could be technically correct and still feel bad to use. That question never really left me. It’s the same one I ask now, just pointed at screens instead of&nbsp;circuits.</p>
+  <!-- But there's more. On wide screens tiny Shruti walks down from the
+       skills and across to the bottom left; the section pins, a line draws
+       across and each point appears as the line reaches it. -->
+  <section class="more" aria-labelledby="more-title" data-more>
+    <div class="more__stage">
+      <h2 class="more__title" id="more-title">But there’s more</h2>
+      <div class="more__row">
+        <span class="more__line" data-more-line aria-hidden="true"></span>
+        <ul class="more__list">
+          <li class="more__item" data-more-item><span class="more__dot" aria-hidden="true"></span><h3 class="more__name">AI-Assisted exploration</h3><p class="more__text">Faster synthesis, prototyping, and turn AI capabilities into experiences that solve real user problems.</p></li>
+          <li class="more__item" data-more-item><span class="more__dot" aria-hidden="true"></span><h3 class="more__name">Cross-functional</h3><p class="more__text">Work with product, engineering, and business teams together around the same goal.</p></li>
+          <li class="more__item" data-more-item><span class="more__dot" aria-hidden="true"></span><h3 class="more__name">Outcome led</h3><p class="more__text">User value meets business goals.</p></li>
+        </ul>
+      </div>
+      <canvas class="more__girl" data-more-girl aria-hidden="true"></canvas>
+    </div>
   </section>
 
 
-  <!-- Selected work. On wide screens the section pins and the projects move
-       sideways as you scroll; on phones they stack. Each card is one link, and
-       its text comes first in the markup so it reads in a sensible order. -->
-  <section class="work" id="work" aria-labelledby="work-title" data-work>
-    <header class="work__intro">
-      <p class="eyebrow" data-work-eyebrow><span class="eyebrow__dot" aria-hidden="true"></span>Since 2021</p>
-      <h2 class="work__title" id="work-title"><span class="work__title-in">Selected work</span></h2>
-      <p class="work__lede">Five projects, from pharma factory floors to a personal experiment in motion and&nbsp;AI.</p>
-    </header>
-
-    <!-- The projects as a row of tall panels, one open at a time: hovering
-         (or focusing) a closed strip opens it, clicking the open one goes to
-         the case study. Closed strips show a dimmed slice of the scene, the
-         number and the name turned sideways. On phones they simply stack. -->
-    <ol class="deck" data-deck>
-      <li class="deck__item deck__item--leucine is-open" data-deck-item>
-        <div class="deck__media card__media--scene">
-          <div class="scene scene--leucine">
-            <svg class="scene__art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="sc-molecule" fill="none" stroke="rgba(170,255,225,.42)" stroke-width="1.6"><path d="M352.5 45v26L330 84l-22.5-13V45L330 32zM307.5 71v26L285 110l-22.5-13V71L285 58M352.5 45l22.5-13M330 32V8M262.5 97l-20 12"/><g fill="rgba(170,255,225,.7)" stroke="none"><circle cx="375" cy="32" r="3.5"/><circle cx="330" cy="8" r="3.5"/><circle cx="242.5" cy="109" r="3.5"/><circle cx="307.5" cy="71" r="2.6"/></g></g><g class="sc-flask" fill="none" stroke="rgba(170,255,225,.45)" stroke-width="1.6" stroke-linejoin="round"><path d="M40 24h20M44 24v26l-18 32a5 5 0 0 0 4.4 7.4h39.2A5 5 0 0 0 74 82L56 50V24"/><path d="M33 70h34" stroke-dasharray="3 4"/><circle cx="47" cy="78" r="2.5" fill="rgba(170,255,225,.6)" stroke="none"/><circle cx="55" cy="73" r="1.8" fill="rgba(170,255,225,.6)" stroke="none"/></g><path d="M0 268h70a10 10 0 0 0 10-10v-20" fill="none" stroke="rgba(170,255,225,.22)" stroke-width="6"/><path d="M0 268h70a10 10 0 0 0 10-10v-20" fill="none" stroke="rgba(170,255,225,.4)" stroke-width="1.2" stroke-dasharray="2 5"/></svg>
-            <div class="scene__device card__shot"><div class="sc-tablet"><img src="assets/img/work/leucine-900.jpg" srcset="assets/img/work/leucine-900.jpg 900w, assets/img/work/leucine-1600.jpg 1600w" sizes="(max-width: 767px) 70vw, 32vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Leucine's job execution screen on a tablet: a staged task list on the left and a form for logging equipment parameters on the right."></div></div>
-            <div class="scene__float" aria-hidden="true"><div class="sc-task"><div><b></b><span></span></div><div><b></b><span></span></div><div><b></b><span></span></div></div></div>
-          </div>
-        </div>
-        <span class="deck__num" aria-hidden="true">01</span>
-        <span class="deck__spine" aria-hidden="true">Leucine</span>
-        <div class="deck__body">
-          <h3 class="deck__name"><a class="deck__link" href="work/leucine/" data-cursor="View case study">Leucine</a></h3>
-          <p class="deck__line">Simplifying complex workflows for pharma manufacturing.</p>
-          <ul class="deck__tags"><li>B2B SaaS</li><li>Workflow Design</li><li>UX Research</li></ul>
-          <span class="deck__go" aria-hidden="true">View case study<svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span>
-        </div>
+  <!-- Things I've made: the projects as big names, one per row. Each name
+       fills in from the left as you scroll to it; on hover an orange band
+       opens from the middle of the row with the name in dark, and a small
+       picture of the project follows the pointer. -->
+  <section class="made" id="work" aria-labelledby="made-title" data-made>
+    <h2 class="made__title" id="made-title">Things I’ve made</h2>
+    <ol class="made__list" data-cursor-plain>
+      <li class="made__row" data-made-row data-thumb="leucine">
+        <a class="made__link" href="work/leucine/">
+          <span class="made__name made__name--dim" aria-hidden="true">Leucine</span>
+          <span class="made__name made__name--fill" data-made-fill>Leucine</span>
+          <span class="made__band" aria-hidden="true"><span class="made__name">Leucine</span></span>
+        </a>
       </li>
-      <li class="deck__item deck__item--bridge" data-deck-item>
-        <div class="deck__media card__media--scene">
-          <div class="scene scene--bridge">
-            <svg class="scene__art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M184 168h32l184 132H0z" fill="#18224A"/><path d="M184 168 0 300M216 168l184 132" fill="none" stroke="rgba(255,210,140,.35)" stroke-width="1.5"/><path class="sc-road-dash" d="M200 170v130" fill="none" stroke="#F2B544" stroke-width="3"/><path d="M0 168h400" stroke="rgba(255,210,140,.18)" stroke-width="1"/><g transform="translate(352 54)"><g class="sc-wheel" fill="none" stroke="rgba(255,210,140,.55)" stroke-width="2"><circle r="22"/><circle r="6"/><path d="M-6 0h-16M6 0h16M0 6v16"/></g></g></svg>
-            <div class="scene__device card__shot"><div class="sc-lid"><img style="aspect-ratio: 16 / 10; object-fit: cover; object-position: top" src="assets/img/work/bridge-900.jpg" srcset="assets/img/work/bridge-900.jpg 900w, assets/img/work/bridge-1600.jpg 1600w" sizes="(max-width: 767px) 60vw, 26vw" width="1600" height="1383" loading="lazy" decoding="async" alt="Bridge's admin dashboard on a laptop: upcoming learning and final tests, RTO work, pending payments, expiring vehicle documents and an admissions chart."></div><div class="sc-base"></div></div>
-            <div class="scene__float" aria-hidden="true"><svg class="sc-cone" viewBox="0 0 40 44"><path d="M16 4h8l11 32H5z" fill="#F5853F"/><path d="M13.2 12h13.6l2.4 7H10.8zM9.6 23h20.8l2.4 7H7.2z" fill="#FFF"/><rect x="1" y="36" width="38" height="5" rx="2" fill="#E06A28"/></svg></div>
-          </div>
-        </div>
-        <span class="deck__num" aria-hidden="true">02</span>
-        <span class="deck__spine" aria-hidden="true">Bridge</span>
-        <div class="deck__body">
-          <h3 class="deck__name"><a class="deck__link" href="work/bridge/" data-cursor="View case study">Bridge</a></h3>
-          <p class="deck__line">Turning manual admin work into a smarter system.</p>
-          <ul class="deck__tags"><li>0→1 SaaS</li><li>Product Design</li><li>Workflow Design</li></ul>
-          <span class="deck__go" aria-hidden="true">View case study<svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span>
-        </div>
+      <li class="made__row" data-made-row data-thumb="bridge">
+        <a class="made__link" href="work/bridge/">
+          <span class="made__name made__name--dim" aria-hidden="true">Bridge</span>
+          <span class="made__name made__name--fill" data-made-fill>Bridge</span>
+          <span class="made__band" aria-hidden="true"><span class="made__name">Bridge</span></span>
+        </a>
       </li>
-      <li class="deck__item deck__item--docfit" data-deck-item>
-        <div class="deck__media card__media--scene">
-          <div class="scene scene--docfit">
-            <svg class="scene__art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g transform="translate(362 238) scale(1.4)"><path class="sc-spark" d="M0-10C1-3 3-1 10 0 3 1 1 3 0 10-1 3-3 1-10 0-3-1-1-3 0-10z" fill="#FFF"/></g><g transform="translate(36 44) scale(1)"><path class="sc-spark" d="M0-10C1-3 3-1 10 0 3 1 1 3 0 10-1 3-3 1-10 0-3-1-1-3 0-10z" fill="#FFF"/></g><g transform="translate(388 30) scale(0.7)"><path class="sc-spark" d="M0-10C1-3 3-1 10 0 3 1 1 3 0 10-1 3-3 1-10 0-3-1-1-3 0-10z" fill="#FFF"/></g></svg>
-            <div class="sc-docs" aria-hidden="true"><div class="sc-doc"><i></i><i></i><i></i><i></i><i></i></div><div class="sc-doc"><i></i><i></i><i></i><i></i><i></i></div><div class="sc-doc"><i></i><i></i><i></i><i></i><i></i></div></div>
-            <div class="scene__device card__shot"><div class="sc-browser"><div class="sc-browser__bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/img/work/docfit-900.jpg" srcset="assets/img/work/docfit-900.jpg 900w, assets/img/work/docfit-1600.jpg 1600w" sizes="(max-width: 767px) 64vw, 28vw" width="1600" height="1111" loading="lazy" decoding="async" alt="DocFit’s editor with Ask AI open: Std and Div are now on one line in all 312 hall tickets, and the quick check still passes."></div></div>
-          </div>
-        </div>
-        <span class="deck__num" aria-hidden="true">03</span>
-        <span class="deck__spine" aria-hidden="true">DocFit</span>
-        <div class="deck__body">
-          <h3 class="deck__name"><a class="deck__link" href="work/docfit/" data-cursor="View case study">DocFit</a></h3>
-          <p class="deck__line">An AI product that fits spreadsheet data into a fixed document format.</p>
-          <ul class="deck__tags"><li>0→1 Product Design</li><li>AI Interaction Design</li><li>Research</li></ul>
-          <span class="deck__go" aria-hidden="true">View case study<svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span>
-        </div>
+      <li class="made__row" data-made-row data-thumb="docfit">
+        <a class="made__link" href="work/docfit/">
+          <span class="made__name made__name--dim" aria-hidden="true">DocFit</span>
+          <span class="made__name made__name--fill" data-made-fill>DocFit</span>
+          <span class="made__band" aria-hidden="true"><span class="made__name">DocFit</span></span>
+        </a>
       </li>
-      <li class="deck__item deck__item--nestwise" data-deck-item>
-        <div class="deck__media card__media--scene">
-          <div class="scene scene--nestwise">
-            <svg class="scene__art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1.2"><path d="M-10 60 410 20M-10 140 410 110M-10 230 410 200M60-10 30 310M150-10 170 310M290-10 260 310M360-10 390 310"/></g><g fill="none" stroke="rgba(255,255,255,.28)" stroke-dasharray="4 6" stroke-width="1.4"><circle class="sc-ring" cx="200" cy="150" r="82"/><circle class="sc-ring" cx="200" cy="150" r="128" opacity=".6"/></g><path d="M0 300v-26h18v-14h16v22h14v-36h22v28h12v-16h20v42M290 300v-30h20v-22h18v34h14v-18h22v24h16v-40h20v52" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.4"/><g transform="translate(70 92)"><g class="sc-pin"><path d="M0-22a9 9 0 0 1 9 9c0 7-9 15-9 15s-9-8-9-15a9 9 0 0 1 9-9z" fill="#FFF"/><circle cy="-13" r="3.2" fill="#2E2390"/></g></g><g transform="translate(334 78)"><g class="sc-pin"><path d="M0-22a9 9 0 0 1 9 9c0 7-9 15-9 15s-9-8-9-15a9 9 0 0 1 9-9z" fill="#F5853F"/><circle cy="-13" r="3.2" fill="#2E2390"/></g></g><g transform="translate(322 214)"><g class="sc-pin"><path d="M0-22a9 9 0 0 1 9 9c0 7-9 15-9 15s-9-8-9-15a9 9 0 0 1 9-9z" fill="#FFF"/><circle cy="-13" r="3.2" fill="#2E2390"/></g></g><g transform="translate(86 206)"><g class="sc-pin"><path d="M0-22a9 9 0 0 1 9 9c0 7-9 15-9 15s-9-8-9-15a9 9 0 0 1 9-9z" fill="#FFF"/><circle cy="-13" r="3.2" fill="#2E2390"/></g></g><g transform="translate(110 140)"><g class="sc-pin"><path d="M0-22a9 9 0 0 1 9 9c0 7-9 15-9 15s-9-8-9-15a9 9 0 0 1 9-9z" fill="#F5853F"/><circle cy="-13" r="3.2" fill="#2E2390"/></g></g></svg>
-            <div class="scene__device card__shot"><div class="sc-phone"><div class="sc-phone__screen"><img src="assets/img/work/nestwise-480.jpg" srcset="assets/img/work/nestwise-480.jpg 480w, assets/img/work/nestwise-824.jpg 824w" sizes="(max-width: 767px) 30vw, 13vw" width="824" height="1704" loading="lazy" decoding="async" alt="A Nestwise listing on a phone: a furnished 1 BHK in Marol, Andheri East, marked available and confirmed 3 days ago, with a verified badge."></div></div></div>
-          </div>
-        </div>
-        <span class="deck__num" aria-hidden="true">04</span>
-        <span class="deck__spine" aria-hidden="true">Nestwise</span>
-        <div class="deck__body">
-          <h3 class="deck__name"><a class="deck__link" href="work/nestwise/" data-cursor="View case study">Nestwise</a></h3>
-          <p class="deck__line">Making rental search more personal and trustworthy.</p>
-          <ul class="deck__tags"><li>Product Concept</li><li>UX Research</li><li>Personalization</li></ul>
-          <span class="deck__go" aria-hidden="true">View case study<svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span>
-        </div>
+      <li class="made__row" data-made-row data-thumb="nestwise">
+        <a class="made__link" href="work/nestwise/">
+          <span class="made__name made__name--dim" aria-hidden="true">Nestwise</span>
+          <span class="made__name made__name--fill" data-made-fill>Nestwise</span>
+          <span class="made__band" aria-hidden="true"><span class="made__name">Nestwise</span></span>
+        </a>
       </li>
-      <li class="deck__item deck__item--sahar" data-deck-item>
-        <div class="deck__media card__media--scene">
-          <div class="scene scene--sahar">
-            <svg class="scene__art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="sc-net" fill="none" stroke="rgba(60,130,200,.35)" stroke-width="1.1"><path d="M20 40 70 20 120 52 60 80zM70 20 150 14M330 30 380 70 350 120 300 80zM300 80 250 40M380 70 400 110M30 230 80 270 40 290M80 270 140 286M350 250 390 220 380 280zM350 250 300 280"/></g><g fill="#3C82C8"><circle class="sc-node" cx="20" cy="40" r="2.6"/><circle class="sc-node" cx="70" cy="20" r="3"/><circle class="sc-node" cx="120" cy="52" r="2.4"/><circle class="sc-node" cx="60" cy="80" r="2.2"/><circle class="sc-node" cx="150" cy="14" r="2"/><circle class="sc-node" cx="330" cy="30" r="2.6"/><circle class="sc-node" cx="380" cy="70" r="3"/><circle class="sc-node" cx="350" cy="120" r="2.4"/><circle class="sc-node" cx="300" cy="80" r="2.2"/><circle class="sc-node" cx="250" cy="40" r="2"/><circle class="sc-node" cx="30" cy="230" r="2.4"/><circle class="sc-node" cx="80" cy="270" r="3"/><circle class="sc-node" cx="40" cy="290" r="2"/><circle class="sc-node" cx="140" cy="286" r="2"/><circle class="sc-node" cx="350" cy="250" r="2.6"/><circle class="sc-node" cx="390" cy="220" r="2.2"/><circle class="sc-node" cx="380" cy="280" r="2.4"/><circle class="sc-node" cx="300" cy="280" r="2"/></g></svg>
-            <div class="scene__device card__shot"><div class="sc-browser"><div class="sc-browser__bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/img/work/sahar-900.jpg" srcset="assets/img/work/sahar-900.jpg 900w, assets/img/work/sahar-1600.jpg 1600w" sizes="(max-width: 767px) 70vw, 30vw" width="1600" height="1000" loading="lazy" decoding="async" alt="The hero of the Sahar concept site: “I make Superhumans” beside Dr. Sahar Yousef’s portrait, with a halo of neural particles behind her."></div></div>
-          </div>
-        </div>
-        <span class="deck__num" aria-hidden="true">05</span>
-        <span class="deck__spine" aria-hidden="true">Sahar</span>
-        <div class="deck__body">
-          <h3 class="deck__name"><a class="deck__link" href="work/sahar/" data-cursor="View case study">Sahar</a></h3>
-          <p class="deck__line">Exploring AI, motion, and visual storytelling for the web.</p>
-          <ul class="deck__tags"><li>Visual Design</li><li>AI</li><li>Motion</li></ul>
-          <span class="deck__go" aria-hidden="true">View case study<svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span>
-        </div>
+      <li class="made__row" data-made-row data-thumb="sahar">
+        <a class="made__link" href="work/sahar/">
+          <span class="made__name made__name--dim" aria-hidden="true">Sahar</span>
+          <span class="made__name made__name--fill" data-made-fill>Sahar</span>
+          <span class="made__band" aria-hidden="true"><span class="made__name">Sahar</span></span>
+        </a>
       </li>
     </ol>
-    <p class="sr-only" aria-live="polite" data-soon-status></p>
+    <div class="made__thumb" data-made-thumb aria-hidden="true"><div class="made__frame">
+      <img class="made__img" data-thumb-img="leucine" src="assets/img/work/leucine-thumb.jpg" alt="" loading="lazy" decoding="async">
+      <img class="made__img" data-thumb-img="bridge" src="assets/img/work/bridge-thumb.jpg" alt="" loading="lazy" decoding="async">
+      <img class="made__img" data-thumb-img="docfit" src="assets/img/work/docfit-thumb.jpg" alt="" loading="lazy" decoding="async">
+      <img class="made__img" data-thumb-img="nestwise" src="assets/img/work/nestwise-thumb.jpg" alt="" loading="lazy" decoding="async">
+      <img class="made__img" data-thumb-img="sahar" src="assets/img/work/sahar-900.jpg" alt="" loading="lazy" decoding="async">
+    </div></div>
+  </section>
+
+  <!-- About me: the text on the left; her black and white portrait behind
+       it on the right, dimmed and fading into the page. -->
+  <section class="me" id="about" aria-labelledby="me-title" data-me>
+    <div class="me__photo"><img src="assets/img/shruti-about.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Shruti Kale, a black and white portrait: sitting on a chair turned backwards, her chin resting on her hand, smiling."></div>
+    <div class="me__text">
+      <h2 class="me__title" id="me-title" data-me-in>A designer by <span class="me__hl--accent">curiosity</span>.</h2>
+      <p class="me__para" data-me-in>When campus placements rolled around, most of my classmates were heading into development. I wanted to take <strong class="me__hl">a different route</strong>.</p>
+      <p class="me__para" data-me-in>Engineering taught me to <strong class="me__hl">think in systems</strong>. Design gave me a way to <strong class="me__hl">question them</strong>.</p>
+      <p class="me__para" data-me-in>I started exploring <strong class="me__hl">how people think</strong>, why products work the way they do, and how <strong class="me__hl">small decisions can change an entire experience</strong>. That curiosity led me to <strong class="me__hl">product design</strong>, and it hasn’t really stopped since.</p>
+    </div>
   </section>
 
   <!-- What I do: three roles set big and bold, with room between them, each
@@ -197,8 +192,7 @@
         <span class="roles__line roles__line--2"><span class="roles__in" data-from="right">UI/UX <br class="roles__br">Designer <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="1"></span>)</span></span></span>
       </li>
       <li class="roles__role">
-        <span class="roles__line roles__line--3"><span class="roles__in" data-from="left">Compulsive</span></span>
-        <span class="roles__line roles__line--4"><span class="roles__in" data-from="right">Question-<br class="roles__br">Asker <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="2"></span>)</span></span></span>
+        <span class="roles__line roles__line--3"><span class="roles__in" data-from="left">AI <br class="roles__br">Native <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="2"></span>)</span></span></span>
       </li>
     </ul>
   </section>
@@ -263,5 +257,7 @@
 </footer>
 
 <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
+<!-- Tiny Shruti on her way from the hero to the skills (main.js). -->
+<canvas class="walker" data-walker aria-hidden="true"></canvas>
 </body>
 </html>

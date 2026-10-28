@@ -29,6 +29,7 @@ function boot() {
   compare(reduced);
   chapters();
   phoneScroll();
+  navOverHero();
   // Reduced motion: the page as it is, still; the slider still works.
   if (reduced) {
     html.classList.remove("case-enter");
@@ -104,6 +105,22 @@ function enter() {
     img.addEventListener("load", go, { once: true });
     setTimeout(go, 1200);
   }
+}
+
+/* ---------- No nav over the hero picture ---------- */
+
+// The picture fills the screen on its own; the nav comes in once the sheet
+// has covered most of it.
+function navOverHero() {
+  const heroEl = $("[data-case-hero]");
+  if (!heroEl) return;
+  html.classList.add("nav-off");
+  ScrollTrigger.create({
+    trigger: heroEl,
+    start: "top top",
+    end: "bottom 15%",
+    onToggle: (self) => html.classList.toggle("nav-off", self.isActive),
+  });
 }
 
 /* ---------- The hero: the tablet tips back as the sheet covers it ---------- */

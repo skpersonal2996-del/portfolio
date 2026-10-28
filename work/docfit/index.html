@@ -9,6 +9,7 @@
 <meta name="color-scheme" content="dark">
 <link rel="preload" href="../../assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../../assets/fonts/MonaSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/img/work/docfit-thumb-1536.jpg" as="image" imagesrcset="../../assets/img/work/docfit-thumb.jpg 900w, ../../assets/img/work/docfit-thumb-1536.jpg 1536w" imagesizes="(max-width: 767px) 92vw, 72vw" fetchpriority="high">
 <link rel="stylesheet" href="../../css/main.css">
 <link rel="stylesheet" href="../../css/case.css">
 <script>
@@ -33,7 +34,6 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
-  <a class="nav__mark" href="../../">Shruti Kale</a>
   <nav aria-label="Primary">
     <ul class="nav__links">
       <li class="nav__about"><a href="../../#about">About</a></li>
@@ -60,51 +60,14 @@
 <div class="case-progress" aria-hidden="true"><span data-case-progress></span></div>
 
 <main id="main">
-  <!-- The idea in one picture, in DocFit's blue light: a class list, a blank
-       hall-ticket format and a pile of finished tickets. Row by row the data
-       fills the format and each ticket lands on the pile (merge.js). -->
-  <div class="case-hero case-hero--merge" id="top" data-case-hero>
+  <!-- The idea in one picture, full screen: a spreadsheet and a format
+       joined by AI into a stack of finished documents. -->
+  <div class="case-hero case-hero--cover" id="top" data-case-hero>
     <div class="case-hero__stage" data-case-hero-frame>
-      <div class="case-tilt" data-case-tilt>
-        <div class="merge" data-merge role="img" aria-label="A class list in a spreadsheet, a blank hall-ticket format and a pile of finished hall tickets. One student at a time, their row fills the format’s places and the finished ticket joins the pile: 298 generated, 2 need attention.">
-          <div class="merge__col merge__col--sheet" aria-hidden="true">
-            <p class="merge__label">Your data</p>
-            <div class="xl">
-              <div class="xl__bar"><span class="xl__icon"></span>Class10_Students.xlsx<span class="xl__meta">324 rows</span></div>
-              <table>
-                <colgroup><col class="c-name"><col class="c-roll"><col class="c-std"><col class="c-div"><col></colgroup>
-                <thead><tr><th>Name of Student</th><th>Roll Number</th><th>Std</th><th>Div</th><th>Centre</th></tr></thead>
-                <tbody>
-                  <tr data-merge-row><td>Riya Patil</td><td>1042</td><td>10</td><td>B</td><td>Sunrise Public School, Kothrud</td></tr>
-                  <tr data-merge-row><td>Aarav Kulkarni</td><td>1043</td><td>10</td><td>B</td><td>Sunrise Public School, Kothrud</td></tr>
-                  <tr data-merge-row><td>Sneha Joshi</td><td>1044</td><td>10</td><td>B</td><td>Sunrise Public School, Kothrud</td></tr>
-                  <tr data-merge-row><td>Kabir Deshmukh</td><td>1045</td><td>10</td><td>B</td><td>Sunrise Public School, Kothrud</td></tr>
-                  <tr data-merge-row><td>Ananya Shinde</td><td>1046</td><td>10</td><td>A</td><td>Sunrise Public School, Kothrud</td></tr>
-                  <tr data-merge-row><td>Omkar Pawar</td><td>1047</td><td>10</td><td>A</td><td>Sunrise Public School, Kothrud</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <span class="merge__wire" aria-hidden="true"><i data-merge-pulse></i></span>
-          <div class="merge__col" aria-hidden="true">
-            <p class="merge__label">Your format</p>
-            <div class="ticket ticket--format" data-merge-format><div class="ticket__head"><span class="ticket__logo"></span><span class="ticket__school">Sunrise Public School</span></div><p class="ticket__band">Hall ticket · Term 2</p><dl class="ticket__fields"><div><dt>Name</dt><dd data-merge-field></dd></div><div><dt>Roll no.</dt><dd data-merge-field></dd></div><div><dt>Std</dt><dd data-merge-field></dd></div><div><dt>Div</dt><dd data-merge-field></dd></div><div><dt>Exam centre</dt><dd data-merge-field></dd></div></dl><div class="ticket__lines"><i></i><i></i><i></i><i></i></div><div class="ticket__signs"><i></i><i></i><i></i></div></div>
-          </div>
-          <span class="merge__wire" aria-hidden="true"><i data-merge-pulse></i></span>
-          <div class="merge__col" aria-hidden="true">
-            <p class="merge__label">Your documents</p>
-            <div class="merge__pile">
-              <div class="ticket ticket--back"><div class="ticket__head"><span class="ticket__logo"></span><span class="ticket__school">Sunrise Public School</span></div><p class="ticket__band">Hall ticket · Term 2</p><dl class="ticket__fields"><div><dt>Name</dt><dd data-merge-field>Sneha Joshi</dd></div><div><dt>Roll no.</dt><dd data-merge-field>1044</dd></div><div><dt>Std</dt><dd data-merge-field>10</dd></div><div><dt>Div</dt><dd data-merge-field>B</dd></div><div><dt>Exam centre</dt><dd data-merge-field>Sunrise Public School, Kothrud</dd></div></dl><div class="ticket__lines"><i></i><i></i><i></i><i></i></div><div class="ticket__signs"><i></i><i></i><i></i></div></div>
-              <div class="ticket ticket--back"><div class="ticket__head"><span class="ticket__logo"></span><span class="ticket__school">Sunrise Public School</span></div><p class="ticket__band">Hall ticket · Term 2</p><dl class="ticket__fields"><div><dt>Name</dt><dd data-merge-field>Aarav Kulkarni</dd></div><div><dt>Roll no.</dt><dd data-merge-field>1043</dd></div><div><dt>Std</dt><dd data-merge-field>10</dd></div><div><dt>Div</dt><dd data-merge-field>B</dd></div><div><dt>Exam centre</dt><dd data-merge-field>Sunrise Public School, Kothrud</dd></div></dl><div class="ticket__lines"><i></i><i></i><i></i><i></i></div><div class="ticket__signs"><i></i><i></i><i></i></div></div>
-              <div class="ticket " data-merge-top><div class="ticket__head"><span class="ticket__logo"></span><span class="ticket__school">Sunrise Public School</span></div><p class="ticket__band">Hall ticket · Term 2</p><dl class="ticket__fields"><div><dt>Name</dt><dd data-merge-field></dd></div><div><dt>Roll no.</dt><dd data-merge-field></dd></div><div><dt>Std</dt><dd data-merge-field></dd></div><div><dt>Div</dt><dd data-merge-field></dd></div><div><dt>Exam centre</dt><dd data-merge-field></dd></div></dl><div class="ticket__lines"><i></i><i></i><i></i><i></i></div><div class="ticket__signs"><i></i><i></i><i></i></div></div>
-              <div class="ticket ticket--fly" data-merge-fly><div class="ticket__head"><span class="ticket__logo"></span><span class="ticket__school">Sunrise Public School</span></div><p class="ticket__band">Hall ticket · Term 2</p><dl class="ticket__fields"><div><dt>Name</dt><dd data-merge-field></dd></div><div><dt>Roll no.</dt><dd data-merge-field></dd></div><div><dt>Std</dt><dd data-merge-field></dd></div><div><dt>Div</dt><dd data-merge-field></dd></div><div><dt>Exam centre</dt><dd data-merge-field></dd></div></dl><div class="ticket__lines"><i></i><i></i><i></i><i></i></div><div class="ticket__signs"><i></i><i></i><i></i></div></div>
-              <p class="merge__badge"><i></i>298 generated <i class="is-warn"></i>2 need attention</p>
-            </div>
-          </div>
-        </div>
+      <div class="case-tilt">
+        <figure class="case-cover"><img data-case-shot src="../../assets/img/work/docfit-thumb-1536.jpg" srcset="../../assets/img/work/docfit-thumb.jpg 900w, ../../assets/img/work/docfit-thumb-1536.jpg 1536w" sizes="(max-width: 767px) 92vw, 72vw" width="1536" height="1024" fetchpriority="high" alt="A spreadsheet of students and a school document template float above a sunlit desk, joined by glowing lines to an AI spark, which sends out a fanned stack of finished student documents with their photos."></figure>
       </div>
     </div>
-    <p class="case-cue" aria-hidden="true"><span class="case-cue__line"></span>Scroll to read</p>
     <div class="case-hero__shade" data-case-hero-shade></div>
   </div>
 
@@ -391,8 +354,8 @@
         <span class="case-next__line">Making rental search more personal and trustworthy.</span>
         <span class="case-next__go" aria-hidden="true"><svg viewBox="0 0 24 12"><path d="M1 6h21M17 1l5 5-5 5"/></svg></span>
       </span>
-      <span class="case-next__media case-next__media--phone">
-        <img src="../../assets/img/work/nestwise-480.jpg" srcset="../../assets/img/work/nestwise-480.jpg 480w, ../../assets/img/work/nestwise-824.jpg 824w" sizes="(max-width: 767px) 34vw, 18vw" width="824" height="1704" loading="lazy" decoding="async" alt="">
+      <span class="case-next__media case-next__media--photo">
+        <img src="../../assets/img/work/nestwise-thumb.jpg" srcset="../../assets/img/work/nestwise-thumb.jpg 900w, ../../assets/img/work/nestwise-thumb-1536.jpg 1536w" sizes="(max-width: 767px) 90vw, 50vw" width="1536" height="1024" loading="lazy" decoding="async" alt="">
       </span>
     </a>
   </section>
