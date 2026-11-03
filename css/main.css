@@ -434,6 +434,7 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
 .more__dot { display: none; }
 .more__name { color: var(--paper); font-size: 1.125rem; font-weight: 600; letter-spacing: -.01em; }
 .more__text { max-width: 34ch; margin-top: 8px; color: var(--paper-soft); font-size: .9375rem; line-height: 1.55; }
+.more__text strong { color: var(--paper); font-weight: 600; }
 .more__girl { display: none; }
 
 @media (min-width: 900px) and (min-height: 640px) {
