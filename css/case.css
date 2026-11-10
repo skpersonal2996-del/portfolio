@@ -854,6 +854,28 @@
 
 /* A chapter that fills the screen, content centred in it, so each scroll
    brings one idea. */
+/* The launch film: as wide as the column, never taller than the screen,
+   with its sound button underneath so nothing covers it. */
+.case-film {
+  width: min(100%, calc((100svh - 200px) * 16 / 9));
+  margin: 0;
+}
+.case-film video { display: block; width: 100%; height: auto; border-radius: 16px; background: #131110; }
+.case-film__sound {
+  min-height: 40px;
+  margin-top: 14px;
+  padding: 0 16px;
+  border: 1px solid rgba(237, 232, 224, .2);
+  border-radius: 999px;
+  background: none;
+  color: var(--paper);
+  font: 500 var(--t-small)/1 var(--sans);
+  cursor: pointer;
+  transition: background .3s, border-color .3s, color .3s;
+}
+.case-film__sound:hover { border-color: transparent; background: var(--accent); color: var(--noir); }
+.case-film__sound:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .case-screen {
   display: flex;
   flex-direction: column;

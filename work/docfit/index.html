@@ -48,6 +48,7 @@
      current one long and orange, names on hover. Phones get a progress bar. -->
 <nav class="case-index" aria-label="Chapters" data-case-index>
   <ol>
+    <li><a href="#about-product" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">About product</span></a></li>
     <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 Where it started</span></a></li>
     <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 The problem underneath</span></a></li>
     <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 What research revealed</span></a></li>
@@ -87,6 +88,18 @@
         <div class="case-facts__wide"><dt>Scope</dt><dd>Product Vision &amp; Strategy · Research · UX &amp; Interaction Design · AI Interaction Design · <span class="case-keep">0→1 Product Design</span></dd></div>
       </dl>
     </header>
+
+    <!-- The launch film, before the numbered chapters: the quickest way to see
+         what DocFit is. Silent until asked, playing only while it's on screen. -->
+    <section class="case-ch" id="about-product" aria-labelledby="about-product-title">
+      <header class="case-ch__head">
+        <h2 class="case-h2" id="about-product-title" data-split>About product</h2>
+      </header>
+      <figure class="case-film" data-reveal data-cursor-plain>
+        <video data-film src="../../assets/video/docfit-launch.mp4" poster="../../assets/img/work/docfit/launch-poster.jpg" width="1920" height="1080" muted playsinline controls preload="metadata" aria-label="DocFit’s 15-second launch film: a spreadsheet and a hall-ticket template go in, DocFit matches the fields, flags text that doesn’t fit, and 312 finished documents come out."></video>
+        <button class="case-film__sound" type="button" data-film-sound hidden>Turn sound on</button>
+      </figure>
+    </section>
 
     <!-- Chapters 01 to 04 each get at least a screen of their own. Chapter 02
          has its own container, in DocFit's cobalt. -->

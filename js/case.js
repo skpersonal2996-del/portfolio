@@ -30,6 +30,7 @@ function boot() {
   chapters();
   phoneScroll();
   navOverHero();
+  film(reduced);
   // Reduced motion: the page as it is, still; the slider still works.
   if (reduced) {
     html.classList.remove("case-enter");
@@ -105,6 +106,43 @@ function enter() {
     img.addEventListener("load", go, { once: true });
     setTimeout(go, 1200);
   }
+}
+
+/* ---------- The launch film ---------- */
+
+// Plays silently while it's on screen and pauses when it leaves, unless
+// someone has paused it themselves. It loops only while muted. Reduced
+// motion: it waits for the play button.
+function film(reduced) {
+  const video = $("[data-film]");
+  if (!video) return;
+  const sound = $("[data-film-sound]");
+  const play = () => video.play().catch(() => {});
+  const sync = () => {
+    video.loop = video.muted;
+    sound.textContent = video.muted ? "Turn sound on" : "Turn sound off";
+  };
+  sound.hidden = false;
+  sound.addEventListener("click", () => {
+    video.muted = !video.muted;
+    if (!video.muted && video.paused) play();
+  });
+  video.addEventListener("volumechange", sync);
+  sync();
+  if (reduced) return;
+
+  let auto = true;
+  let seen = false;
+  video.addEventListener("play", () => (auto = true));
+  video.addEventListener("pause", () => seen && (auto = false));
+  new IntersectionObserver(
+    ([e]) => {
+      seen = e.isIntersecting;
+      if (seen && auto) play();
+      else if (!seen && !video.paused) video.pause();
+    },
+    { threshold: 0.5 },
+  ).observe(video);
 }
 
 /* ---------- No nav over the hero picture ---------- */
