@@ -150,8 +150,7 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
   color: var(--paper);
   transition: opacity .4s, translate .5s var(--ease-out);
 }
-.nav-hidden .nav:not(:focus-within),
-.nav-off .nav:not(:focus-within) { opacity: 0; translate: 0 -10px; pointer-events: none; }
+.nav-hidden .nav:not(:focus-within) { opacity: 0; translate: 0 -10px; pointer-events: none; }
 .nav__links {
   display: flex;
   flex-direction: column;

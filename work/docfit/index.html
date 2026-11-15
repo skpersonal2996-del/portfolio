@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DocFit case study – Shruti Kale</title>
-<meta name="description" content="Designing an AI product that fits spreadsheet data into a fixed document format, and keeps the layout intact across hundreds of documents. A case study by Shruti Kale, product designer.">
+<meta name="description" content="DocFit: spreadsheet data into a fixed document, without the layout breaking. A case study by Shruti Kale, product designer.">
 <meta name="theme-color" content="#0C0B0A">
 <meta name="color-scheme" content="dark">
 <link rel="preload" href="../../assets/fonts/Zodiak-Variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -33,27 +33,16 @@
 <body class="case-page case-page--bold case-page--docfit">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav">
-  <nav aria-label="Primary">
-    <ul class="nav__links">
-      <li class="nav__about"><a href="../../#about">About</a></li>
-      <li><a href="../../#work">Work</a></li>
-      <li><a href="#contact" data-scroll-to>Contact</a></li>
-      <li><a class="nav__ext" href="https://drive.google.com/file/d/1TlH67RspdcD6grU6v7CUHheN0Rj49Lgq/view?usp=sharing" target="_blank" rel="noopener">Resume<svg class="nav__arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
-    </ul>
-  </nav>
-</header>
-
 <!-- The chapters, as a quiet index on the left: a short line for each, the
      current one long and orange, names on hover. Phones get a progress bar. -->
 <nav class="case-index" aria-label="Chapters" data-case-index>
   <ol>
     <li><a href="#about-product" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">About product</span></a></li>
-    <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 Where it started</span></a></li>
-    <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 The problem underneath</span></a></li>
-    <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 What research revealed</span></a></li>
-    <li><a href="#ch-4" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">04 The decisions</span></a></li>
-    <li><a href="#ch-5" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">05 The flow</span></a></li>
+    <li><a href="#ch-1" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">01 First, a little background</span></a></li>
+    <li><a href="#ch-2" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">02 What research showed</span></a></li>
+    <li><a href="#ch-3" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">03 Six decisions that shaped it</span></a></li>
+    <li><a href="#ch-4" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">04 How it works</span></a></li>
+    <li><a href="#ch-5" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">05 How I worked</span></a></li>
     <li><a href="#ch-6" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">06 What came of it</span></a></li>
     <li><a href="#ch-7" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">07 What I took away</span></a></li>
   </ol>
@@ -76,18 +65,66 @@
   <article class="case-sheet" aria-labelledby="case-title" data-case-sheet>
     <div class="case-top">
       <a class="case-back" href="../../#work"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M9.5 6h-7M6 2.5 2.5 6 6 9.5"/></svg>Back to work</a>
-      <p class="case-time">About 6 min read</p>
+      <p class="case-time">About 5 min read</p>
     </div>
 
     <header class="case-head">
       <h1 class="case-name" id="case-title"><span class="case-name__fit" data-case-name>DocFit</span></h1>
-      <p class="case-sub" data-reveal>Designing an AI product that fits spreadsheet data into a fixed document format, and keeps the layout intact across hundreds of documents.</p>
+      <p class="case-sub" data-reveal>Spreadsheet data into a fixed document, without the layout breaking.</p>
       <dl class="case-facts" data-reveal>
         <div><dt>Role</dt><dd>Product Designer</dd></div>
-        <div><dt>Industry</dt><dd>AI Document Automation</dd></div>
-        <div class="case-facts__wide"><dt>Scope</dt><dd>Product Vision &amp; Strategy · Research · UX &amp; Interaction Design · AI Interaction Design · <span class="case-keep">0→1 Product Design</span></dd></div>
+        <div><dt>Timeline</dt><dd>May 2024 – Jul 2026</dd></div>
+        <div><dt>Industry</dt><dd>AI document automation</dd></div>
+        <div><dt>Scope</dt><dd>Designed from zero to one</dd></div>
       </dl>
     </header>
+
+    <!-- The whole story in one card, for a quick read before the chapters. -->
+    <section class="gist" aria-labelledby="gist-title" data-reveal>
+      <p class="gist__label" id="gist-title">The short version</p>
+      <div class="gist__cols">
+        <div class="gist__col">
+          <div class="gist__head">
+          <span class="gist__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 10v4.5M12 17.2v.3"/></svg></span>
+          <h2 class="gist__title">The problem</h2>
+          </div>
+          <div class="gist__body">
+          <p class="gist__text">Schools, HR teams and finance teams all share one chore: <strong>taking data from a spreadsheet and placing it into a fixed document</strong>, like an exam hall ticket or an offer letter. The data exists and the format exists, yet people lose hours:</p>
+          <ul class="gist__list gist__list--gaps">
+            <li>Fixing spacing</li>
+            <li>Checking every page</li>
+          </ul>
+          <p class="gist__note">I spotted this, brought the idea to my agency, and <strong>designed DocFit from scratch</strong>.</p>
+          </div>
+        </div>
+        <div class="gist__col">
+          <div class="gist__head">
+          <span class="gist__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7.2 6h9.6M17.6 7.8l-4.4 8.3M10.8 16.1 6.4 7.8"/></svg></span>
+          <h2 class="gist__title">What I did</h2>
+          </div>
+          <div class="gist__body">
+          <p class="gist__text">I designed an AI product that <strong>fits the data into your own template without changing the layout</strong>. It:</p>
+          <ul class="gist__list gist__list--done">
+            <li>Asks only when it’s unsure</li>
+            <li>Points you to the few documents that need attention</li>
+            <li>Lets you fix a problem once and apply it everywhere</li>
+          </ul>
+          </div>
+        </div>
+        <div class="gist__col">
+          <div class="gist__head">
+          <span class="gist__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>
+          <h2 class="gist__title">What happened</h2>
+          </div>
+          <div class="gist__body">
+          <ul class="gist__results">
+            <li><span class="gist__figure" aria-hidden="true">≤30 min</span><p>In prototype tests, <strong>a batch of more than 50 pages was ready in minutes, 30 at most</strong>, where existing methods take hours.</p></li>
+            <li><span class="gist__figure gist__figure--icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><p>DocFit is now being built at the agency as <strong>a subscription product</strong>.</p></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- The launch film, before the numbered chapters: the quickest way to see
          what DocFit is. Silent until asked, playing only while it's on screen. -->
@@ -101,168 +138,149 @@
       </figure>
     </section>
 
-    <!-- Chapters 01 to 04 each get at least a screen of their own. Chapter 02
-         has its own container, in DocFit's cobalt. -->
-    <section class="case-ch case-screen" id="ch-1" aria-labelledby="ch-1-title">
+    <section class="case-ch" id="ch-1" aria-labelledby="ch-1-title">
       <header class="case-ch__head">
         <p class="case-num" aria-hidden="true">01</p>
-        <h2 class="case-h2" id="ch-1-title" data-split>Where it started</h2>
+        <h2 class="case-h2" id="ch-1-title" data-split>First, a little background</h2>
       </header>
-      <p class="case-lead" data-reveal>I kept noticing <strong>the same small problem in unrelated places</strong>. In engineering assignments, I had structured information that had to land in a specific format. Later, I watched teachers at a school do the same thing with hall tickets. All the student data was already in a spreadsheet, and the hall-ticket format was already fixed. Yet getting one into the other still meant <strong class="pain">adjusting spacing, fixing alignment, and checking every page</strong> to make sure nothing had shifted.</p>
-      <p class="case-quote case-quote--stack" data-reveal><span class="case-quote__soft">The content wasn’t the hard part. The data existed and the format existed.</span> <span class="case-quote__keep">The tedious part was getting the two to work together perfectly.</span></p>
-      <p class="case-body" data-reveal>I wanted to know whether that was just a school problem, and if not, whether it was worth building a product around.</p>
+      <p class="case-lead" data-reveal>I kept running into <strong>the same small problem in places that had nothing to do with each other</strong>. As an engineering student, I had information that needed to fit a strict assignment format. Later, I watched teachers at a school prepare hall tickets (the admit card a student needs to sit an exam).</p>
+      <p class="case-body" data-reveal>The student data was already in a spreadsheet. The hall ticket design was already fixed. But putting the two together still meant <strong class="pain">nudging spacing, fixing alignment, and going through every page</strong> to see what had moved. I wanted to know if this was only a school problem, and if not, whether it was worth building a product for.</p>
     </section>
 
-    <section class="case-ch case-screen" id="ch-2" aria-labelledby="ch-2-title">
+    <section class="case-ch" id="ch-2" aria-labelledby="ch-2-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">02</p>
+        <h2 class="case-h2" id="ch-2-title" data-split>What research showed</h2>
+      </header>
+      <p class="case-lead case-lead--before" data-reveal>I spoke to school heads and to HR people at a few companies, and I had seen the same thing at places I’d worked myself.</p>
+      <!-- In DocFit's cobalt: how wide the problem is, and where it really hurts. -->
       <div class="case-night case-night--cobalt" data-reveal-block>
-        <header class="case-night__head">
-          <p class="case-num" aria-hidden="true">02</p>
-          <h2 class="case-kicker" id="ch-2-title">The problem underneath</h2>
-        </header>
-        <p class="case-body case-night__lede">Research across HR, finance, healthcare, education, and other operational work showed the same pattern: <strong>people take structured data and manually fit it into a predefined document.</strong></p>
-        <p class="case-statement"><span class="case-statement__soft">The data exists. The format exists.</span> <span class="case-statement__keep">Getting them together accurately is still surprisingly manual.</span></p>
-        <p class="case-intro">At first it looked like a document-creation problem. The real friction came after the data went in:</p>
+        <p class="case-statement"><span class="case-statement__soft">It wasn’t only schools.</span> <span class="case-statement__keep">I found the same pattern in HR, finance, healthcare and education: people fitting spreadsheet data into a set document by hand.</span></p>
+        <p class="case-intro">The trouble starts after the data goes in:</p>
         <ol class="case-cols case-cols--3 case-cols--icons">
           <li>
             <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8h22M5 14h16a4 4 0 0 1 0 8h-4"/><path d="M19.5 19l-3 3 3 3"/><path d="M5 22h7"/></svg><span class="case-num" aria-hidden="true">01</span></div>
-            <h3 class="case-h3 case-pain"><strong>Text wraps unexpectedly,</strong> fonts change, and fields jump to another line</h3>
+            <h3 class="case-h3 case-pain"><strong>Text wraps</strong> onto a new line</h3>
           </li>
           <li>
             <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="5" width="18" height="22" rx="2"/><path d="M8 11h10M8 15.5h10M8 20h6"/><path d="M18 20h10M25 17l3 3-3 3"/></svg><span class="case-num" aria-hidden="true">02</span></div>
-            <h3 class="case-h3 case-pain"><strong>Tables shift,</strong> content overflows, and pages break in the wrong places</h3>
+            <h3 class="case-h3 case-pain"><strong>A table shifts,</strong> a page breaks in the wrong place</h3>
           </li>
           <li>
             <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M10 8V5.5A1.5 1.5 0 0 1 11.5 4h13A1.5 1.5 0 0 1 26 5.5v17"/><rect x="5" y="8" width="16" height="20" rx="1.5"/><circle cx="13" cy="17" r="4.5"/><path d="M16.3 20.3 19 23"/></svg><span class="case-num" aria-hidden="true">03</span></div>
-            <h3 class="case-h3 case-pain">In a batch, fixing one issue means <strong>checking whether it happened across hundreds of pages</strong></h3>
+            <h3 class="case-h3 case-pain">In a batch of hundreds, fixing one page means <strong>checking whether the same thing happened on all the others</strong></h3>
           </li>
         </ol>
-        <p class="case-statement case-statement--sub"><span class="case-statement__soft">The challenge isn’t putting data into a template.</span> <span class="case-statement__keep">It’s keeping a fixed layout intact when the data keeps varying.</span></p>
       </div>
 
-      <!-- What people use today, a card each, then the gap they leave. -->
-      <p class="case-intro" data-reveal>Existing tools each solved part of it:</p>
+      <!-- The tools people use today: what each is good at, and where it falls short. -->
+      <p class="case-intro" data-reveal>The tools people already use each solve part of it:</p>
       <ul class="tool-cards">
         <li data-reveal>
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="8" width="24" height="16" rx="2"/><path d="M4.5 9l11.5 8.5L27.5 9"/></svg></div>
           <h3 class="case-h3">Word Mail Merge</h3>
-          <p class="case-small">Familiar, but <strong class="pain">formatting is hard to control</strong></p>
+          <p class="case-small"><span class="tool-cards__label">Good at</span>Familiar to most people</p>
+          <p class="case-small"><span class="tool-cards__label">Falls short on</span><strong class="pain">Formatting is hard to control</strong></p>
         </li>
         <li data-reveal>
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 4h10l4 4v6"/><path d="M5 4v18h7"/><path d="M8 11h7"/><rect x="15" y="15" width="13" height="13" rx="1.5"/><path d="M15 19.5h13M15 24h13M21.5 15v13"/></svg></div>
           <h3 class="case-h3">Google Docs + Sheets</h3>
-          <p class="case-small">Easy collaboration, <strong class="pain">limited control for complex layouts</strong></p>
+          <p class="case-small"><span class="tool-cards__label">Good at</span>Working together</p>
+          <p class="case-small"><span class="tool-cards__label">Falls short on</span><strong class="pain">Complex layouts</strong></p>
         </li>
         <li data-reveal>
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="6" width="18" height="22" rx="2"/><path d="M12 6V4.5h8V6"/><path d="M11 13h10M11 17.5h10M11 22h6"/></svg></div>
-          <h3 class="case-h3">Excel + copy/paste</h3>
-          <p class="case-small">Flexible, but <strong class="pain">extremely manual</strong></p>
+          <h3 class="case-h3">Excel + copy and paste</h3>
+          <p class="case-small"><span class="tool-cards__label">Good at</span>Flexibility</p>
+          <p class="case-small"><span class="tool-cards__label">Falls short on</span><strong class="pain">Almost entirely manual</strong></p>
         </li>
         <li data-reveal>
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M14 4l2.2 7.8L24 14l-7.8 2.2L14 24l-2.2-7.8L4 14l7.8-2.2z"/><path d="M24.5 20.5l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/></svg></div>
           <h3 class="case-h3">AI tools</h3>
-          <p class="case-small">Fast at generating and editing content, but <strong class="pain">not built for reliable batch layout</strong></p>
+          <p class="case-small"><span class="tool-cards__label">Good at</span>Writing and editing content fast</p>
+          <p class="case-small"><span class="tool-cards__label">Falls short on</span><strong class="pain">Keeping a layout reliable across a batch</strong></p>
         </li>
       </ul>
-      <p class="case-gap" data-reveal><span class="case-gap__soft">The gap was</span> reliability for non-technical people, <span class="case-gap__soft">especially when formatting has to stay consistent across a large batch.</span></p>
-    </section>
-
-    <section class="case-ch case-screen" id="ch-3" aria-labelledby="ch-3-title">
-      <header class="case-ch__head">
-        <p class="case-num" aria-hidden="true">03</p>
-        <h2 class="case-h2" id="ch-3-title" data-split>What research revealed</h2>
-      </header>
-      <p class="case-lead" data-reveal>I started with four questions:</p>
-      <ol class="case-cols case-cols--4 case-questions">
-        <li data-reveal><span class="case-num" aria-hidden="true">01</span><p class="case-finding">Is this recurring?</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">02</span><p class="case-finding">Who experiences it?</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">03</span><p class="case-finding">How do people solve it today?</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">04</span><p class="case-finding">Where does the process create the most friction?</p></li>
-      </ol>
-      <p class="case-body case-research" data-reveal>I wasn’t trying to validate a solution I already had. I wanted to understand the problem well enough to see <strong>where a product could genuinely reduce effort.</strong></p>
-      <p class="case-intro" data-reveal>Each finding pointed to a design decision:</p>
-      <ol class="case-map">
-        <li data-reveal><span class="case-num" aria-hidden="true">01</span><p class="case-map__from">People already have their own templates,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">don’t make them recreate them</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">02</span><p class="case-map__from">The data already lives in spreadsheets,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">support the sources they use</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">03</span><p class="case-map__from">They only need certain fields,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">let AI work out which ones and map them</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">04</span><p class="case-map__from">Layouts break because data varies,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">treat layout preservation as a core requirement</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">05</span><p class="case-map__from">The same formatting problem repeats,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">corrections should apply globally</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">06</span><p class="case-map__from">Users aren’t necessarily technical,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">minimize configuration and jargon</p></li>
-        <li data-reveal><span class="case-num" aria-hidden="true">07</span><p class="case-map__from">Existing tools solve parts of the workflow,</p><span class="case-map__so">so<svg viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h16M13 1l4 4-4 4"/></svg></span><p class="case-map__to">focus on the gaps and don’t reinvent everything</p></li>
-      </ol>
+      <p class="case-gap" data-reveal><span class="case-gap__soft">So the real problem wasn’t creating documents. It was</span> keeping a fixed layout intact when the data keeps changing, <span class="case-gap__soft">for people who aren’t technical.</span></p>
     </section>
 
     <!-- The decisions, each with the part of the product that shows it, cut
          from the real screens. -->
-    <section class="case-ch" id="ch-4" aria-labelledby="ch-4-title">
+    <section class="case-ch" id="ch-3" aria-labelledby="ch-3-title">
       <header class="case-ch__head">
-        <p class="case-num" aria-hidden="true">04</p>
-        <h2 class="case-h2" id="ch-4-title" data-split>The decisions</h2>
+        <p class="case-num" aria-hidden="true">03</p>
+        <h2 class="case-h2" id="ch-3-title" data-split>Six decisions that shaped it</h2>
       </header>
-      <p class="case-quote case-quote--stack" data-reveal><span class="case-quote__soft">The opportunity shifted from “automate document generation” to something narrower:</span> <span class="case-quote__keep">reduce the checking and fixing that happens after data enters a template.</span></p>
       <div class="case-row case-row--decision" data-reveal>
         <div class="case-row__label">
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 20v5.5A1.5 1.5 0 0 0 6.5 27h19a1.5 1.5 0 0 0 1.5-1.5V20"/><path d="M16 21V5M10 11l6-6 6 6"/></svg><span class="case-num" aria-hidden="true">01</span></div>
           <h3 class="case-h3 case-h3--lg">Start from what people already have</h3>
         </div>
         <div class="case-row__main">
-          <p class="case-body">Bring your own data (CSV, XLS/XLSX, Google Sheets) and your own format (DOC/DOCX, PDF). Data says what to fill. Format says how it should look. <strong>Nobody rebuilds a template they already trust.</strong></p>
+          <p class="case-body">Nobody should have to rebuild their template inside a new tool. You bring your own spreadsheet (CSV, Excel or Google Sheets) and your own document (Word or PDF). The data says what to fill in. The document says how it should look.</p>
           <figure class="case-detail case-detail--pair"><img class="case-cut" src="../../assets/img/work/docfit/cut-data.jpg" width="1400" height="626" loading="lazy" decoding="async" alt="Adding data: “Drop your spreadsheet here”, a Choose file button, and the file types it takes: XLSX, XLS and CSV."><img class="case-cut" src="../../assets/img/work/docfit/cut-format.jpg" width="1400" height="626" loading="lazy" decoding="async" alt="Adding the format: “Drop your format here”, a Choose file button, and the file types it takes: DOCX, DOC and PDF."></figure>
         </div>
       </div>
       <div class="case-row case-row--decision" data-reveal>
         <div class="case-row__label">
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="7.5" cy="9" r="3"/><circle cx="7.5" cy="23" r="3"/><circle cx="24.5" cy="16" r="3"/><path d="M10.5 9.5c6 0 6 6.5 11 6.5M10.5 22.5c6 0 6-6.5 11-6.5"/></svg><span class="case-num" aria-hidden="true">02</span></div>
-          <h3 class="case-h3 case-h3--lg">Let AI do the mapping, and speak up only when unsure</h3>
+          <h3 class="case-h3 case-h3--lg">Let AI do the matching, and ask only when unsure</h3>
         </div>
         <div class="case-row__main">
-          <p class="case-body">Matching “Name of student” to “Student name” shouldn’t need a human, and it shouldn’t depend on labels matching exactly. The AI maps fields, and <strong>the user is asked only when something is truly ambiguous.</strong></p>
+          <p class="case-body">The AI works out that “Name of student” in the spreadsheet belongs in “Student name” on the document, even though the labels differ. It only stops to ask you when something is truly unclear.</p>
           <figure class="case-detail"><img class="case-cut" src="../../assets/img/work/docfit/cut-mapping.jpg" width="1400" height="510" loading="lazy" decoding="async" alt="Matches to check: Student name to “Name of Student”, Roll no. to “Roll Number” and Parent’s name to “Father’s Name” are ticked; Class, matched to the “Std” column, is highlighted with a note asking to tap the tick if that’s right or pick another column."></figure>
         </div>
       </div>
       <div class="case-row case-row--decision" data-reveal>
         <div class="case-row__label">
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="18" height="22" rx="2"/><path d="M8 10h10M8 14h10M8 18h5"/><rect x="18" y="19" width="10" height="9" rx="1.5"/><path d="M20.5 19v-2a2.5 2.5 0 0 1 5 0v2"/></svg><span class="case-num" aria-hidden="true">03</span></div>
-          <h3 class="case-h3 case-h3--lg">Treat layout preservation as the product, not a feature</h3>
+          <h3 class="case-h3 case-h3--lg">The layout is the product</h3>
         </div>
         <div class="case-row__main">
-          <p class="case-body">The AI fits the data into the format. <strong>It never redesigns the format around the data.</strong> Typography, spacing, tables, borders, headers, signatures, and page structure stay as the user set them.</p>
+          <p class="case-body">The AI fits the data into your format. It never redesigns your format around the data. Fonts, spacing, tables, borders, signatures and page structure stay exactly as you set them.</p>
           <figure class="case-detail"><img class="case-cut" src="../../assets/img/work/docfit/cut-layout.jpg" width="1400" height="762" loading="lazy" decoding="async" alt="The format, read: a preview with its nine places numbered, and what was found: file opened; layout, fonts and spacing saved; 9 places to fill found."></figure>
         </div>
       </div>
       <div class="case-row case-row--decision" data-reveal>
         <div class="case-row__label">
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8.5l2 2 3.5-3.5M5 16.5l2 2 3.5-3.5"/><path d="M14 9h13M14 17h13M14 25h13"/><circle class="acc" cx="7.5" cy="24.5" r="2.2"/></svg><span class="case-num" aria-hidden="true">04</span></div>
-          <h3 class="case-h3 case-h3--lg">Replace “check every page” with “check what’s wrong”</h3>
+          <h3 class="case-h3 case-h3--lg">Check what’s wrong, not every page</h3>
         </div>
         <div class="case-row__main">
-          <p class="case-body">Nobody can reliably inspect 300 pages by eye. The preview is designed to answer “did everything fit?” by <strong>surfacing overflow, missing fields, and layout shifts,</strong> for example “298 generated, 2 need attention.” A final validation runs before export.</p>
+          <p class="case-body">Nobody can reliably check 300 pages by eye. So the preview tells you where to look: “298 generated, 2 need attention.” A final check runs before you export.</p>
           <figure class="case-detail"><img class="case-cut" src="../../assets/img/work/docfit/cut-issues.jpg" width="1400" height="836" loading="lazy" decoding="async" alt="The preview: “3 things to look at”: text doesn’t fit, missing info, moved to next page. On the hall ticket, the exam centre is outlined in red, and a note explains it’s longer than its space, with Fix with AI and Edit myself."></figure>
         </div>
       </div>
       <div class="case-row case-row--decision" data-reveal>
         <div class="case-row__label">
           <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="12" y="4" width="15" height="19" rx="1.5"/><path d="M8 8v18.5A1.5 1.5 0 0 0 9.5 28H23"/><path d="M19.5 8.5l1 2.8 2.8 1-2.8 1-1 2.8-1-2.8-2.8-1 2.8-1z"/></svg><span class="case-num" aria-hidden="true">05</span></div>
-          <h3 class="case-h3 case-h3--lg">Fix a problem once, apply it everywhere</h3>
+          <h3 class="case-h3 case-h3--lg">Fix it once, apply it everywhere</h3>
         </div>
         <div class="case-row__main">
-          <p class="case-body">Small corrections can be made by hand. Repetitive or global ones are described in plain language, like “keep Standard and Division on the same line” or “move the signature 10px higher on every page.” <strong>The AI applies the change across every relevant document.</strong></p>
+          <p class="case-body">Small fixes you can make by hand. For anything that repeats, you describe the change in plain words, like “keep Standard and Division on the same line”, and the AI applies it to every document, with an undo.</p>
           <figure class="case-detail"><img class="case-cut" src="../../assets/img/work/docfit/cut-ask.jpg" width="1400" height="682" loading="lazy" decoding="async" alt="Asking AI: “Keep Std and Div on the same line”. The reply: done, Std and Div now sit side by side in all 312 documents and nothing else moved, applied to 156 pages with the quick check still passing, with Undo and Show me. The hall ticket shows Std and Div highlighted."></figure>
         </div>
       </div>
+      <div class="case-row case-row--decision" data-reveal>
+        <div class="case-row__label">
+          <div class="case-mark"><svg class="case-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h17A2.5 2.5 0 0 1 27 7.5v11a2.5 2.5 0 0 1-2.5 2.5H14l-6 5v-5h-.5A2.5 2.5 0 0 1 5 18.5z"/><path d="M10.5 11h11M10.5 15.5h7"/></svg><span class="case-num" aria-hidden="true">06</span></div>
+          <h3 class="case-h3 case-h3--lg">Keep the language plain</h3>
+        </div>
+        <p class="case-body">The people using DocFit are teachers and HR staff, not engineers. I was careful with every word and every piece of information on screen. Nothing technical is shown, there is as little noise as possible, and each screen says clearly what happened and what to do next.</p>
+      </div>
     </section>
 
-    <!-- The flow: six steps, each with the screens that do it. -->
-    <section class="case-ch" id="ch-5" aria-labelledby="ch-5-title">
+    <!-- How it works: six steps, each with the screens that do it. -->
+    <section class="case-ch" id="ch-4" aria-labelledby="ch-4-title">
       <header class="case-ch__head">
-        <p class="case-num" aria-hidden="true">05</p>
-        <h2 class="case-h2" id="ch-5-title" data-split>The flow</h2>
+        <p class="case-num" aria-hidden="true">04</p>
+        <h2 class="case-h2" id="ch-4-title" data-split>How it works</h2>
       </header>
-      <p class="case-lead case-flow-lead" data-reveal>Six steps, each doing one job:</p>
 
       <div class="case-work">
         <div class="case-row" data-reveal>
-          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">01</span>Provide the inputs</h3>
-          <p class="case-body">Data and format</p>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">01</span>Add your data and your document</h3>
+          <p class="case-body">DocFit confirms what it read, for example how many rows it found and how many places there are to fill.</p>
         </div>
         <figure class="case-stage" data-reveal-panel>
           <div class="pair">
@@ -274,8 +292,8 @@
 
       <div class="case-work">
         <div class="case-row" data-reveal>
-          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">02</span>AI prepares the document</h3>
-          <p class="case-body">Maps fields, fills data, preserves layout</p>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">02</span>The AI prepares the documents</h3>
+          <p class="case-body">It matches spreadsheet columns to places in the document and flags any match it isn’t sure about.</p>
         </div>
         <figure class="case-stage" data-reveal-panel>
           <div class="pair">
@@ -288,7 +306,7 @@
       <div class="case-work">
         <div class="case-row" data-reveal>
           <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">03</span>Preview</h3>
-          <p class="case-body">See issues before exporting anything</p>
+          <p class="case-body">You see a short list of things to look at, such as text that doesn’t fit.</p>
         </div>
         <figure class="case-stage" data-reveal-panel>
           <div class="pair">
@@ -301,7 +319,7 @@
       <div class="case-work">
         <div class="case-row" data-reveal>
           <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">04</span>Review and refine</h3>
-          <p class="case-body">Manual edits or AI-assisted ones</p>
+          <p class="case-body">Edit by hand, or ask the AI to make a change across every document.</p>
         </div>
         <figure class="case-stage" data-reveal-panel>
           <div class="browser browser--wide" data-rise><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/docfit/ask-ai.jpg" srcset="../../assets/img/work/docfit/ask-ai-800.jpg 800w, ../../assets/img/work/docfit/ask-ai.jpg 1600w" sizes="(max-width: 767px) 88vw, 1000px" width="1600" height="1111" loading="lazy" decoding="async" alt="The editor with the Ask AI panel open: Std and Div are now on one line in all 312 documents, and a message confirms it with an Undo."></div>
@@ -310,8 +328,8 @@
 
       <div class="case-work">
         <div class="case-row" data-reveal>
-          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">05</span>Finalize</h3>
-          <p class="case-body">A last validation before export</p>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">05</span>Final check</h3>
+          <p class="case-body">DocFit confirms nothing is cut off, missing or out of place.</p>
         </div>
         <figure class="case-stage" data-reveal-panel>
           <div class="browser browser--wide" data-rise><div class="browser__bar" aria-hidden="true"><span class="browser__dots"><i></i><i></i><i></i></span><span class="browser__url"></span></div><img src="../../assets/img/work/docfit/ready.jpg" srcset="../../assets/img/work/docfit/ready-800.jpg 800w, ../../assets/img/work/docfit/ready.jpg 1600w" sizes="(max-width: 767px) 88vw, 1000px" width="1600" height="1111" loading="lazy" decoding="async" alt="The editor with “All 312 documents look good: nothing cut off, missing or out of place”, above the hall tickets, page 1 of 156."></div>
@@ -320,27 +338,44 @@
 
       <div class="case-work">
         <div class="case-row" data-reveal>
-          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">06</span>Export</h3>
-          <p class="case-body">PDF or DOCX, then back to the dashboard</p>
+          <h3 class="case-h3 case-h3--work"><span class="case-num" aria-hidden="true">06</span>Export as PDF or Word</h3>
         </div>
       </div>
 
       <div class="case-row case-platform" data-reveal>
-        <h3 class="case-h3 case-h3--work">Platform: desktop-first web</h3>
-        <p class="case-body">The work involves large datasets, multi-page review, and precise editing, and people already keep their data in browser-based tools like Sheets and Drive. <strong>I deliberately didn’t design for mobile.</strong> Tablet is a secondary experience that the flexible desktop layout can support.</p>
+        <h3 class="case-h3 case-h3--work">Desktop browsers first</h3>
+        <p class="case-body">I designed it for desktop browsers first. The work involves big spreadsheets, many pages and precise edits, and people already keep this data in browser tools like Sheets and Drive. <strong>I deliberately left mobile out.</strong></p>
       </div>
     </section>
 
+    <section class="case-ch" id="ch-5" aria-labelledby="ch-5-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">05</p>
+        <h2 class="case-h2" id="ch-5-title" data-split>How I worked</h2>
+      </header>
+      <p class="case-lead" data-reveal>I worked closely with a developer to understand <strong>what AI could reliably do here and what it couldn’t</strong>, and backed that up with my own reading. Those limits shaped the design. They are why DocFit asks when it’s unsure instead of guessing.</p>
+      <p class="case-body" data-reveal>My tools were Paper, Figma and Claude. I used Claude, along with a few agentic skills, to define the problem, pull insights out of my research, think through edge cases, and build better prototypes faster.</p>
+    </section>
+
     <!-- What came of it, in the block of colour the other case studies give
-         their impact. -->
+         their results. -->
     <section class="case-ch" id="ch-6" aria-labelledby="ch-6-title">
       <div class="case-impact" data-cursor-tone="orange" data-reveal-block>
         <header class="case-ch__head">
           <p class="case-num" aria-hidden="true">06</p>
           <h2 class="case-h2" id="ch-6-title" data-split>What came of it</h2>
         </header>
-        <p class="case-outcome">The founder sold DocFit to a client, and it’s built to be reused across more clients.</p>
-        <p class="case-outcome case-outcome--last">It started as an observation in a school and ended as a product someone paid for.</p>
+        <ul class="case-metrics case-metrics--even case-metrics--two">
+          <li class="case-metric">
+            <p class="case-metric__figure"><span aria-hidden="true">≤30 min</span><span class="sr-only">30 minutes at most</span></p>
+            <p class="case-metric__text">In prototype tests, a batch of more than 50 pages was ready in minutes, 30 at most. The same job takes hours with existing methods, along with the stress of checking every page by hand.</p>
+          </li>
+          <li class="case-metric">
+            <p class="case-metric__figure"><svg class="case-metric__arrow" viewBox="0 0 40 56" aria-hidden="true"><path d="M20 52V6M6 20 20 6l14 14"/></svg><span class="sr-only">Growing</span></p>
+            <p class="case-metric__text">DocFit is now being built at the agency and is planned as a subscription product. It’s early, so there is no usage data yet.</p>
+          </li>
+        </ul>
+        <p class="case-outcome case-outcome--last">What started as something I noticed in a school is becoming a real product.</p>
       </div>
     </section>
 
@@ -349,10 +384,18 @@
         <p class="case-num" aria-hidden="true">07</p>
         <h2 class="case-h2" id="ch-7-title" data-split>What I took away</h2>
       </header>
-      <p class="case-lead" data-reveal>DocFit taught me that the first description of a problem is rarely the real one.</p>
-      <p class="case-body" data-reveal>Someone might think this was about creating documents, but it was about <strong>keeping a layout intact when the data keeps changing,</strong> and that changed what I built. It also taught me that <strong>a small frustration someone has learned to live with can be worth taking seriously,</strong> because it turned up in school, HR, finance, and healthcare. And designing with AI changed how I think about AI products.</p>
-      <p class="case-quote case-quote--stack" data-reveal><span class="case-quote__soft">The product wasn’t “AI does everything.”</span> <span class="case-quote__keep">It was knowing when to ask, showing the result before anything is final, and making the checking easy.</span></p>
-      <p class="case-body" data-reveal>That’s what made it feel trustworthy.</p>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3">The first version of a problem is rarely the real one.</h3>
+        <p class="case-body">I started with “creating documents is slow.” The real problem was keeping a layout intact as the data changes.</p>
+      </div>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3">Small annoyances can be worth serious attention.</h3>
+        <p class="case-body">People had simply learned to live with this one, in schools, HR, finance and healthcare alike.</p>
+      </div>
+      <div class="case-row" data-reveal>
+        <h3 class="case-h3">Good AI products don’t try to do everything.</h3>
+        <p class="case-body">DocFit asks when it isn’t sure, shows you the result before anything is final, and makes checking easy. That is what makes people trust it.</p>
+      </div>
     </section>
 
     <p class="case-up"><a href="#top" data-scroll-to>Back to top<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6"/></svg></a></p>
