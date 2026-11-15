@@ -340,6 +340,12 @@
 /* Tool cards: what each is good at, and where it falls short. */
 .tool-cards__label { display: block; margin-bottom: 2px; color: var(--c-soft); font-size: var(--t-micro); letter-spacing: .12em; text-transform: uppercase; }
 .tool-cards .case-small + .case-small { margin-top: 12px; }
+/* A paragraph after a block of colour. */
+.case-lead--after { margin-top: clamp(40px, 7vh, 72px); }
+/* A closing note at the end of a case study. */
+.case-aside { max-width: 40em; margin: clamp(48px, 8vh, 80px) 0 0; padding: 22px 26px; border: 1px solid var(--rule); border-radius: 16px; color: var(--c-soft); font-size: var(--t-body); line-height: 1.6; }
+/* The glimpse of a product after its decisions. */
+.case-glimpse { margin-top: clamp(64px, 10vh, 112px); }
 /* Body paragraphs in a run, and stacked in a row's second column. */
 .case-body + .case-body { margin-top: 1em; }
 .case-stack > * + * { margin-top: 1em; }
