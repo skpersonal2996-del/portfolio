@@ -229,14 +229,14 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
   margin: 0;
   color: var(--paper);
   font-family: var(--sans);
-  font-size: clamp(1.375rem, 1rem + 1.2vw, 2.125rem);
-  font-weight: 500;
-  line-height: 1.22;
-  letter-spacing: -.02em;
+  font-size: clamp(1rem, .9rem + .4vw, 1.3125rem);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: .01em;
   text-wrap: balance;
 }
 .hero__key { color: var(--accent); font-style: normal; }
-/* The invitation: a light pill with the orange arrow. */
+/* The way into the work: a light pill with an orange arrow pointing down. */
 .hero__cta {
   display: inline-flex;
   align-items: center;
@@ -254,7 +254,7 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
 .hero__cta:hover { background: #FFF; translate: 0 -2px; }
 .hero__cta-arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--noir); }
 .hero__cta-arrow svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; transition: translate .35s var(--ease-out); }
-.hero__cta:hover .hero__cta-arrow svg { translate: 2px -2px; }
+.hero__cta:hover .hero__cta-arrow svg { translate: 0 2px; }
 .hero__cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 /* Tiny Shruti at her laptop, drawn by hero-girl.js. */
 .hero__girl { flex: none; width: calc(21 * var(--px)); height: calc(20 * var(--px)); --px: 7px; image-rendering: pixelated; }
@@ -285,219 +285,8 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
   .hero__girl { --px: 4px; }
 }
 
-/* ---------- How I make products better ---------- */
-
-/* Phones (and short screens): a list with a line drawn down its left side,
-   Product design set large in the middle of it. Wide screens: see below. */
-.skills { position: relative; margin-top: clamp(48px, 10vh, 120px); padding: clamp(96px, 14vh, 160px) var(--gutter); }
-.skills__stage { position: relative; }
-.skills__title {
-  margin: 0 0 clamp(40px, 7vh, 72px);
-  color: var(--accent); /* quieter than the loop: a label more than a headline */
-  font-size: clamp(1.25rem, 1.05rem + .6vw, 1.625rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -.025em;
-}
-.skills__loop { display: none; }
-.skills__list { position: relative; display: grid; gap: 36px; margin: 0; padding: 0 0 0 30px; list-style: none; }
-.skills__list::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  bottom: 6px;
-  left: 4px;
-  width: 1px;
-  background: var(--accent);
-  transform: scaleY(var(--draw, 1));
-  transform-origin: top;
-}
-.skill { position: relative; }
-.skill__dot {
-  position: absolute;
-  top: 7px;
-  left: -30px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(245, 133, 63, .16);
-}
-.skill__num { display: block; margin-bottom: 6px; color: var(--accent); font-size: .75rem; font-weight: 500; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
-.skill__name { color: var(--paper); font-size: 1.125rem; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; }
-.skill__line { max-width: 30ch; margin-top: 6px; color: var(--paper-soft); font-size: .9375rem; line-height: 1.5; }
-.skill--core .skill__name {
-  font-size: clamp(2.75rem, 1.6rem + 3.4vw, 5.25rem);
-  font-weight: 800;
-  font-stretch: 75%;
-  line-height: .9;
-  letter-spacing: -.005em;
-  text-transform: uppercase;
-}
-.skills__girl { display: none; }
-
-/* Wide screens: one pinned screen. The loop is drawn around Product design;
-   each skill sits at its point on the loop (placed by main.js) and appears
-   when the line reaches it. Tiny Shruti stands bottom left. */
-@media (min-width: 900px) and (min-height: 640px) {
-  .skills { --label: 15rem; height: 100vh; height: 100svh; margin-top: 28vh; padding: 0 var(--gutter); }
-  .skills__stage {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    height: 100%;
-    padding: clamp(28px, 6vh, 64px) 0 clamp(24px, 5vh, 52px);
-  }
-  .skills__title { margin: 0; font-size: clamp(1.125rem, .9rem + .55vw, 1.5rem); }
-  .skills__ring {
-    position: relative;
-    justify-self: center;
-    width: min(calc(100% - 2 * (var(--label) + 30px)), 880px);
-    margin: clamp(150px, 21vh, 220px) 0 clamp(96px, 14vh, 130px); /* clear of the heading, with the top skill's label above the loop */
-  }
-  .skills__loop {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-  .skills__loop path { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  .skills__list { position: absolute; inset: 0; display: block; padding: 0; }
-  .skills__list::before { content: none; }
-  .skill { position: absolute; left: var(--x, 50%); top: var(--y, 50%); width: 0; height: 0; }
-  .skill__dot { top: 0; left: 0; translate: -50% -50%; scale: 0; transition: scale .6s cubic-bezier(.34, 1.56, .64, 1); }
-  .skill__text {
-    position: absolute;
-    width: var(--label);
-    opacity: 0;
-    transition: opacity .7s var(--ease-out), translate .9s var(--ease-out);
-  }
-  .skill[data-place="left"] .skill__text { right: 22px; transform: translateY(-50%); text-align: right; translate: 12px 0; }
-  .skill[data-place="right"] .skill__text { left: 22px; transform: translateY(-50%); translate: -12px 0; }
-  .skill[data-place="top"] .skill__text { bottom: 22px; left: 0; width: 22rem; transform: translateX(-50%); text-align: center; translate: 0 12px; }
-  .skill[data-place="bottom"] .skill__text { top: 22px; left: 0; transform: translateX(-50%); text-align: center; translate: 0 -12px; }
-  .skill[data-place="left"] .skill__line { margin-left: auto; }
-  .skill[data-place="top"] .skill__line, .skill[data-place="bottom"] .skill__line { margin-inline: auto; }
-  .skill.is-on .skill__dot { scale: 1; }
-  .skill.is-on .skill__text { opacity: 1; translate: 0 0; }
-  /* Product design, in the middle of the loop, on a soft orange glow. */
-  .skill--core { left: 50%; top: 50%; }
-  .skill--core .skill__text { left: 0; width: max-content; transform: translate(-50%, -50%); text-align: center; opacity: 1; translate: none; }
-  .skill--core::before {
-    content: "";
-    position: absolute;
-    left: -22vw;
-    top: -18vh;
-    width: 44vw;
-    height: 36vh;
-    background: radial-gradient(closest-side, rgba(245, 133, 63, .13), transparent);
-    pointer-events: none;
-  }
-  .skills__girl {
-    position: absolute;
-    right: calc(6 * var(--px)); /* lines up with where she sat in the hero */
-    bottom: clamp(24px, 5vh, 52px);
-    display: block;
-    width: calc(15 * var(--px));
-    height: calc(19 * var(--px));
-    --px: 7px;
-    visibility: hidden;
-    image-rendering: pixelated;
-  }
-  .skills__girl.is-here { visibility: visible; }
-  /* Reduced motion: all of it, drawn. */
-  .rm .skill__dot { scale: 1; }
-  .rm .skill__text { opacity: 1; translate: none; }
-  .rm .skills__girl { visibility: visible; }
-}
-
-/* ---------- But there's more ---------- */
-
-/* Phones: the three points stacked. Wide screens: one pinned screen, a line
-   drawing across with each point on it; tiny Shruti bottom left. */
-.more { position: relative; padding: clamp(48px, 8vh, 96px) var(--gutter) clamp(96px, 14vh, 160px); }
-.more__stage { position: relative; }
-.more__title {
-  margin: 0 0 clamp(36px, 6vh, 56px);
-  color: var(--accent); /* a label, like "How I make products better" */
-  font-size: clamp(1.25rem, 1.05rem + .6vw, 1.625rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -.025em;
-}
-.more__row { position: relative; }
-.more__line { display: none; }
-.more__list { display: grid; gap: 28px; margin: 0; padding: 0; list-style: none; }
-.more__item { position: relative; padding-top: 18px; border-top: 1px solid var(--rule); }
-.more__dot { display: none; }
-.more__name { color: var(--paper); font-size: 1.125rem; font-weight: 600; letter-spacing: -.01em; }
-.more__text { max-width: 34ch; margin-top: 8px; color: var(--paper-soft); font-size: .9375rem; line-height: 1.55; }
-.more__text strong { color: var(--paper); font-weight: 600; }
-.more__girl { display: none; }
-
-@media (min-width: 900px) and (min-height: 640px) {
-  .more { height: 100vh; height: 100svh; margin-top: 12vh; padding: 0 var(--gutter); }
-  .more__stage {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    height: 100%;
-    padding: clamp(28px, 6vh, 64px) 0 clamp(24px, 5vh, 52px);
-  }
-  .more__title { margin: 0; font-size: clamp(1.125rem, .9rem + .55vw, 1.5rem); }
-  .more__row { align-self: center; justify-self: center; width: min(100%, 1100px); padding-top: 6vh; }
-  .more__line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: block;
-    height: 1.5px;
-    background: var(--accent);
-    transform: scaleX(var(--draw, 0));
-    transform-origin: left;
-  }
-  .more__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(32px, 4vw, 72px); }
-  .more__item { padding-top: 36px; border: 0; }
-  .more__dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 5px rgba(245, 133, 63, .16);
-    translate: 0 -50%;
-    scale: 0;
-    transition: scale .6s cubic-bezier(.34, 1.56, .64, 1);
-  }
-  .more__name { font-size: clamp(1.125rem, .95rem + .5vw, 1.5rem); }
-  .more__name, .more__text { opacity: 0; translate: 0 12px; transition: opacity .7s var(--ease-out), translate .9s var(--ease-out); }
-  .more__text { transition-delay: .08s; }
-  .more__item.is-on .more__dot { scale: 1; }
-  .more__item.is-on .more__name, .more__item.is-on .more__text { opacity: 1; translate: 0 0; }
-  .more__girl {
-    position: absolute;
-    left: 0;
-    bottom: clamp(24px, 5vh, 52px);
-    display: block;
-    width: calc(15 * var(--px));
-    height: calc(19 * var(--px));
-    --px: 7px;
-    visibility: hidden;
-    image-rendering: pixelated;
-  }
-  .more__girl.is-here { visibility: visible; }
-  .rm .more__line { --draw: 1; }
-  .rm .more__dot { scale: 1; }
-  .rm .more__name, .rm .more__text { opacity: 1; translate: none; }
-  .rm .more__girl { visibility: visible; }
-}
-
-/* Tiny Shruti between the hero and the skills: fixed to the screen while
-   she walks, placed by main.js. */
+/* Tiny Shruti off the hero's canvas: fixed to the screen while she walks,
+   placed by walker.js, which also matches her pixel size to the hero's. */
 .walker {
   position: fixed;
   top: 0;
@@ -564,7 +353,7 @@ main { position: relative; z-index: 1; }
   letter-spacing: -.018em;
 }
 
-/* ---------- Things I've made ---------- */
+/* ---------- Selected work ---------- */
 
 /* Big names in rows between thin rules, set in from the left like the
    reference (minhpham.design). Under each name a dim copy; the bright one
@@ -623,6 +412,84 @@ main { position: relative; z-index: 1; }
 .made__link:focus-visible .made__band { clip-path: inset(0 0); }
 .made__link:focus-visible { outline: none; }
 
+/* The room (room.js): on wide screens the heading sits over a pinned,
+   screen-high view into a room. Its walls are a lighter warm grey, the
+   floor and ceiling darker; the doors are cream outlines; the projects hang
+   like pictures in an exhibition, each a darker card with a thin border:
+   the picture, the name, a line and its tags. Sizes come from --u, the
+   screen's height. Elsewhere it's the heading and the list of work. */
+.room__view { display: none; }
+.is-room .room__stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; }
+.is-room .made__title { position: absolute; top: clamp(28px, 6vh, 64px); left: 0; z-index: 2; margin: 0; }
+.is-room .room__view { position: absolute; inset: 0; display: block; overflow: hidden; perspective: var(--p); }
+.has-room .made__list { display: none; }
+.has-room { padding-bottom: 0; }
+.room__world {
+  --wall: #1A1816;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform-origin: 0 0 var(--p);
+}
+.room__side, .room__wall, .room__frame, .room__girl { position: absolute; top: 0; left: 0; box-sizing: border-box; }
+.room__girl { image-rendering: pixelated; }
+.room__side--left, .room__side--right { background: var(--wall); }
+.room__side--floor { background: #0C0B0A; }
+.room__side--ceiling { background: #12110F; }
+.room__wall { overflow: hidden; }
+.room__door {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(var(--u) * .45);
+  height: calc(var(--u) * .95);
+  translate: -50% 0;
+  border: 1.5px solid rgba(228, 217, 198, .9);
+  /* The rest of the wall, solid, so you only see through the doorway: the
+     page's dark outside, the room's grey on the far wall. */
+  box-shadow: 0 0 0 300vmax #040303;
+}
+.room__wall[data-wall="back"] .room__door { box-shadow: 0 0 0 300vmax var(--wall); }
+/* A project's frame: a darker card with a thin border. */
+.room__frame {
+  display: block;
+  padding: calc(var(--u) * .018);
+  border: 1px solid rgba(228, 217, 198, .24);
+  background: #141210;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, .45);
+  color: var(--paper);
+  text-decoration: none;
+  transition: border-color .4s var(--ease-out);
+}
+.room__frame:hover, .room__frame:focus-visible { border-color: var(--accent); outline: none; }
+.room__frame img { display: block; width: 100%; height: auto; }
+.room__label { display: block; padding-top: calc(var(--u) * .024); }
+.room__name { display: block; font-size: calc(var(--u) * .036); font-weight: 500; letter-spacing: -.01em; }
+.room__line { display: block; max-width: 50%; margin-top: .45em; color: var(--paper-lead); font-size: calc(var(--u) * .026); line-height: 1.4; }
+.room__tags { display: block; margin-top: 1em; color: var(--paper-soft); font-size: calc(var(--u) * .015); letter-spacing: .06em; text-transform: uppercase; }
+/* On the right wall (Bridge) the label sits to the frame's right side. */
+.room__frame[data-side="right"] .room__label { text-align: right; }
+.room__frame[data-side="right"] .room__line,
+.room__frame[data-side="right"] .room__go { margin-left: auto; }
+/* The way into the case study: an orange disc with a diagonal arrow. */
+.room__go {
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * .052);
+  height: calc(var(--u) * .052);
+  margin-top: calc(var(--u) * .022);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--noir);
+  transition: scale .35s var(--ease-out);
+}
+.room__go svg { width: 34%; height: 34%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; transition: translate .35s var(--ease-out); }
+.room__frame:hover .room__go svg, .room__frame:focus-visible .room__go svg { translate: 8% -8%; }
+.room__frame:hover .room__go { scale: 1.06; }
+
 /* The picture that follows the pointer (main.js), fine pointers only. */
 .made__thumb {
   position: fixed;
@@ -655,7 +522,6 @@ main { position: relative; z-index: 1; }
   .made__name { font-size: clamp(2.5rem, 13vw, 4rem); }
 }
 @media (min-width: 900px) and (min-height: 640px) {
-  .made { margin-top: 0; padding-top: 24px; }
   .made__title { font-size: clamp(1.5rem, 1rem + 1.1vw, 2.25rem); }
 }
 
@@ -764,14 +630,15 @@ main { position: relative; z-index: 1; }
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: clamp(2.2rem, 6.2vw, 6.5rem);
+  font-size: clamp(2rem, 4.5vw, 5rem); /* "AI-powered experiences" fits on one line */
   font-weight: 800;
   font-stretch: 104%;
   line-height: .95;
-  letter-spacing: -.035em;
+  letter-spacing: .02em;
+  word-spacing: .18em;
   text-transform: uppercase;
 }
-.roles__role + .roles__role { margin-top: .5em; }
+.roles__role + .roles__role { margin-top: .9em; }
 .roles__line { display: block; }
 .roles__line--2 { text-align: right; }
 .roles__line--3 { padding-left: 12%; }
@@ -1102,9 +969,9 @@ main { position: relative; z-index: 1; }
 @media (max-width: 767px) {
   :root { --nav-h: 64px; }
   .nav__arrow { display: none; }
-  .roles__list { font-size: 12vw; line-height: 1; }
+  .roles__list { font-size: 9vw; line-height: 1; }
   .roles__br { display: inline; }
-  .roles__role + .roles__role { margin-top: .6em; }
+  .roles__role + .roles__role { margin-top: .9em; }
   .roles__line--3 { padding-left: 0; }
   .roles__line--4 { padding-left: 12%; }
   .has-life .life__box { height: 580px; }

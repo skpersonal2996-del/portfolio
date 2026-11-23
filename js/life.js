@@ -56,7 +56,7 @@ const NEAR = [P.PALM, P.TOWER, P.CACTUS, P.LIGHTHOUSE];
 const NEAR_GAP = 46;
 const FAR_GAP = 88;
 
-export function createLife(section, { gsap, ScrollTrigger, reduced = false, manual = false }) {
+export function createLife(section, { gsap, ScrollTrigger, reduced = false }) {
   const html = document.documentElement;
   const box = section.querySelector("[data-life-box]");
   const canvas = section.querySelector("[data-life-scene]");
@@ -479,8 +479,8 @@ export function createLife(section, { gsap, ScrollTrigger, reduced = false, manu
 
   /* ---------- Arriving ---------- */
 
-  // She materialises pixel by pixel as the box scrolls in; picking something
-  // before she's done finishes it at once.
+  // She's there as soon as the box scrolls in (appear(true)); appear() alone
+  // would have her materialise pixel by pixel.
   let appearing = false;
   function appear(now = false) {
     appearing = true;
@@ -544,12 +544,9 @@ export function createLife(section, { gsap, ScrollTrigger, reduced = false, manu
     trigger: box,
     start: "top 80%",
     end: "bottom top",
-    // Manual: she arrives when the caller says (tiny Shruti from the page
-    // jumping in, see skills.js), not when the box scrolls in.
-    onEnter: () => manual || appear(),
+    onEnter: () => appear(true), // she's simply there when the box comes in
     onToggle: (self) => (S.on = self.isActive),
   });
-  S.appear = () => appear();
 
   let acc = 0;
   gsap.ticker.add((time, deltaMs) => {

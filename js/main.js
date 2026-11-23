@@ -4,7 +4,8 @@ import { Jewels } from "./jewels.js";
 import { createEmbers } from "./embers.js";
 import { createLife } from "./life.js";
 import { heroGirl } from "./hero-girl.js";
-import { skills, jumpIn } from "./skills.js";
+import { heroExit } from "./walker.js";
+import { room } from "./room.js";
 import { setup, landOnHash, reading, contact, params, $, $$ } from "./shared.js";
 
 const { gsap, ScrollTrigger, SplitText } = window;
@@ -38,7 +39,7 @@ function boot() {
     html.classList.remove("is-intro");
     fitName();
     const girl = $("[data-hero-girl]");
-    skills({ reduced: true, heroGirl: girl ? heroGirl(girl, true) : null });
+    if (girl) heroGirl(girl, true);
     made(true);
     roles(true);
     life(true);
@@ -48,9 +49,10 @@ function boot() {
   }
   // In page order: each pin changes where everything after it starts.
   const sitting = hero();
-  skills({ reduced: false, heroGirl: sitting });
+  heroExit({ heroGirl: sitting, reduced: false });
   reading();
   // ambient(); // the 3D form behind the story, off for now at her request
+  room(false);
   made(false);
   me(false);
   roles(false);
@@ -67,12 +69,7 @@ function boot() {
 function life(reduced) {
   const section = $("[data-life]");
   if (!section) return;
-  // On wide screens tiny Shruti from the page hops into the box first, and
-  // the scene's own Shruti appears when she lands.
-  const box = $("[data-life-box]", section);
-  let scene = null;
-  const waiting = !reduced && jumpIn({ box, onLand: () => scene?.appear?.() });
-  scene = createLife(section, { gsap, ScrollTrigger, reduced, manual: waiting });
+  createLife(section, { gsap, ScrollTrigger, reduced });
   if (reduced) return;
   gsap
     .timeline({ scrollTrigger: { trigger: section, start: "top 72%", once: true } })
@@ -92,7 +89,7 @@ function me(reduced) {
 }
 
 
-/* ---------- Things I've made ---------- */
+/* ---------- Selected work ---------- */
 
 // Each name fills in from the left as its row scrolls up the screen. On
 // fine pointers a small picture of the project trails the pointer while

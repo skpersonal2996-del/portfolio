@@ -2,9 +2,9 @@
 // her laptop, a mug of coffee steaming beside her. She types in bursts,
 // blinks, and now and then looks up from the screen. Paused off screen.
 //
-// As you scroll away (skills.js calls leave(p) with 0 to 1) she shuts the
+// As you scroll away (walker.js calls leave(p) with 0 to 1) she shuts the
 // laptop, stands up with it under her arm, and the coffee vanishes; from
-// there the walker in skills.js takes her down the page.
+// there the walker in walker.js takes her off the right of the screen.
 
 import { PALETTE, OUTFITS, FRONT, SQUAT } from "./life-sprites.js";
 
@@ -47,16 +47,13 @@ const LID_HALF = at({ 11: ".HHTTTTTTTTTHH.", 12: ".HSAAAAoAAAASH.", 13: "..SAAAA
 const LID_SHUT = at({ 5: "..HHSESSSESHH..", 6: "..HHSSSSSSSHH..", 11: ".HHTTTTTTTTTHH.", 12: ".HSTTTTTTTTTSH.", 13: "..STTTTTTTTTS..", 14: ".LLAAAAAAAAALL." });
 
 // Standing (and halfway up), the shut laptop held at her side. These rows
-// count from the top of the standing sprite; skills.js uses them too.
+// count from the top of the standing sprite; walker.js uses them too.
 export const HELD = {
   12: ".HSTPTTTTTPTAA.",
   13: "..STTTTTTTTTAA.",
   14: "..S.JJJJJJJ.AA.",
   15: "....JJJJJJJ.AA.",
 };
-// Walking toward you: one foot lifted, then the other.
-export const WALK_L = { 16: "....LLL.LLL....", 17: "....LLL.KKK....", 18: "....KKK........" };
-export const WALK_R = { 16: "....LLL.LLL....", 17: "....KKK.LLL....", 18: "........KKK...." };
 const shift = (o, by) => Object.fromEntries(Object.entries(o).map(([k, v]) => [Number(k) + by, v]));
 const STAND = pad(FRONT, 1);
 const RISE = pad(SQUAT, 1);

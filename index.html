@@ -65,60 +65,45 @@
     </h1>
     <div class="hero__bottom">
       <div class="hero__lede">
-        <p class="hero__title" data-hero-in>I turn complex problems into <em class="hero__key">products people can use</em>, and businesses can grow&nbsp;with.</p>
-        <a class="hero__cta" href="mailto:shrutikale2996@gmail.com" data-hero-in>Let’s chat<span class="hero__cta-arrow" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span></a>
+        <p class="hero__title" data-hero-in>I’m a <em class="hero__key">Senior Product Designer</em> with 5 years of experience designing intuitive products that make complex workflows simpler and everyday work more&nbsp;efficient.</p>
+        <a class="hero__cta" href="#work" data-scroll-to data-hero-in>View selected work<span class="hero__cta-arrow" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5"/></svg></span></a>
       </div>
       <canvas class="hero__girl" data-hero-girl data-hero-in role="img" aria-label="Tiny pixel Shruti sitting cross-legged, typing on her laptop, a mug of coffee beside her."></canvas>
     </div>
   </section>
 
-  <!-- How I make products better. On wide screens it pins: tiny Shruti has
-       walked in from the hero, a line draws a loop around Product design and
-       each skill appears as the line reaches it, then "But there's more".
-       On phones it's a list with a line drawn down its side. -->
-  <section class="skills" id="how" aria-labelledby="skills-title" data-skills>
-    <div class="skills__stage">
-      <h2 class="skills__title" id="skills-title">How I make products better</h2>
-      <div class="skills__ring" data-skills-ring>
-        <svg class="skills__loop" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path data-skills-path/></svg>
-        <ol class="skills__list">
-          <li class="skill" data-skill data-angle="180" data-place="left"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">01</span><h3 class="skill__name">Product strategy</h3><p class="skill__line">Find the problem worth solving before designing the solution.</p></div></li>
-          <li class="skill" data-skill data-angle="270" data-place="top"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">02</span><h3 class="skill__name">Understand business and users</h3><p class="skill__line">Research, behaviour, user needs and turn into actionable insights.</p></div></li>
-          <li class="skill skill--core" data-skill-core><div class="skill__text"><span class="skill__num">03</span><h3 class="skill__name">Product design</h3></div></li>
-          <li class="skill" data-skill data-angle="360" data-place="right"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">04</span><h3 class="skill__name">Shape the experience</h3><p class="skill__line">Flows, interaction &amp; visual design.</p></div></li>
-          <li class="skill" data-skill data-angle="415" data-place="bottom"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">05</span><h3 class="skill__name">Make it tangible</h3><p class="skill__line">Prototype, testing, iteration.</p></div></li>
-          <li class="skill" data-skill data-angle="485" data-place="bottom"><span class="skill__dot" aria-hidden="true"></span><div class="skill__text"><span class="skill__num">06</span><h3 class="skill__name">Build for scale</h3><p class="skill__line">Design system and team collaboration.</p></div></li>
-        </ol>
-      </div>
-      <canvas class="skills__girl" data-skills-girl aria-hidden="true"></canvas>
-    </div>
-  </section>
-
-  <!-- But there's more. On wide screens tiny Shruti walks down from the
-       skills and across to the bottom left; the section pins, a line draws
-       across and each point appears as the line reaches it. -->
-  <section class="more" aria-labelledby="more-title" data-more>
-    <div class="more__stage">
-      <h2 class="more__title" id="more-title">But there’s more</h2>
-      <div class="more__row">
-        <span class="more__line" data-more-line aria-hidden="true"></span>
-        <ul class="more__list">
-          <li class="more__item" data-more-item><span class="more__dot" aria-hidden="true"></span><h3 class="more__name">AI-Assisted exploration</h3><p class="more__text">I build <strong>AI-powered workflows</strong> using <strong>agent skills and MCP integrations</strong>, connecting tools like <strong>Figma, Paper, and Higgsfield with Claude</strong>. From research and visual exploration to <strong>functional prototypes and interactive websites</strong>, I use AI to <strong>turn ideas into working experiences</strong>.</p></li>
-          <li class="more__item" data-more-item><span class="more__dot" aria-hidden="true"></span><h3 class="more__name">Cross-functional</h3><p class="more__text">Work with product, engineering, and business teams together around the same goal.</p></li>
-          <li class="more__item" data-more-item><span class="more__dot" aria-hidden="true"></span><h3 class="more__name">Outcome led</h3><p class="more__text">User value meets business goals.</p></li>
-        </ul>
-      </div>
-      <canvas class="more__girl" data-more-girl aria-hidden="true"></canvas>
-    </div>
-  </section>
-
-
-  <!-- Things I've made: the projects as big names, one per row. Each name
+  <!-- Selected work: the projects as big names, one per row. Each name
        fills in from the left as you scroll to it; on hover an orange band
        opens from the middle of the row with the name in dark, and a small
        picture of the project follows the pointer. -->
   <section class="made" id="work" aria-labelledby="made-title" data-made>
-    <h2 class="made__title" id="made-title">Things I’ve made</h2>
+    <!-- The room: under the heading, a door; scrolling walks you through it,
+         past three projects framed on the walls like an exhibition, and out
+         of the far door into the dark (room.js). Wide screens only; on
+         phones, the list of all the work instead. -->
+    <div class="room" data-room>
+      <div class="room__stage">
+        <h2 class="made__title" id="made-title">Selected work</h2>
+        <div class="room__view" data-room-view>
+          <div class="room__world" data-room-world>
+            <div class="room__wall" data-room-item data-wall="front" data-z="0" aria-hidden="true"><span class="room__door"></span></div>
+            <a class="room__frame" id="work-leucine" href="work/leucine/" data-room-item data-side="left" data-z="1.7">
+              <img src="assets/img/work/leucine-thumb.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A pharmaceutical production line: steel tanks and pipework, a row of filled glass vials, and a glass panel with a molecule.">
+              <span class="room__label"><span class="room__name">Leucine</span><span class="room__line">Making pharma process digitization work better for the people on the ground.</span><span class="room__tags">Enterprise SaaS · Pharma manufacturing</span></span><span class="room__go" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span><span class="sr-only">View case study</span>
+            </a>
+            <a class="room__frame" id="work-bridge" href="work/bridge/" data-room-item data-side="right" data-z="2.9">
+              <img src="assets/img/work/bridge-thumb.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A driving school at golden hour: an L-plate sign, car keys and a lesson checklist on a desk, learner cars and cones behind.">
+              <span class="room__label"><span class="room__name">Bridge</span><span class="room__line">Bringing fragmented admin operations into one connected workspace.</span><span class="room__tags">B2B SaaS · Operations</span></span><span class="room__go" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span><span class="sr-only">View case study</span>
+            </a>
+            <a class="room__frame" id="work-docfit" href="work/docfit/" data-room-item data-side="left" data-z="4.1">
+              <img src="assets/img/work/docfit-thumb.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A spreadsheet and a document template on a desk, joined by AI to a stack of finished student documents.">
+              <span class="room__label"><span class="room__name">DocFit</span><span class="room__line">Turning hours of manual document work into a simpler, AI-assisted workflow.</span><span class="room__tags">AI product design · Workflow automation</span></span><span class="room__go" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span><span class="sr-only">View case study</span>
+            </a>
+            <div class="room__wall" data-room-item data-wall="back" data-z="5.2" aria-hidden="true"><span class="room__door"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <ol class="made__list" data-cursor-plain>
       <li class="made__row" data-made-row data-thumb="leucine">
         <a class="made__link" href="work/leucine/">
@@ -141,27 +126,11 @@
           <span class="made__band" aria-hidden="true"><span class="made__name">DocFit</span></span>
         </a>
       </li>
-      <li class="made__row" data-made-row data-thumb="nestwise">
-        <a class="made__link" href="work/nestwise/">
-          <span class="made__name made__name--dim" aria-hidden="true">Nestwise</span>
-          <span class="made__name made__name--fill" data-made-fill>Nestwise</span>
-          <span class="made__band" aria-hidden="true"><span class="made__name">Nestwise</span></span>
-        </a>
-      </li>
-      <li class="made__row" data-made-row data-thumb="sahar">
-        <a class="made__link" href="work/sahar/">
-          <span class="made__name made__name--dim" aria-hidden="true">Sahar</span>
-          <span class="made__name made__name--fill" data-made-fill>Sahar</span>
-          <span class="made__band" aria-hidden="true"><span class="made__name">Sahar</span></span>
-        </a>
-      </li>
     </ol>
     <div class="made__thumb" data-made-thumb aria-hidden="true"><div class="made__frame">
       <img class="made__img" data-thumb-img="leucine" src="assets/img/work/leucine-thumb.jpg" alt="" loading="lazy" decoding="async">
       <img class="made__img" data-thumb-img="bridge" src="assets/img/work/bridge-thumb.jpg" alt="" loading="lazy" decoding="async">
       <img class="made__img" data-thumb-img="docfit" src="assets/img/work/docfit-thumb.jpg" alt="" loading="lazy" decoding="async">
-      <img class="made__img" data-thumb-img="nestwise" src="assets/img/work/nestwise-thumb.jpg" alt="" loading="lazy" decoding="async">
-      <img class="made__img" data-thumb-img="sahar" src="assets/img/work/sahar-900.jpg" alt="" loading="lazy" decoding="async">
     </div></div>
   </section>
 
@@ -170,10 +139,11 @@
   <section class="me" id="about" aria-labelledby="me-title" data-me>
     <div class="me__photo"><img src="assets/img/shruti-about.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Shruti Kale, a black and white portrait: sitting on a chair turned backwards, her chin resting on her hand, smiling."></div>
     <div class="me__text">
-      <h2 class="me__title" id="me-title" data-me-in>A designer by <span class="me__hl--accent">curiosity</span>.</h2>
-      <p class="me__para" data-me-in>When campus placements rolled around, most of my classmates were heading into development. I wanted to take <strong class="me__hl">a different route</strong>.</p>
-      <p class="me__para" data-me-in>Engineering taught me to <strong class="me__hl">think in systems</strong>. Design gave me a way to <strong class="me__hl">question them</strong>.</p>
-      <p class="me__para" data-me-in>I started exploring <strong class="me__hl">how people think</strong>, why products work the way they do, and how <strong class="me__hl">small decisions can change an entire experience</strong>. That curiosity led me to <strong class="me__hl">product design</strong>, and it hasn’t really stopped since.</p>
+      <h2 class="me__title" id="me-title" data-me-in>A little about how I think about <span class="me__hl--accent">design</span>.</h2>
+      <p class="me__para" data-me-in>Coming from a <strong class="me__hl">computer engineering</strong> background, I’ve always been curious about how digital products work, what goes into building them, why they matter and the problems they solve.</p>
+      <p class="me__para" data-me-in>I believe good design starts with <strong class="me__hl">the right problem</strong>, balancing user needs, business goals and technical constraints to create meaningful solutions.</p>
+      <p class="me__para" data-me-in>What I enjoy most is <strong class="me__hl">working with people across disciplines</strong>. Different perspectives from product, engineering and research often lead to better questions and stronger solutions.</p>
+      <p class="me__para" data-me-in>For me, design doesn’t stop at shipping. It’s about learning from feedback, understanding what works and <strong class="me__hl">continuously improving the experience</strong>.</p>
     </div>
   </section>
 
@@ -186,13 +156,13 @@
     <canvas class="roles__sparks" data-roles-sparks aria-hidden="true"></canvas>
     <ul class="roles__list">
       <li class="roles__role">
-        <span class="roles__line roles__line--1"><span class="roles__in" data-from="left">Product <br class="roles__br">Designer <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="0"></span>)</span></span></span>
+        <span class="roles__line roles__line--1"><span class="roles__in" data-from="left">Enterprise <br class="roles__br">SaaS <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="0"></span>)</span></span></span>
       </li>
       <li class="roles__role">
-        <span class="roles__line roles__line--2"><span class="roles__in" data-from="right">UI/UX <br class="roles__br">Designer <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="1"></span>)</span></span></span>
+        <span class="roles__line roles__line--2"><span class="roles__in" data-from="right">AI-powered <br class="roles__br">experiences <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="1"></span>)</span></span></span>
       </li>
       <li class="roles__role">
-        <span class="roles__line roles__line--3"><span class="roles__in" data-from="left">AI <br class="roles__br">Native <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="2"></span>)</span></span></span>
+        <span class="roles__line roles__line--3"><span class="roles__in" data-from="left">Product <br class="roles__br">systems <span class="roles__bracket" aria-hidden="true">(<span class="roles__slot" data-jewel="2"></span>)</span></span></span>
       </li>
     </ul>
   </section>
@@ -257,7 +227,8 @@
 </footer>
 
 <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label">why?</span><span class="cursor__cta"></span></div>
-<!-- Tiny Shruti on her way from the hero to the skills (main.js). -->
+<!-- Tiny Shruti when she's off the hero's canvas: walking out of the hero,
+     and into Outside of work (walker.js). -->
 <canvas class="walker" data-walker aria-hidden="true"></canvas>
 </body>
 </html>

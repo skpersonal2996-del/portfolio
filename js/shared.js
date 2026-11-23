@@ -75,10 +75,15 @@ function anchors(lenis) {
 // Arriving with a #hash (say, back from a case study to #work): once every
 // pin has taken its space, go straight there.
 export function landOnHash(lenis) {
-  const target = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  let target = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
   if (!target) return;
+  // A frame in the work room: the room takes you to it (room.js), or, where
+  // there's no room (phones), the work section's top.
+  const room = target.closest("[data-room]");
   const go = () => {
     ScrollTrigger.refresh();
+    if (room?.goTo?.(target.id, lenis)) return;
+    if (room) target = document.getElementById("work") || target;
     if (lenis) lenis.scrollTo(target, { immediate: true, force: true });
     else target.scrollIntoView();
   };
