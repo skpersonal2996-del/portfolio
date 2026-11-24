@@ -180,7 +180,7 @@
 .case-name__fit { display: inline-block; white-space: nowrap; }
 .case-sub {
   max-width: 21em;
-  margin: clamp(28px, 4.5vh, 48px) 0 0;
+  margin: clamp(56px, 9vh, 96px) 0 0;
   color: var(--c-head);
   font-size: var(--t-sub);
   font-weight: 500;
@@ -794,6 +794,8 @@
 
 /* No word left alone on a last line; hyphenated words kept whole. */
 .case-sub, .case-lead, .case-body, .case-small, .case-quote, .case-finding, .case-facts dd { text-wrap: pretty; }
+/* Tags under the tagline, in small grey capitals. */
+.case-tags { margin: 32px 0 0; color: var(--c-soft); font-size: var(--t-micro); letter-spacing: .14em; text-transform: uppercase; }
 .case-keep { white-space: nowrap; }
 /* The line that sums it up, its last sentence on a line of its own. */
 .case-quote--stack { max-width: 27em; text-wrap: balance; }
@@ -1751,3 +1753,308 @@
 /* The pain points themselves: larger, the rest of each line quieter. */
 .case-pain { max-width: 15em; color: var(--night-body, var(--c-body)); font-size: clamp(1.25rem, 1.05rem + .7vw, 1.625rem); font-weight: 400; line-height: 1.3; letter-spacing: -.015em; }
 .case-gap__soft { color: var(--c-soft); }
+
+/* My role: one plain statement after the header, its label in orange. */
+.case-role { margin-top: clamp(56px, 9vh, 96px); padding-top: clamp(32px, 5vh, 52px); border-top: 1px solid var(--c-line, rgba(228, 217, 198, .12)); }
+.case-role__label { margin: 0 0 clamp(16px, 2.4vh, 24px); color: var(--accent); font-size: var(--t-micro); font-weight: 500; letter-spacing: .2em; text-transform: uppercase; }
+.case-role__text { max-width: 30ch; margin: 0; color: var(--c-head); font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.5rem); font-weight: 500; line-height: 1.3; letter-spacing: -.02em; text-wrap: balance; }
+/* Facts with no line above them, when My role's line follows below. */
+.case-facts.case-facts--open { padding-top: 0; border-top: 0; }
+
+/* A case study that opens on its title, with no cover picture above it. */
+.case-sheet.case-sheet--top { margin-top: 0; border-radius: 0; box-shadow: none; padding-top: clamp(28px, 4vh, 44px); }
+/* The product snapshot under the facts: the screen on a soft, warm panel. */
+.case-snap {
+  margin: clamp(48px, 8vh, 88px) auto 0;
+  padding: clamp(28px, 5vw, 80px) clamp(20px, 6vw, 96px) 0;
+  overflow: hidden;
+  border: 1px solid rgba(228, 217, 198, .1);
+  border-radius: clamp(20px, 2vw, 28px);
+  background:
+    radial-gradient(70% 90% at 50% 0%, rgba(245, 133, 63, .16), transparent 65%),
+    #171411;
+}
+.case-snap__img { display: block; width: 100%; height: auto; border-radius: 12px 12px 0 0; box-shadow: 0 -10px 60px rgba(0, 0, 0, .45); }
+
+/* The 30-second version: a numbered label with a rule running out to the
+   right, then four short parts side by side in one bordered card. */
+.case-brief { margin-top: clamp(104px, 16vh, 176px); } /* same step as a chapter */
+.case-brief__head { display: flex; align-items: center; gap: 12px; margin: 0 0 clamp(20px, 3vh, 32px); color: var(--c-soft); font-size: var(--t-micro); font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+.case-brief__head::after { content: ""; flex: 1; height: 1px; margin-left: 16px; background: var(--rule); }
+.case-brief__num { color: var(--accent); }
+.case-brief__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border: 1px solid rgba(228, 217, 198, .12); border-radius: clamp(14px, 1.4vw, 20px); background: #141210; }
+.case-brief__grid > div { padding: clamp(24px, 2.4vw, 36px); }
+.case-brief__grid > div + div { border-left: 1px solid rgba(228, 217, 198, .12); }
+.case-brief__grid dt { margin: 0 0 14px; color: var(--c-soft); font-size: var(--t-micro); letter-spacing: .14em; text-transform: uppercase; }
+.case-brief__grid dd { margin: 0; color: var(--c-body); font-size: clamp(.9375rem, .9rem + .1vw, 1rem); line-height: 1.7; letter-spacing: .015em; text-wrap: pretty; }
+.case-brief__grid strong { color: var(--c-head); font-weight: 600; }
+@media (max-width: 1023px) {
+  .case-brief__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-brief__grid > div:nth-child(3) { border-left: 0; }
+  .case-brief__grid > div:nth-child(n+3) { border-top: 1px solid rgba(228, 217, 198, .12); }
+}
+@media (max-width: 640px) {
+  .case-brief__grid { grid-template-columns: minmax(0, 1fr); }
+  .case-brief__grid > div + div { border-left: 0; border-top: 1px solid rgba(228, 217, 198, .12); }
+}
+.nowrap { white-space: nowrap; }
+
+/* A chapter set out like a brief: a small grey label on the left, its
+   content on the right. */
+.case-split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--col-gap); padding-top: clamp(28px, 4vh, 40px); border-top: 1px solid var(--rule); }
+.case-split + .case-split { margin-top: clamp(48px, 8vh, 80px); }
+.case-ch__head + .case-split { margin-top: clamp(8px, 2vh, 24px); }
+.case-split__label { margin: .35em 0 20px; color: var(--c-soft); font-size: var(--t-micro); font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+.case-split__main > * + * { margin-top: 20px; }
+/* The challenges, two by two, each with a small line icon. */
+.case-ask { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); margin: 0; padding: 0; list-style: none; }
+.case-ask li { padding: clamp(22px, 2.2vw, 32px); border: 1px solid rgba(228, 217, 198, .12); border-radius: clamp(14px, 1.4vw, 20px); background: #141210; }
+.case-ask__icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 20px; border-radius: 10px; background: rgba(245, 133, 63, .1); color: var(--accent); }
+.case-ask__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.case-ask h4 { margin: 0 0 10px; color: var(--c-head); font-size: clamp(1.0625rem, 1rem + .2vw, 1.1875rem); font-weight: 500; letter-spacing: -.01em; }
+.case-ask p { margin: 0; color: var(--c-body); font-size: clamp(.9375rem, .9rem + .1vw, 1rem); line-height: 1.7; letter-spacing: .015em; text-wrap: pretty; }
+@media (max-width: 767px) {
+  .case-split { grid-template-columns: minmax(0, 1fr); }
+  .case-ask { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* A lead straight under a chapter heading, before its first labelled row. */
+.case-lead--intro { margin-bottom: clamp(40px, 7vh, 72px); }
+.case-ask--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.case-photos--split { margin: clamp(16px, 2vw, 24px) 0 0; }
+/* The SOP hierarchy as four chips joined by short orange lines; the
+   optional last level has a dashed outline. */
+.case-tree { display: flex; flex-wrap: wrap; align-items: center; row-gap: 12px; margin: 0; padding: 0; list-style: none; }
+.case-tree li { display: flex; align-items: center; color: var(--c-head); font-size: clamp(.9375rem, .9rem + .15vw, 1.0625rem); font-weight: 500; letter-spacing: .01em; }
+.case-tree li + li::before { content: ""; width: clamp(18px, 2.2vw, 32px); height: 1px; margin-inline: 8px; background: var(--accent); }
+.case-tree span { padding: 10px 18px; border: 1px solid rgba(228, 217, 198, .18); border-radius: 999px; background: #141210; }
+.case-tree__opt span { border-style: dashed; color: var(--c-body); }
+.case-insight { max-width: 38em; margin: 0; padding: clamp(20px, 2vw, 28px); border-left: 2px solid var(--accent); border-radius: 0 14px 14px 0; background: rgba(245, 133, 63, .06); color: var(--c-body); font-size: var(--t-body); line-height: 1.7; letter-spacing: .01em; }
+.case-insight strong { color: var(--c-head); font-weight: 600; }
+@media (max-width: 1023px) { .case-ask--3 { grid-template-columns: minmax(0, 1fr); } }
+.case-split__main > * + * { margin-top: clamp(20px, 3vh, 28px); }
+@media (max-width: 767px) {
+  .case-tree { flex-direction: column; align-items: flex-start; row-gap: 0; }
+  .case-tree li { flex-direction: column; align-items: flex-start; }
+  .case-tree li + li::before { width: 1px; height: 14px; margin: 0 0 0 24px; }
+  .case-tree li:nth-child(2) { margin-left: 16px; }
+  .case-tree li:nth-child(3) { margin-left: 32px; }
+  .case-tree li:nth-child(4) { margin-left: 48px; }
+}
+
+/* Design decisions: a three-column table, decisions in bright medium type,
+   rows split by hairlines. On phones each row becomes a stacked block. */
+.case-table { width: 100%; border-collapse: collapse; }
+.case-table th, .case-table td { padding: clamp(18px, 2.6vh, 26px) clamp(14px, 1.6vw, 24px) clamp(18px, 2.6vh, 26px) 0; vertical-align: top; text-align: left; }
+.case-table thead th { padding-top: 0; padding-bottom: 14px; border-bottom: 1px solid rgba(228, 217, 198, .22); color: var(--c-soft); font-size: var(--t-micro); font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+.case-table tbody tr + tr > * { border-top: 1px solid var(--rule); }
+.case-table tbody th { width: 26%; color: var(--c-head); font-size: clamp(1rem, .95rem + .2vw, 1.125rem); font-weight: 500; line-height: 1.45; letter-spacing: -.005em; }
+.case-table td { width: 37%; color: var(--c-body); font-size: clamp(.9375rem, .9rem + .1vw, 1rem); line-height: 1.7; letter-spacing: .015em; text-wrap: pretty; }
+.case-table td:last-child { padding-right: 0; }
+@media (max-width: 767px) {
+  .case-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .case-table, .case-table tbody, .case-table tr, .case-table th, .case-table td { display: block; width: auto; }
+  .case-table tbody tr { padding: 22px 0; }
+  .case-table tbody tr + tr { border-top: 1px solid var(--rule); }
+  .case-table tbody tr + tr > * { border-top: 0; }
+  .case-table th, .case-table td { padding: 0; }
+  .case-table tbody th, .case-table tbody td { width: auto; }
+  .case-table td { margin-top: 14px; }
+  .case-table td::before { content: attr(data-label); display: block; margin-bottom: 4px; color: var(--c-soft); font-size: var(--t-micro); letter-spacing: .14em; text-transform: uppercase; }
+}
+/* The screens that go with the decisions, full width beneath them. */
+.case-shots { display: grid; gap: clamp(56px, 9vh, 96px); margin-top: clamp(56px, 9vh, 96px); }
+.case-shots > * { margin: 0; }
+.case-body strong { color: var(--c-head); font-weight: 600; }
+/* Short tags for a list of changes. */
+.case-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.case-chips li { padding: 8px 16px; border: 1px solid rgba(228, 217, 198, .16); border-radius: 999px; color: var(--c-head); font-size: clamp(.875rem, .85rem + .1vw, .9375rem); letter-spacing: .01em; }
+.case-lead strong { color: var(--c-head); font-weight: 600; }
+
+/* The impact: three changes on the accent block, each with a dark line icon,
+   split by dark hairlines, and a closing note under a rule. */
+.case-impact--wins { margin-top: clamp(56px, 9vh, 96px); }
+.case-impact__label { margin: 0 0 14px; color: rgba(12, 11, 10, .72); font-size: var(--t-micro); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.case-impact--wins .case-impact__intro { max-width: none; }
+.case-wins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.case-wins li { padding: clamp(24px, 3vh, 32px) clamp(20px, 2.2vw, 36px) 0 0; border-top: 1px solid rgba(12, 11, 10, .22); }
+.case-wins li + li { padding-left: clamp(20px, 2.2vw, 36px); border-left: 1px solid rgba(12, 11, 10, .22); }
+.case-win__icon { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 20px; border-radius: 12px; background: rgba(12, 11, 10, .1); color: var(--noir); }
+.case-win__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.case-wins h3 { margin: 0 0 10px; color: var(--noir); font-size: clamp(1.0625rem, 1rem + .3vw, 1.3125rem); font-weight: 600; line-height: 1.3; letter-spacing: -.01em; }
+.case-wins p { margin: 0; color: #2A1A10; font-size: clamp(.9375rem, .9rem + .1vw, 1rem); line-height: 1.65; letter-spacing: .01em; text-wrap: pretty; }
+.case-impact__foot { margin: clamp(32px, 5vh, 48px) 0 0; padding-top: clamp(20px, 3vh, 28px); border-top: 1px solid rgba(12, 11, 10, .22); color: #2A1A10; font-size: clamp(.9375rem, .9rem + .15vw, 1.0625rem); line-height: 1.65; }
+.case-impact__foot strong { color: var(--noir); font-weight: 600; }
+@media (max-width: 900px) {
+  .case-wins { grid-template-columns: minmax(0, 1fr); }
+  .case-wins li, .case-wins li + li { padding: 24px 0; border-left: 0; }
+  .case-impact__foot { margin-top: 8px; }
+}
+
+/* Under a chapter title, everything sits in the right-hand column, lined up
+   with the content of the labelled rows. */
+.case-ch > .case-lead--intro:last-child { margin-bottom: 0; }
+.case-learned > * + * { margin-top: 24px; }
+.case-table tbody th { color: var(--accent); }
+
+@media (max-width: 767px) { .case-snap { padding: 20px 16px; } }
+
+/* Consistency pass: one set of label, card and reading-text values across
+   the new sections. */
+.case-tags { letter-spacing: .12em; font-weight: 500; } /* matches the Role/Timeline labels under it */
+.case-brief__grid dt { letter-spacing: .16em; font-weight: 500; } /* matches the table's column labels */
+.case-snap { border-color: rgba(228, 217, 198, .12); background: radial-gradient(70% 90% at 50% 0%, rgba(245, 133, 63, .16), transparent 65%), #141210; }
+.case-wins p { line-height: 1.7; letter-spacing: .015em; }
+/* Captions all sit at the left edge of the content column. */
+.case-shots .compare .case-caption, .case-split__main .compare .case-caption { text-align: left; }
+
+
+
+/* The product snapshot: the design itself on a soft panel, centred, at a
+   medium size so it never fills the screen. */
+.case-snap {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  padding: clamp(36px, 5vw, 72px) clamp(16px, 2.5vw, 36px) 0;
+  max-height: 64svh;
+  overflow: hidden;
+}
+.case-snap__img {
+  position: relative;
+  display: block;
+  width: 70%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -8px 80px rgba(0, 0, 0, .5), 0 24px 60px rgba(0, 0, 0, .45);
+}
+@media (max-width: 767px) {
+  .case-snap { padding: 20px 12px 0; max-height: 52svh; }
+  .case-snap__img { width: 86%; }
+}
+
+/* A chapter reads as two columns: its number and title on the left, with
+   everything else in the right-hand column, lined up with the row labels. */
+@media (min-width: 768px) {
+  .case-ch--split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--col-gap); row-gap: clamp(40px, 6vh, 64px); align-items: start; }
+  .case-ch--split > * { grid-column: 2; }
+  .case-ch--split > .case-ch__head { grid-column: 1; margin-bottom: 0; }
+  .case-ch--split > .case-split { grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .case-ch--split > .case-split:first-of-type { border-top: 0; padding-top: 0; }
+  .case-ch--split > .case-lead--intro { margin-bottom: 0; }
+  .case-ch--split > .case-split + .case-split { margin-top: 0; }
+  /* Titles a step smaller, so they sit comfortably in the narrower column. */
+  .case-ch--split .case-h2 { font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.625rem); }
+}
+/* A screenshot on a panel, with its caption below the panel, not inside it. */
+.case-shot { margin: 0; }
+.case-shot .case-panel { margin: 0; }
+.case-shot .case-caption { margin-top: 14px; }
+/* One gap between the parts of a row. */
+.case-split__main > * + * { margin-top: clamp(24px, 3.5vh, 32px); }
+/* A panel of screens or photos gets more air than a paragraph does. */
+.case-split__main > .case-panel, .case-split__main > .case-shot { margin: clamp(36px, 5.5vh, 56px) 0 0; }
+/* A sentence heading inside a row, above its paragraphs. */
+.case-split__title { max-width: 26em; margin: 0 0 4px; color: var(--c-head); font-size: clamp(1.25rem, 1.05rem + .6vw, 1.625rem); font-weight: 500; line-height: 1.3; letter-spacing: -.015em; text-wrap: balance; }
+.case-split__title + .case-body { margin-top: 16px; }
+.case-split__main > .case-body + .case-body { margin-top: 16px; }
+/* Two screens side by side on one panel. */
+.case-pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); }
+.case-pair img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 18px 40px rgba(0, 0, 0, .4); }
+/* Cards that carry a line of text and no heading. */
+.case-ask--plain li p { margin: 0; }
+.case-ask--plain strong { color: var(--c-head); font-weight: 600; }
+/* What changed, on the accent block: two columns of ticked lines. */
+.case-gains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.4vh, 26px) clamp(24px, 3vw, 48px); margin: 0; padding: clamp(24px, 3vh, 32px) 0 0; border-top: 1px solid rgba(12, 11, 10, .22); list-style: none; }
+.case-gains li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; }
+.case-gain__tick { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(12, 11, 10, .12); color: var(--noir); }
+.case-gain__tick svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.case-gains p { margin: 0; color: #2A1A10; font-size: clamp(.9375rem, .9rem + .1vw, 1rem); line-height: 1.6; letter-spacing: .015em; text-wrap: pretty; }
+@media (max-width: 767px) { .case-gains { grid-template-columns: minmax(0, 1fr); } }
+/* Two screens shown next to each other, where both fit. */
+.case-pair--side { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+@media (max-width: 767px) { .case-pair--side { grid-template-columns: minmax(0, 1fr); } }
+
+/* The impact block: dark, with a warm orange wash rather than a solid
+   orange panel. */
+.case-impact--wins {
+  border: 1px solid rgba(228, 217, 198, .12);
+  background:
+    radial-gradient(65% 85% at 0% 0%, rgba(245, 133, 63, .26), transparent 62%),
+    radial-gradient(55% 75% at 100% 100%, rgba(245, 133, 63, .18), transparent 62%),
+    #171411;
+  color: var(--c-body);
+}
+.case-impact--wins .case-impact__label { color: var(--accent); }
+.case-impact--wins .case-impact__intro { color: var(--c-head); }
+.case-impact--wins .case-wins h3 { color: var(--c-head); }
+.case-impact--wins .case-wins p, .case-impact--wins .case-gains p { color: var(--c-body); }
+.case-impact--wins .case-win__icon { background: rgba(245, 133, 63, .14); color: var(--accent); }
+.case-impact--wins .case-gain__tick { background: rgba(245, 133, 63, .16); color: var(--accent); }
+.case-impact--wins .case-wins li, .case-impact--wins .case-wins li + li,
+.case-impact--wins .case-gains, .case-impact--wins .case-impact__foot { border-color: rgba(228, 217, 198, .14); }
+.case-impact--wins .case-impact__foot { color: var(--c-body); }
+.case-impact--wins .case-impact__foot strong { color: var(--c-head); }
+/* Each gain leads with its own short title. */
+.case-gains h3 { margin: 1px 0 6px; color: var(--c-head); font-size: clamp(1rem, .95rem + .2vw, 1.0625rem); font-weight: 600; line-height: 1.35; letter-spacing: -.005em; }
+/* A picture rather than a product screen: it sits whole inside the panel. */
+.case-snap--art { place-items: center; padding: clamp(28px, 4vw, 56px); }
+.case-snap--art .case-snap__img { width: min(100%, 860px); max-height: 56svh; border-radius: 14px; }
+/* A 30-second version with three parts rather than four. */
+.case-brief__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1023px) {
+  .case-brief__grid--3 { grid-template-columns: minmax(0, 1fr); }
+  .case-brief__grid--3 > div:nth-child(3) { border-left: 0; }
+  .case-brief__grid--3 > div + div { border-left: 0; border-top: 1px solid rgba(228, 217, 198, .12); }
+}
+
+/* The research block, in the same warm dark as the rest of the case studies
+   rather than its own cobalt. */
+.case-night--cobalt {
+  --night-glows:
+    radial-gradient(60% 80% at 4% 0%, rgba(245, 133, 63, .24), transparent 66%),
+    radial-gradient(52% 70% at 100% 100%, rgba(245, 133, 63, .16), transparent 66%);
+  --night-base: #171411;
+  --night-label: var(--c-soft);
+  --night-soft: var(--c-soft);
+  --night-body: var(--c-body);
+  --night-rule: rgba(228, 217, 198, .14);
+  border: 1px solid rgba(228, 217, 198, .12);
+}
+.case-night--cobalt .case-statement__keep, .case-night--cobalt .case-intro, .case-night--cobalt .case-h3 { color: var(--c-head); }
+.case-night--cobalt .case-statement__soft { color: var(--c-soft); }
+.case-night--cobalt .case-pain strong { color: var(--accent); }
+.case-night--cobalt .case-icon { color: var(--accent); }
+.case-night--cobalt .case-icon .acc { fill: var(--accent); }
+/* A longer chain of steps wraps onto more than one line. */
+.case-tree--flow { gap: 12px 0; }
+/* A quiet footnote under a list. */
+.case-note { margin: clamp(28px, 4vh, 40px) 0 0; color: var(--c-soft); font-size: var(--t-small); line-height: 1.6; letter-spacing: .01em; }
+
+/* The launch film runs the full width of the page, inside its gutter. */
+@media (min-width: 768px) {
+  #about-product { max-width: none; }
+  #about-product > .case-ch__head { max-width: 1240px; margin-inline: auto; }
+  #about-product > .case-film { width: 100%; max-width: none; }
+}
+
+/* The way back to the work section, at the foot of a case study. */
+.case-end { margin: clamp(28px, 4vh, 40px) auto 0; text-align: center; }
+.case-end__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border: 1px solid rgba(228, 217, 198, .22);
+  border-radius: 999px;
+  color: var(--c-head);
+  font-size: var(--t-small);
+  font-weight: 500;
+  letter-spacing: .01em;
+  text-decoration: none;
+  transition: border-color .35s var(--ease-out), background .35s var(--ease-out), color .35s var(--ease-out);
+}
+.case-end__btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: translate .35s var(--ease-out); }
+.case-end__btn:hover { border-color: transparent; background: var(--accent); color: var(--noir); }
+.case-end__btn:hover svg { translate: -3px 0; }
