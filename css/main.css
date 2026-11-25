@@ -193,7 +193,7 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
   flex-direction: column;
   min-height: 100vh;
   min-height: 100svh;
-  padding: clamp(22px, 3.4vh, 36px) var(--gutter) clamp(28px, 5vh, 56px);
+  padding: clamp(18px, 2.6vh, 28px) var(--gutter) clamp(22px, 3.2vh, 40px);
 }
 .hero__label {
   margin: 0;
@@ -211,7 +211,7 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
   flex-direction: column;
   justify-content: center;
   flex: 1 1 auto;
-  margin: clamp(48px, 9vh, 120px) 0 clamp(28px, 5vh, 56px);
+  margin: clamp(14px, 2.2vh, 32px) 0 clamp(18px, 2.8vh, 34px);
   color: var(--paper);
   font-family: var(--sans);
   font-weight: 800;
@@ -236,12 +236,31 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
   text-wrap: balance;
 }
 .hero__key { color: var(--accent); font-style: normal; }
+/* What the work is for: a small label and a row of quiet tags. */
+.hero__for { margin-top: clamp(16px, 2.2vh, 26px); }
+.hero__for-label {
+  margin: 0 0 10px;
+  color: var(--paper-soft);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.hero__tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.hero__tags li {
+  padding: 7px 15px;
+  border: 1px solid rgba(228, 217, 198, .18);
+  border-radius: 999px;
+  color: var(--paper-lead);
+  font-size: clamp(.8125rem, .78rem + .15vw, .9375rem);
+  letter-spacing: .01em;
+}
 /* The way into the work: a light pill with an orange arrow pointing down. */
 .hero__cta {
   display: inline-flex;
   align-items: center;
   gap: 16px;
-  margin-top: clamp(22px, 3.6vh, 34px);
+  margin-top: clamp(16px, 2.4vh, 26px);
   padding: 6px 6px 6px 24px;
   border-radius: 999px;
   background: var(--paper);
@@ -281,7 +300,7 @@ h1, h2, h3 { margin: 0; font-weight: inherit; }
 @media (max-width: 767px) {
   .hero { min-height: 92svh; }
   .hero__label { max-width: 14ch; letter-spacing: .2em; line-height: 1.6; }
-  .hero__name { margin-top: 56px; }
+  .hero__name { margin-top: 28px; }
   .hero__girl { --px: 4px; }
 }
 
@@ -362,7 +381,7 @@ main { position: relative; z-index: 1; }
    in near-black. */
 .made {
   position: relative;
-  padding: clamp(80px, 12vh, 140px) 0 clamp(96px, 14vh, 160px);
+  padding: clamp(120px, 22vh, 260px) 0 clamp(120px, 22vh, 260px);
   /* A step darker than the page, easing in and out at the edges. */
   background: linear-gradient(to bottom, transparent, #040303 120px, #040303 calc(100% - 120px), transparent);
 }
@@ -381,10 +400,11 @@ main { position: relative; z-index: 1; }
   position: relative;
   display: block;
   overflow: hidden;
-  padding: .04em 0 0 var(--made-in);
+  padding: var(--made-pad) 0 var(--made-pad) var(--made-in);
   color: var(--paper);
   text-decoration: none;
   --made-in: calc(var(--gutter) + 14vw);
+  --made-pad: clamp(14px, 2.2vh, 32px);
 }
 .made__name {
   display: block;
@@ -398,11 +418,11 @@ main { position: relative; z-index: 1; }
   white-space: nowrap;
 }
 .made__name--dim { opacity: .16; }
-.made__name--fill { position: absolute; top: .04em; left: var(--made-in); clip-path: inset(0 var(--rest, 0%) 0 0); }
+.made__name--fill { position: absolute; top: var(--made-pad); left: var(--made-in); clip-path: inset(0 var(--rest, 0%) 0 0); }
 .made__band {
   position: absolute;
   inset: 0;
-  padding: .04em 0 0 var(--made-in);
+  padding: var(--made-pad) 0 var(--made-pad) var(--made-in);
   background: var(--accent);
   color: var(--noir);
   clip-path: inset(50% 0);
@@ -410,85 +430,32 @@ main { position: relative; z-index: 1; }
 }
 .made__link:hover .made__band,
 .made__link:focus-visible .made__band { clip-path: inset(0 0); }
-.made__link:focus-visible { outline: none; }
-
-/* The room (room.js): on wide screens the heading sits over a pinned,
-   screen-high view into a room. Its walls are a lighter warm grey, the
-   floor and ceiling darker; the doors are cream outlines; the projects hang
-   like pictures in an exhibition, each a darker card with a thin border:
-   the picture, the name, a line and its tags. Sizes come from --u, the
-   screen's height. Elsewhere it's the heading and the list of work. */
-.room__view { display: none; }
-.is-room .room__stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; }
-.is-room .made__title { position: absolute; top: clamp(28px, 6vh, 64px); left: 0; z-index: 2; margin: 0; }
-.is-room .room__view { position: absolute; inset: 0; display: block; overflow: hidden; perspective: var(--p); }
-.has-room .made__list { display: none; }
-.has-room { padding-bottom: 0; }
-.room__world {
-  --wall: #1A1816;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  transform-style: preserve-3d;
-  transform-origin: 0 0 var(--p);
-}
-.room__side, .room__wall, .room__frame, .room__girl { position: absolute; top: 0; left: 0; box-sizing: border-box; }
-.room__girl { image-rendering: pixelated; }
-.room__side--left, .room__side--right { background: var(--wall); }
-.room__side--floor { background: #0C0B0A; }
-.room__side--ceiling { background: #12110F; }
-.room__wall { overflow: hidden; }
-.room__door {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: calc(var(--u) * .45);
-  height: calc(var(--u) * .95);
-  translate: -50% 0;
-  border: 1.5px solid rgba(228, 217, 198, .9);
-  /* The rest of the wall, solid, so you only see through the doorway: the
-     page's dark outside, the room's grey on the far wall. */
-  box-shadow: 0 0 0 300vmax #040303;
-}
-.room__wall[data-wall="back"] .room__door { box-shadow: 0 0 0 300vmax var(--wall); }
-/* A project's frame: a darker card with a thin border. */
-.room__frame {
-  display: block;
-  padding: calc(var(--u) * .018);
-  border: 1px solid rgba(228, 217, 198, .24);
-  background: #141210;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, .45);
-  color: var(--paper);
-  text-decoration: none;
-  transition: border-color .4s var(--ease-out);
-}
-.room__frame:hover, .room__frame:focus-visible { border-color: var(--accent); outline: none; }
-.room__frame img { display: block; width: 100%; height: auto; }
-.room__label { display: block; padding-top: calc(var(--u) * .024); }
-.room__name { display: block; font-size: calc(var(--u) * .036); font-weight: 500; letter-spacing: -.01em; }
-.room__line { display: block; max-width: 50%; margin-top: .45em; color: var(--paper-lead); font-size: calc(var(--u) * .026); line-height: 1.4; }
-.room__tags { display: block; margin-top: 1em; color: var(--paper-soft); font-size: calc(var(--u) * .015); letter-spacing: .06em; text-transform: uppercase; }
-/* On the right wall (Bridge) the label sits to the frame's right side. */
-.room__frame[data-side="right"] .room__label { text-align: right; }
-.room__frame[data-side="right"] .room__line,
-.room__frame[data-side="right"] .room__go { margin-left: auto; }
-/* The way into the case study: an orange disc with a diagonal arrow. */
-.room__go {
+/* The tagline, which opens under the name on hover. */
+.made__more {
+  position: relative;
+  z-index: 1;
   display: grid;
-  place-items: center;
-  width: calc(var(--u) * .052);
-  height: calc(var(--u) * .052);
-  margin-top: calc(var(--u) * .022);
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--noir);
-  transition: scale .35s var(--ease-out);
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .5s var(--ease-out);
+  pointer-events: none;
 }
-.room__go svg { width: 34%; height: 34%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; transition: translate .35s var(--ease-out); }
-.room__frame:hover .room__go svg, .room__frame:focus-visible .room__go svg { translate: 8% -8%; }
-.room__frame:hover .room__go { scale: 1.06; }
+.made__copy { overflow: hidden; min-height: 0; }
+.made__line {
+  display: block;
+  max-width: 30em;
+  color: var(--noir);
+  font-size: clamp(.9375rem, .85rem + .45vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .01em;
+  transition: opacity .4s var(--ease-out);
+}
+.made__copy { opacity: 0; transition: opacity .4s var(--ease-out); }
+.made__link:hover .made__more,
+.made__link:focus-visible .made__more { grid-template-rows: 1fr; }
+.made__link:hover .made__copy,
+.made__link:focus-visible .made__copy { padding: .35em 0 .2em; opacity: 1; }
+.made__link:focus-visible { outline: none; }
 
 /* The picture that follows the pointer (main.js), fine pointers only. */
 .made__thumb {
@@ -602,7 +569,6 @@ main { position: relative; z-index: 1; }
   transform: translate3d(0, var(--roles-glow, 0px), 0);
   will-change: transform;
 }
-/* The edges melt into the page colour, so the room change isn't a hard cut. */
 .roles::after {
   content: "";
   position: absolute;
@@ -1023,3 +989,23 @@ html.is-leaving::after { opacity: 1; pointer-events: auto; transition: opacity .
 .nav-on-orange .nav__links a { color: rgba(12, 11, 10, .5); }
 .nav-on-orange .nav__links a:hover,
 .nav-on-orange .nav__links a[aria-current="true"] { color: var(--noir); }
+
+/* On a phone the hero still has to fit one screen, so its tags get compact. */
+@media (max-width: 767px) {
+  .hero__for { margin-top: 14px; }
+  .hero__for-label { margin-bottom: 8px; letter-spacing: .14em; }
+  .hero__tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .hero__tags li { padding: 7px 10px; font-size: .75rem; letter-spacing: 0; text-align: center; }
+}
+
+/* The project's tags, under its tagline on hover. */
+.made__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.made__tags span {
+  padding: 5px 12px;
+  border: 1px solid rgba(12, 11, 10, .3);
+  border-radius: 999px;
+  color: var(--noir);
+  font-size: clamp(.75rem, .72rem + .12vw, .8125rem);
+  font-weight: 500;
+  letter-spacing: .02em;
+}

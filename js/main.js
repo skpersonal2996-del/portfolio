@@ -5,7 +5,6 @@ import { createEmbers } from "./embers.js";
 import { createLife } from "./life.js";
 import { heroGirl } from "./hero-girl.js";
 import { heroExit } from "./walker.js";
-import { room } from "./room.js";
 import { setup, landOnHash, reading, contact, params, $, $$ } from "./shared.js";
 
 const { gsap, ScrollTrigger, SplitText } = window;
@@ -52,7 +51,6 @@ function boot() {
   heroExit({ heroGirl: sitting, reduced: false });
   reading();
   // ambient(); // the 3D form behind the story, off for now at her request
-  room(false);
   made(false);
   me(false);
   roles(false);
@@ -105,7 +103,7 @@ function made(reduced) {
     gsap.fromTo($("[data-made-fill]", row), { "--rest": "100%" }, {
       "--rest": "0%",
       ease: "none",
-      scrollTrigger: { trigger: row, start: "top 92%", end: "top 50%", scrub: 0.4 },
+      scrollTrigger: { trigger: row, start: "top 96%", end: "top 66%", scrub: 0.4 },
     });
   }
 
@@ -116,16 +114,20 @@ function made(reduced) {
   const y = gsap.quickTo(thumb, "y", { duration: 0.6, ease: "power3.out" });
   const tilt = gsap.quickTo(thumb, "rotation", { duration: 0.8, ease: "power3.out" });
   let lastX = 0;
+  let clear = 0; // where the hovered row's words end
   addEventListener("pointermove", (e) => {
-    // Up and to the right of the pointer, leaning with the movement.
-    x(e.clientX + 28);
-    y(e.clientY - thumb.offsetHeight - 20);
+    // Beside the pointer, but never over the name or its line.
+    const left = Math.min(Math.max(e.clientX + 32, clear), innerWidth - thumb.offsetWidth - 24);
+    x(left);
+    y(e.clientY - thumb.offsetHeight / 2);
     tilt(gsap.utils.clamp(-8, 8, (e.clientX - lastX) * 0.4));
     lastX = e.clientX;
   }, { passive: true });
   for (const row of rows) {
     row.addEventListener("pointerenter", () => {
       imgs.forEach((img) => img.classList.toggle("is-on", img.dataset.thumbImg === row.dataset.thumb));
+      const words = $$(".made__band .made__name, .made__line", row).map((el) => el.getBoundingClientRect().right);
+      clear = Math.max(...words, 0) + 40;
       thumb.classList.add("is-on");
     });
   }
@@ -347,7 +349,7 @@ function fitName() {
   }));
   if (!widest) return;
   const room = name.clientWidth * (innerWidth < 768 ? 0.92 : 0.8);
-  const size = Math.min((room / widest) * 100, innerHeight * 0.3);
+  const size = Math.min((room / widest) * 100, innerHeight * (innerWidth < 768 ? 0.2 : 0.25));
   lines.forEach((line) => line.style.setProperty("--fit", `${size.toFixed(2)}px`));
 }
 

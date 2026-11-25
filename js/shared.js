@@ -49,6 +49,8 @@ function headroom() {
     const hide = y > 120 && y > last + 4 ? true : y < last - 4 || y <= 120 ? false : hidden;
     last = y;
     if (hide !== hidden) html.classList.toggle("nav-hidden", (hidden = hide));
+    // Past the top of the page, so a case study can show its own bar.
+    html.classList.toggle("scrolled", y > 200);
   };
   addEventListener("scroll", () => {
     if (!queued) (queued = true), requestAnimationFrame(update);
@@ -77,13 +79,12 @@ function anchors(lenis) {
 export function landOnHash(lenis) {
   let target = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
   if (!target) return;
-  // A frame in the work room: the room takes you to it (room.js), or, where
-  // there's no room (phones), the work section's top.
-  const room = target.closest("[data-room]");
+  // A project in the work list: show the list from its heading, so the
+  // project sits in view with the others.
+  const row = target.closest(".made__row");
+  if (row) target = document.getElementById("work") || target;
   const go = () => {
     ScrollTrigger.refresh();
-    if (room?.goTo?.(target.id, lenis)) return;
-    if (room) target = document.getElementById("work") || target;
     if (lenis) lenis.scrollTo(target, { immediate: true, force: true });
     else target.scrollIntoView();
   };

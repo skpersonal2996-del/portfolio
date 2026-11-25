@@ -66,6 +66,15 @@
     <div class="hero__bottom">
       <div class="hero__lede">
         <p class="hero__title" data-hero-in>I’m a <em class="hero__key">Senior Product Designer</em> with 5 years of experience designing intuitive products that make complex workflows simpler and everyday work more&nbsp;efficient.</p>
+        <div class="hero__for" data-hero-in>
+          <p class="hero__for-label">Designed for</p>
+          <ul class="hero__tags">
+            <li>B2B SaaS</li>
+            <li>Enterprise workflows</li>
+            <li>AI-powered products</li>
+            <li>Design systems</li>
+          </ul>
+        </div>
         <a class="hero__cta" href="#work" data-scroll-to data-hero-in>View selected work<span class="hero__cta-arrow" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5"/></svg></span></a>
       </div>
       <canvas class="hero__girl" data-hero-girl data-hero-in role="img" aria-label="Tiny pixel Shruti sitting cross-legged, typing on her laptop, a mug of coffee beside her."></canvas>
@@ -77,53 +86,30 @@
        opens from the middle of the row with the name in dark, and a small
        picture of the project follows the pointer. -->
   <section class="made" id="work" aria-labelledby="made-title" data-made>
-    <!-- The room: under the heading, a door; scrolling walks you through it,
-         past three projects framed on the walls like an exhibition, and out
-         of the far door into the dark (room.js). Wide screens only; on
-         phones, the list of all the work instead. -->
-    <div class="room" data-room>
-      <div class="room__stage">
-        <h2 class="made__title" id="made-title">Selected work</h2>
-        <div class="room__view" data-room-view>
-          <div class="room__world" data-room-world>
-            <div class="room__wall" data-room-item data-wall="front" data-z="0" aria-hidden="true"><span class="room__door"></span></div>
-            <a class="room__frame" id="work-leucine" href="work/leucine/" data-room-item data-side="left" data-z="1.7">
-              <img src="assets/img/work/leucine-thumb.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A pharmaceutical production line: steel tanks and pipework, a row of filled glass vials, and a glass panel with a molecule.">
-              <span class="room__label"><span class="room__name">Leucine</span><span class="room__line">Making pharmaceutical SOPs work for real manufacturing workflows.</span><span class="room__tags">B2B SaaS · Pharmaceutical Manufacturing</span></span><span class="room__go" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span><span class="sr-only">View case study</span>
-            </a>
-            <a class="room__frame" id="work-bridge" href="work/bridge/" data-room-item data-side="right" data-z="2.9">
-              <img src="assets/img/work/bridge-thumb.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A driving school at golden hour: an L-plate sign, car keys and a lesson checklist on a desk, learner cars and cones behind.">
-              <span class="room__label"><span class="room__name">Bridge</span><span class="room__line">Bringing fragmented admin operations into one connected workspace.</span><span class="room__tags">B2B SaaS · Operations</span></span><span class="room__go" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span><span class="sr-only">View case study</span>
-            </a>
-            <a class="room__frame" id="work-docfit" href="work/docfit/" data-room-item data-side="left" data-z="4.1">
-              <img src="assets/img/work/docfit-thumb.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A spreadsheet and a document template on a desk, joined by AI to a stack of finished student documents.">
-              <span class="room__label"><span class="room__name">DocFit</span><span class="room__line">Turning hours of manual document work into a simpler, AI-assisted workflow.</span><span class="room__tags">AI product design · Workflow automation</span></span><span class="room__go" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9 9 3M4 3h5v5"/></svg></span><span class="sr-only">View case study</span>
-            </a>
-            <div class="room__wall" data-room-item data-wall="back" data-z="5.2" aria-hidden="true"><span class="room__door"></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h2 class="made__title" id="made-title">Selected work</h2>
     <ol class="made__list" data-cursor-plain>
-      <li class="made__row" data-made-row data-thumb="leucine">
+      <li class="made__row" id="work-leucine" data-made-row data-thumb="leucine">
         <a class="made__link" href="work/leucine/">
           <span class="made__name made__name--dim" aria-hidden="true">Leucine</span>
           <span class="made__name made__name--fill" data-made-fill>Leucine</span>
           <span class="made__band" aria-hidden="true"><span class="made__name">Leucine</span></span>
+          <span class="made__more"><span class="made__copy"><span class="made__line">Making pharmaceutical SOPs work for real manufacturing workflows.</span><span class="made__tags"><span>B2B SaaS</span><span>Pharmaceutical manufacturing</span></span></span></span>
         </a>
       </li>
-      <li class="made__row" data-made-row data-thumb="bridge">
+      <li class="made__row" id="work-bridge" data-made-row data-thumb="bridge">
         <a class="made__link" href="work/bridge/">
           <span class="made__name made__name--dim" aria-hidden="true">Bridge</span>
           <span class="made__name made__name--fill" data-made-fill>Bridge</span>
           <span class="made__band" aria-hidden="true"><span class="made__name">Bridge</span></span>
+          <span class="made__more"><span class="made__copy"><span class="made__line">Turning manual driving-school operations into a connected digital product.</span><span class="made__tags"><span>B2B SaaS</span><span>Driving school management</span></span></span></span>
         </a>
       </li>
-      <li class="made__row" data-made-row data-thumb="docfit">
+      <li class="made__row" id="work-docfit" data-made-row data-thumb="docfit">
         <a class="made__link" href="work/docfit/">
           <span class="made__name made__name--dim" aria-hidden="true">DocFit</span>
           <span class="made__name made__name--fill" data-made-fill>DocFit</span>
           <span class="made__band" aria-hidden="true"><span class="made__name">DocFit</span></span>
+          <span class="made__more"><span class="made__copy"><span class="made__line">Rethinking document generation with AI.</span><span class="made__tags"><span>AI product</span><span>Document automation</span></span></span></span>
         </a>
       </li>
     </ol>

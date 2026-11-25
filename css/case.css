@@ -1829,7 +1829,19 @@
 .case-tree li + li::before { content: ""; width: clamp(18px, 2.2vw, 32px); height: 1px; margin-inline: 8px; background: var(--accent); }
 .case-tree span { padding: 10px 18px; border: 1px solid rgba(228, 217, 198, .18); border-radius: 999px; background: #141210; }
 .case-tree__opt span { border-style: dashed; color: var(--c-body); }
-.case-insight { max-width: 38em; margin: 0; padding: clamp(20px, 2vw, 28px); border-left: 2px solid var(--accent); border-radius: 0 14px 14px 0; background: rgba(245, 133, 63, .06); color: var(--c-body); font-size: var(--t-body); line-height: 1.7; letter-spacing: .01em; }
+/* A line worth pausing on: the orange rule sits at the column's edge, with
+   the words stepped in beside it. */
+.case-insight {
+  --bar: clamp(16px, 1.6vw, 24px);
+  max-width: 38em;
+  margin: 0;
+  padding: 2px 0 2px var(--bar);
+  border-left: 2px solid var(--accent);
+  color: var(--c-body);
+  font-size: var(--t-body);
+  line-height: 1.7;
+  letter-spacing: .01em;
+}
 .case-insight strong { color: var(--c-head); font-weight: 600; }
 @media (max-width: 1023px) { .case-ask--3 { grid-template-columns: minmax(0, 1fr); } }
 .case-split__main > * + * { margin-top: clamp(20px, 3vh, 28px); }
@@ -1937,10 +1949,15 @@
 /* A chapter reads as two columns: its number and title on the left, with
    everything else in the right-hand column, lined up with the row labels. */
 @media (min-width: 768px) {
-  .case-ch--split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--col-gap); row-gap: clamp(40px, 6vh, 64px); align-items: start; }
+  .case-ch--split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: calc(var(--col-gap) * 1.7); row-gap: clamp(40px, 6vh, 64px); align-items: start; }
   .case-ch--split > * { grid-column: 2; }
-  .case-ch--split > .case-ch__head { grid-column: 1; margin-bottom: 0; }
-  .case-ch--split > .case-split { grid-column: 1 / -1; grid-template-columns: subgrid; }
+  /* The title and the line beside it sit level with each other. */
+  .case-ch--split > .case-ch__head { grid-column: 1; margin-bottom: 0; align-self: center; }
+  .case-ch--split > .case-lead--intro { align-self: center; }
+  /* The grid's own row gap sets the space, so blocks don't add their own. */
+  .case-ch--split > .case-impact--wins, .case-ch--split > .case-shots { margin-top: 0; }
+  /* A subgrid uses its own gap, so it has to match the chapter’s. */
+  .case-ch--split > .case-split { grid-column: 1 / -1; grid-template-columns: subgrid; column-gap: calc(var(--col-gap) * 1.7); }
   .case-ch--split > .case-split:first-of-type { border-top: 0; padding-top: 0; }
   .case-ch--split > .case-lead--intro { margin-bottom: 0; }
   .case-ch--split > .case-split + .case-split { margin-top: 0; }
@@ -2009,18 +2026,18 @@
   .case-brief__grid--3 > div + div { border-left: 0; border-top: 1px solid rgba(228, 217, 198, .12); }
 }
 
-/* The research block, in the same warm dark as the rest of the case studies
-   rather than its own cobalt. */
+/* The research block on DocFit keeps its hairline frame, but not the colour
+   wash: that treatment belongs to the outcome block now. */
 .case-night--cobalt {
-  --night-glows:
-    radial-gradient(60% 80% at 4% 0%, rgba(245, 133, 63, .24), transparent 66%),
-    radial-gradient(52% 70% at 100% 100%, rgba(245, 133, 63, .16), transparent 66%);
-  --night-base: #171411;
+  --night-glows: none;
+  --night-base: none;
   --night-label: var(--c-soft);
   --night-soft: var(--c-soft);
   --night-body: var(--c-body);
-  --night-rule: rgba(228, 217, 198, .14);
-  border: 1px solid rgba(228, 217, 198, .12);
+  --night-rule: var(--rule);
+  padding: clamp(22px, 2.4vw, 36px);
+  border: 0;
+  background: none;
 }
 .case-night--cobalt .case-statement__keep, .case-night--cobalt .case-intro, .case-night--cobalt .case-h3 { color: var(--c-head); }
 .case-night--cobalt .case-statement__soft { color: var(--c-soft); }
@@ -2058,3 +2075,44 @@
 .case-end__btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: translate .35s var(--ease-out); }
 .case-end__btn:hover { border-color: transparent; background: var(--accent); color: var(--noir); }
 .case-end__btn:hover svg { translate: -3px 0; }
+/* A gains list that opens the block, with no rule above it. */
+.case-gains--top { padding-top: 0; border-top: 0; }
+/* In the narrower column the research block's own type steps down, and
+   its three points get room on every side. */
+.case-night--cobalt .case-statement { max-width: 20em; font-size: clamp(1.375rem, 1rem + 1.2vw, 2rem); }
+.case-night--cobalt .case-intro { font-size: var(--t-small); }
+.case-night--cobalt .case-cols { margin-top: clamp(28px, 4.5vh, 44px); }
+.case-night--cobalt .case-cols > li { padding: 22px clamp(14px, 1.6vw, 22px) 22px; }
+.case-night--cobalt .case-cols > li:first-child { padding-left: 0; }
+.case-night--cobalt .case-cols > li:last-child { padding-right: 0; }
+.case-night--cobalt .case-cols .case-num { margin-bottom: clamp(18px, 3vh, 28px); }
+.case-night--cobalt .case-icon { width: 26px; height: 26px; }
+.case-night--cobalt .case-h3 { font-size: clamp(.9375rem, .88rem + .3vw, 1.125rem); line-height: 1.45; }
+/* The numbered steps of the core experience read a little stronger. */
+.case-split__label--step { color: var(--c-body); font-weight: 600; }
+
+/* The way back to the work, as a bar at the top of the window. It is out of
+   sight at the top of the page and while you read downwards; scroll up and
+   it slides back in. */
+.case-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  padding: 14px var(--gutter);
+  border-bottom: 1px solid rgba(228, 217, 198, .1);
+  background: rgba(12, 11, 10, .72);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  translate: 0 -101%;
+  transition: translate .45s var(--ease-out);
+}
+.scrolled:not(.nav-hidden) .case-bar { translate: 0 0; }
+.case-bar__back { color: var(--c-head); }
+.case-bar__back:hover svg { translate: -3px 0; }
+@media (prefers-reduced-motion: reduce) { .case-bar { transition: none; } }
+/* The bar's link matches the small one at the top of the page. */
+.case-bar { padding-block: 12px; font-family: var(--sans); font-size: var(--t-micro); font-weight: 500; line-height: 1.4; letter-spacing: .12em; text-transform: uppercase; }

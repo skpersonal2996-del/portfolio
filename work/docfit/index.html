@@ -44,9 +44,15 @@
     <li><a href="#ch-4" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">04 Key design decisions</span></a></li>
     <li><a href="#ch-5" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">05 The core product experience</span></a></li>
     <li><a href="#ch-6" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">06 Beyond the showcase</span></a></li>
+    <li><a href="#ch-7" data-scroll-to><span class="case-index__line"></span><span class="case-index__name">07 Intended impact</span></a></li>
   </ol>
 </nav>
 <div class="case-progress" aria-hidden="true"><span data-case-progress></span></div>
+
+<!-- The way back, as a bar that slides in when you scroll up. -->
+<div class="case-bar" data-case-bar>
+  <a class="case-back case-bar__back" href="../../#work-docfit"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M9.5 6h-7M6 2.5 2.5 6 6 9.5"/></svg>Back to work</a>
+</div>
 
 <main id="main">
   
@@ -219,7 +225,7 @@
       </header>
       <p class="case-lead case-lead--intro" data-reveal>Rather than showcasing every module, I’m highlighting three key moments that communicate how DocFit works.</p>
       <div class="case-split" data-reveal>
-        <h3 class="case-split__label">01 Uploading data</h3>
+        <h3 class="case-split__label case-split__label--step">01 Uploading data</h3>
         <div class="case-split__main">
           <p class="case-body">Users start by uploading their spreadsheet and document template. DocFit analyses the files and prepares the data for mapping.</p>
           <figure class="case-shot" data-reveal-media>
@@ -231,7 +237,7 @@
         </div>
       </div>
       <div class="case-split" data-reveal>
-        <h3 class="case-split__label">02 Reviewing generated documents</h3>
+        <h3 class="case-split__label case-split__label--step">02 Reviewing generated documents</h3>
         <div class="case-split__main">
           <p class="case-body">Once the data is mapped and documents are generated, users can preview the results, navigate through pages and identify areas that need attention.</p>
           <figure class="case-shot" data-reveal-media>
@@ -243,7 +249,7 @@
         </div>
       </div>
       <div class="case-split" data-reveal>
-        <h3 class="case-split__label">03 Correcting documents with AI</h3>
+        <h3 class="case-split__label case-split__label--step">03 Correcting documents with AI</h3>
         <div class="case-split__main">
           <p class="case-body">Users can interact with AI through a dedicated chat panel, describe what needs to be changed and review suggested corrections before applying them. Changes can be made to <strong>individual pages or across multiple pages</strong>.</p>
           <figure class="case-shot" data-reveal-media>
@@ -293,6 +299,25 @@
           </ul>
           <p class="case-note">Due to NDA restrictions, these additional workflows and screens are not shown in this case study.</p>
         </div>
+      </div>
+    </section>
+
+
+    <!-- What it is meant to do, in its own block of colour. -->
+    <section class="case-ch case-ch--split" id="ch-7" aria-labelledby="ch-7-title">
+      <header class="case-ch__head">
+        <p class="case-num" aria-hidden="true">07</p>
+        <h2 class="case-h2" id="ch-7-title" data-split>Intended impact</h2>
+      </header>
+      <p class="case-lead case-lead--intro" data-reveal>DocFit is designed to help organisations:</p>
+      <div class="case-impact case-impact--wins" data-cursor-tone="orange" data-reveal-block>
+        <ul class="case-gains case-gains--top">
+          <li><span class="case-gain__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><p>Reduce manual effort involved in generating and checking large batches of documents.</p></li>
+          <li><span class="case-gain__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><p>Improve document consistency by identifying formatting and layout issues before export.</p></li>
+          <li><span class="case-gain__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><p>Handle data changes efficiently without repeating the entire manual correction process.</p></li>
+          <li><span class="case-gain__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><p>Scale document workflows across larger batches while retaining user oversight.</p></li>
+        </ul>
+        <p class="case-impact__foot">The product’s core experience and interactive prototype are <strong>complete</strong>, and the development team is working towards implementation.</p>
       </div>
     </section>
 
